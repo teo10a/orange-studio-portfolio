@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>주황색 영상공방 — 한땀한땀 만든 영상이 차이를 만듭니다</title>
+<meta name="description" content="브랜드와 행사를 담은 영화 같은 영상. 행사 스케치 촬영부터 편집, 컬러 그레이딩까지.">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#14100D; --paper:#F7F2E9; --or:#DE6428; --or-d:#B84A18;
+  --on-ink:#EDE6DA; --on-ink-2:#8F857A;
+  --on-paper:#1A1512; --on-paper-2:#6E645A; --hair:#DDD3C4;
+  --serif:"Nanum Myeongjo",serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{background:var(--paper);color:var(--on-paper);font-family:Pretendard,-apple-system,system-ui,sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+@media(max-width:700px){.wrap{padding:0 22px}}
+.stitch{height:1px;background-image:repeating-linear-gradient(90deg,var(--hair) 0 7px,transparent 7px 14px)}
+
+.ph{position:relative;background:#221D18;overflow:hidden}
+.ph:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,#1E1914 0 10px,#171310 10px 20px)}
+.ph.on-light{background:#E8E0D2}
+.ph.on-light:before{background:repeating-linear-gradient(45deg,#E3DACB 0 10px,#EEE7DA 10px 20px)}
+.ph-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--on-ink-2);text-align:center;padding:10px;z-index:1}
+.ph.on-light .ph-label{color:#8B8172}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:640px;background:var(--ink);color:var(--on-ink);overflow:hidden}
+.hero-bg{position:absolute;inset:0;overflow:hidden;z-index:0}
+#hero-player{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh;pointer-events:none;border:0}
+.veil{position:absolute;inset:0;z-index:1;background:rgba(20,16,13,.55)}
+.hero-ui{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;padding:34px 40px}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.brand{font-family:var(--serif);font-size:19px;font-weight:800;letter-spacing:.14em;line-height:1}
+.brand em{font-style:normal;color:var(--or)}
+.nav{display:flex;gap:30px;font-size:12px;letter-spacing:.18em;color:var(--on-ink-2);padding-top:5px}
+.nav a:hover{color:var(--or)}
+.hero-mid{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.play{width:92px;height:92px;border-radius:50%;border:1px solid rgba(237,230,218,.4);display:flex;align-items:center;justify-content:center;transition:.2s;background:rgba(20,16,13,.3)}
+.play:hover{border-color:var(--or);background:rgba(222,100,40,.14)}
+.play i{display:block;width:0;height:0;border-left:15px solid var(--on-ink);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
+.play.playing i{border:0;width:14px;height:16px;border-left:4px solid var(--on-ink);border-right:4px solid var(--on-ink);margin-left:0}
+.play.playing{border-color:var(--or)}
+.hero-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:26px}
+.headline{font-family:var(--serif);font-size:clamp(25px,3.5vw,40px);font-weight:700;line-height:1.4}
+.headline span{display:block}
+.headline em{font-style:normal;color:var(--or)}
+.avail{font-size:12px;color:var(--on-ink-2);margin-top:16px;letter-spacing:.1em}
+.avail b{color:var(--or);font-weight:400}
+.hero-right{display:flex;align-items:center;gap:18px;font-family:var(--mono);font-size:12px;color:var(--on-ink-2);letter-spacing:.06em;white-space:nowrap}
+.sound{display:flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(237,230,218,.25);border-radius:100px;transition:.2s}
+.sound.on{border-color:var(--or);color:var(--or)}
+.sound .bars{display:flex;align-items:flex-end;gap:2px;height:11px}
+.sound .bars span{width:2px;background:currentColor;height:4px}
+.sound.on .bars span:nth-child(1){height:6px}
+.sound.on .bars span:nth-child(2){height:11px}
+.sound.on .bars span:nth-child(3){height:8px}
+@media(max-width:820px){.nav{display:none}.hero-ui{padding:24px 22px}.hero-bot{flex-direction:column;align-items:flex-start;gap:22px}}
+
+/* SECTION */
+section{padding:108px 0}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:18px}
+.num{font-family:var(--mono);font-size:12px;color:var(--or);letter-spacing:.1em}
+.eyebrow{font-size:12px;letter-spacing:.2em;color:var(--on-paper-2)}
+h2{font-family:var(--serif);font-size:clamp(26px,3.2vw,36px);font-weight:700;line-height:1.35;margin-bottom:16px}
+.sub{font-size:15px;color:var(--on-paper-2);max-width:620px}
+.divider{padding:0 40px;max-width:1180px;margin:0 auto}
+@media(max-width:700px){section{padding:74px 0}.divider{padding:0 22px}}
+
+/* WORK GRID */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:34px 0 32px}
+.chip{font-size:12px;letter-spacing:.12em;padding:9px 18px;border:1px solid var(--hair);border-radius:100px;color:var(--on-paper-2);transition:.16s}
+.chip:hover{border-color:var(--on-paper-2)}
+.chip.active{background:var(--or);border-color:var(--or);color:#fff}
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media(max-width:820px){.work-grid{grid-template-columns:1fr;gap:24px}}
+.work-item{cursor:pointer}
+.work-item[hidden]{display:none}
+.work-thumb{aspect-ratio:16/9;position:relative;overflow:hidden;background:#221D18}
+.work-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .4s,filter .3s}
+.work-item:hover .work-thumb img{transform:scale(1.03);filter:brightness(.72)}
+.work-thumb .prev{position:absolute;inset:0;z-index:2;background:#0E0B09}
+.work-thumb .prev iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.work-thumb .prev:empty{display:none}
+.prev-tag{position:absolute;left:12px;top:12px;z-index:4;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--or);background:rgba(20,16,13,.8);padding:4px 9px;opacity:0;transition:.25s}
+.work-item:hover .prev-tag{opacity:1}
+.prev-bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--or);z-index:4}
+.work-item:hover .prev-bar{animation:run 6s linear forwards}
+@keyframes run{to{width:100%}}
+.pill{position:absolute;right:12px;top:12px;z-index:4;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--on-ink);background:rgba(20,16,13,.75);padding:4px 9px}
+.work-meta{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-top:16px}
+.work-meta h3{font-family:var(--serif);font-size:19px;font-weight:700}
+.work-meta .cat{font-size:11px;letter-spacing:.14em;color:var(--on-paper-2);white-space:nowrap}
+.work-desc{font-size:14px;color:var(--on-paper-2);margin-top:6px}
+.work-cred{font-family:var(--mono);font-size:11px;color:var(--on-paper-2);margin-top:12px;padding-top:12px;display:flex;justify-content:space-between;gap:12px;background-image:repeating-linear-gradient(90deg,var(--hair) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:top}
+.work-cred b{color:var(--or);font-weight:400}
+
+/* ─── 상세 페이지 ─── */
+.detail{position:fixed;inset:0;background:var(--paper);z-index:200;overflow-y:auto;display:none}
+.detail.open{display:block}
+.dt-bar{position:sticky;top:0;z-index:5;background:rgba(247,242,233,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.dt-bar .wrap{display:flex;justify-content:space-between;align-items:center;height:62px}
+.dt-back{display:flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.16em;color:var(--on-paper-2)}
+.dt-back:hover{color:var(--or)}
+.dt-back span{font-family:var(--mono);font-size:15px;line-height:1}
+.dt-cat{font-size:11px;letter-spacing:.18em;color:var(--or)}
+.dt-head{padding:64px 0 40px}
+.dt-head h2{font-family:var(--serif);font-size:clamp(30px,4.4vw,52px);font-weight:700;line-height:1.3;margin-bottom:18px}
+.dt-meta{display:flex;gap:26px;flex-wrap:wrap;font-size:15px;color:var(--on-paper-2)}
+.dt-meta b{font-weight:400;color:var(--on-paper)}
+.dt-media{background:var(--ink)}
+.dt-media .in{max-width:1180px;margin:0 auto;padding:0 40px}
+.dt-frame{aspect-ratio:16/9;position:relative;overflow:hidden;background:#0E0B09}
+.dt-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media(max-width:700px){.dt-media .in{padding:0}}
+
+.dt-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin:64px 0 0}
+.dt-stat{background:var(--paper);padding:30px 24px}
+.dt-stat b{display:block;font-family:var(--serif);font-size:clamp(26px,3.4vw,40px);font-weight:700;color:var(--or);line-height:1.2;letter-spacing:-.01em}
+.dt-stat span{display:block;font-size:12px;letter-spacing:.12em;color:var(--on-paper-2);margin-top:8px}
+@media(max-width:820px){.dt-stats{grid-template-columns:repeat(2,1fr)}}
+
+.dt-story{padding:76px 0 0;max-width:800px}
+.dt-block{margin-bottom:56px}
+.dt-block h3{font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:.06em;margin-bottom:18px}
+.dt-block p{font-size:17px;line-height:1.95;color:var(--on-paper);white-space:pre-line}
+.dt-empty{border:1px dashed var(--hair);padding:26px;font-family:var(--mono);font-size:12px;color:#A79C8D;line-height:1.9}
+.dt-empty b{color:var(--or);font-weight:400}
+
+.dt-credits{margin-top:20px;padding-top:40px;max-width:800px;background-image:repeating-linear-gradient(90deg,var(--hair) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:top}
+.dt-credits h3{font-size:11px;letter-spacing:.2em;color:var(--on-paper-2);margin-bottom:20px}
+.dt-cr{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:11px 0;font-size:14px;background-image:repeating-linear-gradient(90deg,var(--hair) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:bottom}
+.dt-cr dt{color:var(--or);font-family:var(--mono);font-size:12px;letter-spacing:.08em}
+.dt-cr dd{color:var(--on-paper-2)}
+
+.dt-nav{margin-top:80px;padding:36px 0 90px;display:flex;justify-content:space-between;gap:20px;background-image:repeating-linear-gradient(90deg,var(--hair) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:top}
+.dt-nav button{max-width:46%;text-align:left}
+.dt-nav .lb{display:block;font-size:11px;letter-spacing:.16em;color:var(--on-paper-2);margin-bottom:7px}
+.dt-nav .tt{display:block;font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.4}
+.dt-nav button:hover .tt{color:var(--or)}
+.dt-nav .r{text-align:right;margin-left:auto}
+
+/* COLOR / CLIENTS / SERVICES / ABOUT / CONTACT */
+.compare{position:relative;aspect-ratio:16/9;overflow:hidden;user-select:none;margin-top:38px;cursor:ew-resize}
+.cmp-layer{position:absolute;inset:0}
+.cmp-before:before{background:repeating-linear-gradient(45deg,#4B4A4E 0 10px,#3F3E43 10px 20px)}
+.cmp-after{clip-path:inset(0 0 0 50%)}
+.cmp-after:before{background:repeating-linear-gradient(45deg,#7A4A2C 0 10px,#653B22 10px 20px)}
+.cmp-tag{position:absolute;bottom:16px;font-size:11px;letter-spacing:.16em;color:#EDE6DA;background:rgba(20,16,13,.65);padding:6px 12px;z-index:3}
+.cmp-tag.l{left:16px}.cmp-tag.r{right:16px}
+.handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--or);z-index:4}
+.handle:after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:var(--or);border:3px solid var(--paper)}
+.handle-ic{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;font-family:var(--mono);font-size:13px;color:#fff;letter-spacing:-1px}
+.shots{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+@media(max-width:700px){.shots{grid-template-columns:repeat(2,1fr)}}
+.shot{aspect-ratio:16/9;position:relative;cursor:pointer;border:2px solid transparent;transition:.16s}
+.shot.active{border-color:var(--or)}
+.shot:hover{border-color:var(--on-paper-2)}
+.shot.active:hover{border-color:var(--or)}
+
+.clients{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:36px}
+.client{font-size:12px;color:var(--on-paper-2);border:1px solid var(--hair);padding:24px 18px;flex:1;text-align:center;min-width:152px;display:flex;flex-direction:column;justify-content:center;gap:6px;line-height:1.5}
+.client b{font-family:var(--serif);color:var(--on-paper);font-weight:700;font-size:15px}
+
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:38px}
+@media(max-width:820px){.svc{grid-template-columns:1fr}}
+.svc-card{border:1px solid var(--hair);padding:40px;background:#FBF8F2}
+.svc-card h3{font-family:var(--serif);font-size:23px;font-weight:700;margin-bottom:14px}
+.svc-card>p{font-size:15px;color:var(--on-paper-2);margin-bottom:26px}
+.svc-list{list-style:none;display:grid;gap:10px;margin-bottom:30px}
+.svc-list li{font-size:14px;color:var(--on-paper-2);padding-left:18px;position:relative}
+.svc-list li:before{content:"";position:absolute;left:0;top:10px;width:8px;height:1px;background:var(--or)}
+.from{padding-top:22px;display:flex;justify-content:space-between;align-items:baseline;background-image:repeating-linear-gradient(90deg,var(--hair) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:top}
+.from span{font-size:11px;letter-spacing:.16em;color:var(--on-paper-2)}
+.from b{font-family:var(--serif);font-size:26px;font-weight:700}
+
+.manifesto{max-width:760px;margin:0 0 56px}
+.manifesto p{font-family:var(--serif);font-size:clamp(17px,2vw,20px);line-height:1.95;margin-bottom:22px}
+.manifesto p.q{font-size:clamp(20px,2.4vw,26px);font-weight:700;color:var(--or)}
+.manifesto em{font-style:normal;color:var(--or)}
+.about{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:start}
+@media(max-width:820px){.about{grid-template-columns:1fr;gap:34px}}
+.about .ph{aspect-ratio:4/5}
+.bio{font-size:16px;line-height:1.85;margin-bottom:24px}
+.bio-num{font-family:var(--mono);font-size:12px;color:var(--on-paper-2);margin-bottom:36px;line-height:2.1}
+.bio-num b{color:var(--or);font-weight:400}
+.gear{font-family:var(--mono);font-size:13px}
+.gear-row{display:grid;grid-template-columns:106px 1fr;gap:20px;padding:15px 0;background-image:repeating-linear-gradient(90deg,var(--hair) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:top}
+.gear-row dt{color:var(--or);letter-spacing:.1em}
+.gear-row dd{color:var(--on-paper-2);line-height:1.9}
+
+.contact{display:grid;grid-template-columns:1fr 320px;gap:56px;margin-top:38px;align-items:start}
+@media(max-width:820px){.contact{grid-template-columns:1fr;gap:36px}}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.fields{grid-template-columns:1fr}}
+.f label{display:block;font-size:11px;letter-spacing:.16em;color:var(--on-paper-2);margin-bottom:8px}
+.f input,.f select,textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--hair);padding:10px 0;font-family:inherit;font-size:15px;color:var(--on-paper);outline:none;border-radius:0}
+.f input:focus,.f select:focus,textarea:focus{border-color:var(--or)}
+textarea{resize:vertical;min-height:112px;margin-top:28px}
+.send{margin-top:32px;background:var(--or);color:#fff;padding:16px 48px;font-size:13px;letter-spacing:.2em}
+.send:hover{background:var(--or-d)}
+.links{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.links a{background:var(--paper);padding:22px 24px;display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.links a:hover{background:#F0E9DC;color:var(--or)}
+.links a span{font-size:11px;letter-spacing:.12em;color:var(--on-paper-2)}
+.hint{font-size:11px;color:var(--on-paper-2);margin-top:18px;line-height:1.9}
+
+/* 로컬(file://) 폴백 */
+#hero-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dt-open{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;background:rgba(20,16,13,.45)}
+.dt-open b{font-size:13px;font-weight:400;letter-spacing:.16em;color:#EDE6DA;border:1px solid rgba(237,230,218,.55);padding:13px 28px;border-radius:100px;transition:.16s}
+.dt-open:hover b{border-color:var(--or);color:var(--or);background:rgba(20,16,13,.5)}
+.localbar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:var(--or);color:#fff;font-size:12px;line-height:1.6;padding:11px 46px 11px 18px;letter-spacing:.03em;text-align:center}
+.localbar code{font-family:var(--mono);background:rgba(0,0,0,.22);padding:2px 7px;border-radius:3px}
+.localbar button{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#fff;font-size:17px;line-height:1;padding:6px 10px;opacity:.85}
+footer{background:var(--ink);color:var(--on-ink-2);padding:44px 0;margin:0;font-size:12px;letter-spacing:.06em}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+footer b{font-family:var(--serif);color:var(--on-ink);font-weight:700;letter-spacing:.12em}
+footer b em{font-style:normal;color:var(--or)}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="hero-bg"><div id="hero-player"></div></div>
+  <div class="veil"></div>
+  <div class="hero-ui">
+    <div class="hero-top">
+      <div class="brand"><em>주황색</em> 영상공방</div>
+      <nav class="nav">
+        <a href="#work">작업물</a><a href="#services">서비스</a><a href="#about">공방 이야기</a><a href="#contact">의뢰</a>
+      </nav>
+    </div>
+    <div class="hero-mid"><button class="play" id="play" aria-label="쇼릴 재생/일시정지"><i></i></button></div>
+    <div class="hero-bot">
+      <div>
+        <h1 class="headline"><span><em>한땀한땀</em> 만든 영상이</span><span>차이를 만듭니다</span></h1>
+        <div class="avail">행사 스케치 · 편집 · 컬러 그레이딩 &nbsp;/&nbsp; 서울 · 전국 출장 &nbsp;/&nbsp; 2026 하반기 <b>예약 가능</b></div>
+      </div>
+      <div class="hero-right">
+        <button class="sound" id="sound" aria-label="사운드 토글">
+          <span class="bars"><span></span><span></span><span></span></span><span id="sound-tx">SOUND OFF</span>
+        </button>
+        <span id="time">00:00 / 00:00</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="work"><div class="wrap">
+  <div class="sec-head"><span class="num">01</span><span class="eyebrow">WORK</span></div>
+  <h2>작업물</h2>
+  <p class="sub">카드에 마우스를 올리면 프리뷰가 재생됩니다. 클릭하면 상세 페이지가 열립니다.</p>
+  <div class="chips" id="chips">
+    <button class="chip active" data-f="all">전체</button>
+    <button class="chip" data-f="event">행사</button>
+    <button class="chip" data-f="character">캐릭터</button>
+    <button class="chip" data-f="grade">빛과 색</button>
+  </div>
+  <div class="work-grid" id="grid"></div>
+</div></section>
+
+<div class="divider"><div class="stitch"></div></div>
+
+<section id="color"><div class="wrap">
+  <div class="sec-head"><span class="num">02</span><span class="eyebrow">COLOR</span></div>
+  <h2>보정 전 · 후</h2>
+  <p class="sub">행사장은 빛을 고를 수 없습니다. 형광등과 무대 LED와 창문 빛이 한 화면에 섞이면, 그대로 두었을 때 가장 먼저 무너지는 건 얼굴색입니다. 한 컷씩 손으로 잡는 이유입니다.</p>
+  <div class="compare" id="cmp">
+    <div class="cmp-layer cmp-before ph"><div class="ph-label" id="bl">before &nbsp;/&nbsp; 무대 · LED 혼합광</div></div>
+    <div class="cmp-layer cmp-after ph" id="after"><div class="ph-label" id="al">after &nbsp;/&nbsp; 무대 · LED 혼합광</div></div>
+    <div class="cmp-tag l">BEFORE</div><div class="cmp-tag r">AFTER</div>
+    <div class="handle" id="handle"><span class="handle-ic">◀▶</span></div>
+  </div>
+  <div class="shots" id="shots">
+    <div class="shot ph active" data-n="무대 · LED 혼합광"><div class="ph-label">shot_01</div></div>
+    <div class="shot ph" data-n="실내 부스 · 형광등"><div class="ph-label">shot_02</div></div>
+    <div class="shot ph" data-n="퍼슈트 · 인조모피"><div class="ph-label">shot_03</div></div>
+    <div class="shot ph" data-n="야외 · 역광"><div class="ph-label">shot_04</div></div>
+  </div>
+</div></section>
+
+<div class="divider"><div class="stitch"></div></div>
+
+<section id="clients"><div class="wrap">
+  <div class="sec-head"><span class="num">03</span><span class="eyebrow">CLIENTS</span></div>
+  <h2>함께한 곳</h2>
+  <div class="clients">
+    <div class="client"><b>성균관대학교</b>공식 유튜브 채널</div>
+    <div class="client"><b>총학생회 SURE</b>미디어컨텐츠국</div>
+    <div class="client"><b>PRODUCTION GAL</b>퍼:레이드 미디어팀</div>
+    <div class="client"><b>POCLANOS</b>뮤직비디오</div>
+    <div class="client"><b>영상학과</b>성균관대학교</div>
+  </div>
+</div></section>
+
+<div class="divider"><div class="stitch"></div></div>
+
+<section id="services"><div class="wrap">
+  <div class="sec-head"><span class="num">04</span><span class="eyebrow">SERVICES</span></div>
+  <h2>서비스 &amp; 가격</h2>
+  <p class="sub">아래는 시작 가격입니다. 규모와 시간, 이동 조건에 따라 조정됩니다.</p>
+  <div class="svc">
+    <div class="svc-card">
+      <h3>행사 스케치 촬영</h3>
+      <p>사전 티저부터 현장, 리캡, 숏폼까지. 찍은 사람이 색까지 잡기 때문에 톤이 흐트러지지 않습니다.</p>
+      <ul class="svc-list">
+        <li>4시간 촬영 · 하이라이트 90초</li><li>현장음 별도 수음 · 이중 녹음</li>
+        <li>컬러 그레이딩 포함</li><li>SNS용 세로 버전 별도 납품</li><li>수정 2회 · 백업 장비 운용</li>
+      </ul>
+      <div class="from"><span>FROM</span><b>60만원</b></div>
+    </div>
+    <div class="svc-card">
+      <h3>컬러 그레이딩</h3>
+      <p>촬영본만 보내주셔도 됩니다. 전 과정 원격으로 진행하며, 색으로 못 고치는 부분은 먼저 말씀드립니다.</p>
+      <ul class="svc-list">
+        <li>다중 카메라 · 혼합광 톤 매칭</li><li>스킨톤 정리 · 색온도 보정</li>
+        <li>캐릭터·코스튬은 설정색 기준 매칭</li><li>1차 작업 후 확인 단계</li><li>DaVinci Resolve · 캘리브레이션 환경</li>
+      </ul>
+      <div class="from"><span>FROM</span><b>12만원</b></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="divider"><div class="stitch"></div></div>
+
+<section id="about"><div class="wrap">
+  <div class="sec-head"><span class="num">05</span><span class="eyebrow">ABOUT</span></div>
+  <h2>왜 공방인가</h2>
+  <div class="manifesto">
+    <p>AI가 영상을 만들고, 숏폼이 하루에 수천 개씩 쏟아지는 시대입니다. 그 속에서 살아남는 영상은 무엇일까요.</p>
+    <p class="q">오히려, 영화를 아는 사람이 만든<br>진정성 있는 영상이 남습니다.</p>
+    <p>잘 만든 영화는 아무리 길고 아무리 느려도 사람들이 계속 보러 갑니다. 이름난 연극도 늘 찾는 사람이 있습니다. 빠르게 소비되는 것과 오래 남는 것은 애초에 다른 물건입니다.</p>
+    <p>그래서 <em>공방</em>입니다. 한땀한땀 장인이 공들여 만든 작품처럼, 브랜드와 행사를 담은 영화 같은 영상을 만듭니다. 짧아도 진심이 담긴, 빨라도 가볍지 않은 영상을요.</p>
+  </div>
+  <div class="about">
+    <div class="ph on-light"><div class="ph-label">portrait 4:5</div></div>
+    <div>
+      <p class="bio">조명에서 시작했습니다. 조명감독 5회, 조명부 7회. 현장에서 빛을 만들어봤기 때문에 화면만 보고 무엇이 살아 있고 무엇이 이미 날아갔는지 압니다. 그래서 찍은 것을 남에게 넘기지 않고 끝까지 직접 잡습니다.</p>
+      <div class="bio-num">
+        참여작 누적 조회수 <b>186,835</b><br>조명 참여작 11편이 그중 <b>91%</b><br>
+        행사 미디어팀 총괄 <b>3년</b> · 2024 – 2026<br>연속 작업 <b>30개월</b> · 2023.07 – 2025.12
+      </div>
+      <dl class="gear">
+        <div class="gear-row"><dt>CAMERA</dt><dd>Sony FX3 · 현장 전반<br>Blackmagic PYXIS · 인서트 / BRAW</dd></div>
+        <div class="gear-row"><dt>LENS</dt><dd>광각 · 표준 · 망원 커버</dd></div>
+        <div class="gear-row"><dt>AUDIO</dt><dd>무선 마이크 · 필드 레코더</dd></div>
+        <div class="gear-row"><dt>GRADING</dt><dd>DaVinci Resolve Studio<br>캘리브레이션 모니터 · 컬러 체커</dd></div>
+      </dl>
+    </div>
+  </div>
+</div></section>
+
+<div class="divider"><div class="stitch"></div></div>
+
+<section id="contact"><div class="wrap">
+  <div class="sec-head"><span class="num">06</span><span class="eyebrow">CONTACT</span></div>
+  <h2>의뢰하기</h2>
+  <p class="sub">행사 날짜와 장소만 알려주셔도 괜찮습니다. 컬러는 소스와 참고 영상만 있으면 견적이 나옵니다.</p>
+  <div class="contact">
+    <form id="form" novalidate>
+      <div class="fields">
+        <div class="f"><label for="n">이름</label><input id="n" name="name" type="text" required></div>
+        <div class="f"><label for="c">연락처</label><input id="c" name="contact" type="text" placeholder="전화번호 또는 이메일" required></div>
+        <div class="f"><label for="d">날짜</label><input id="d" name="date" type="date"></div>
+        <div class="f"><label for="t">유형</label>
+          <select id="t" name="type"><option>행사 촬영</option><option>캐릭터 · IP</option><option>컬러 그레이딩</option></select>
+        </div>
+      </div>
+      <textarea name="message" placeholder="장소, 예상 시간, 타임테이블, 참고하고 싶은 영상이 있다면 함께 적어주세요."></textarea>
+      <button class="send" type="submit">보내기</button>
+      <p class="hint" id="hint">폼 전송은 아직 연결되지 않았습니다. 수신 주소를 알려주시면 붙여드립니다.</p>
+    </form>
+    <div>
+      <div class="links">
+        <a href="#" target="_blank" rel="noopener">X (트위터)<span>@계정</span></a>
+        <a href="#" target="_blank" rel="noopener">Instagram<span>@계정</span></a>
+        <a href="https://www.youtube.com/@ProductionGAL" target="_blank" rel="noopener">YouTube<span>작업물 보기</span></a>
+        <a href="guide.html" target="_blank" rel="noopener">서비스 소개서<span>PDF로 저장 가능</span></a>
+      </div>
+      <p class="hint">행사는 날짜가 고정이라 일정이 빨리 찹니다<br>가능하면 한 달 전에 문의해 주세요</p>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <b><em>주황색</em> 영상공방</b>
+  <span>한땀한땀 만든 영상이 차이를 만듭니다 &nbsp;·&nbsp; © 2026</span>
+</div></footer>
+
+<div class="detail" id="detail"></div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   ▼▼▼  여기만 고치시면 됩니다  ▼▼▼
+
+   · 큰따옴표(") 대신 작은따옴표(')를 쓰고, 항목 끝 쉼표(,)를 지우지 마세요.
+   · 줄바꿈은  \n  두 번(\n\n)이면 문단이 나뉩니다.
+   · stats 는 최대 4개. 비워두면 그 칸은 안 나옵니다.
+   · story 는 원하는 만큼 늘리거나 줄여도 됩니다.
+   ══════════════════════════════════════════════════════════════════ */
+
+var HERO_ID = '4tfuB4IzK4s';   /* 히어로 배경 영상. 쇼릴 완성되면 교체 */
+
+var WORKS = [
+
+{ key:'furraid25', cat:'event', catLabel:'행사',
+  title:'FUR:RAID 2025 공식 리캡',
+  client:'PRODUCTION GAL', year:'2025',
+  yt:'4tfuB4IzK4s', dur:'2:30', seek:8,
+  card:'이틀간의 현장을 2분 30초로. 미디어팀을 꾸려 티저부터 엔딩크레딧까지 총괄했습니다.',
+  cardRole:'촬영 · 편집 · 컬러 · 모션 (총괄)', cardNum:'1,746',
+  stats:[
+    {v:'1,746', l:'조회수'},
+    {v:'2:30',  l:'러닝타임'},
+    {v:'',      l:''},
+    {v:'',      l:''}
+  ],
+  story:[
+    {h:'SITUATION', b:''},
+    {h:'SOLUTION',  b:''},
+    {h:'RESULTS',   b:''}
+  ],
+  credits:[ ['총괄',''], ['촬영',''], ['편집',''], ['컬러',''], ['모션',''] ]
+},
+
+{ key:'daedongje', cat:'event', catLabel:'행사',
+  title:'2024 대동제: 청춘전야 스케치',
+  client:'성균관대학교 총학생회 SURE', year:'2024',
+  yt:'wL_vEktTsO0', dur:'4:22', seek:10,
+  card:'수천 명 규모의 야외 축제. 해질녘부터 무대 조명까지 색온도가 계속 바뀌는 조건이었습니다.',
+  cardRole:'촬영 · 총학생회 SURE', cardNum:'1,415',
+  stats:[ {v:'1,415',l:'조회수'}, {v:'4:22',l:'러닝타임'}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['촬영',''] ]
+},
+
+{ key:'eskara', cat:'event', catLabel:'행사',
+  title:'ESKARA: 초록의 파도 — 시네마틱 트레일러',
+  client:'성균관대학교 총학생회 SURE', year:'2024',
+  yt:'T5497AajItY', dur:'1:06', seek:4,
+  card:'행사 3주 전에 공개한 66초 사전 티저. 참석을 부르는 게 목적이었습니다.',
+  cardRole:'촬영 · 4K', cardNum:'1,002',
+  stats:[ {v:'1,002',l:'조회수'}, {v:'1:06',l:'러닝타임'}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['촬영',''] ]
+},
+
+{ key:'furraid24', cat:'event', catLabel:'행사',
+  title:'FUR:RAID 2024 공식 리캡',
+  client:'PRODUCTION GAL', year:'2024',
+  yt:'fg9mPB_qlJo', dur:'2:20', seek:6,
+  card:'같은 행사의 전년도 리캡. 이 한 편으로 이듬해 총괄을 맡게 됐습니다.',
+  cardRole:'촬영 · 편집 · 컬러 · 모션', cardNum:'986',
+  stats:[ {v:'986',l:'조회수'}, {v:'2:20',l:'러닝타임'}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['촬영',''], ['편집',''], ['컬러',''], ['모션',''] ]
+},
+
+{ key:'gohanora', cat:'event', catLabel:'행사',
+  title:'2023 고하노라 스케치',
+  client:'성균관대학교 청랑', year:'2023',
+  yt:'CtlZSifwiNg', dur:'3:25', seek:8,
+  card:'실내 공연 기록. 무대 조명만으로 찍어야 하는 조건에서의 첫 행사 촬영이었습니다.',
+  cardRole:'촬영부', cardNum:'2,049',
+  stats:[ {v:'2,049',l:'조회수'}, {v:'3:25',l:'러닝타임'}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['촬영부',''] ]
+},
+
+{ key:'vtuber', cat:'character', catLabel:'캐릭터',
+  title:'Vtuber 커버 영상 〈너에게 닿기를〉',
+  client:'외주', year:'2025',
+  yt:'', dur:'', seek:0,
+  card:'캐릭터 설정색을 기준으로 컬러를 맞췄습니다. 팬은 그 색을 외우고 있으니까요.',
+  cardRole:'연출 · 촬영 · 편집 · 컬러', cardNum:'외주',
+  stats:[ {v:'',l:''}, {v:'',l:''}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['연출',''], ['촬영',''], ['편집',''], ['컬러',''] ]
+},
+
+{ key:'gosimjung', cat:'character', catLabel:'캐릭터',
+  title:'퍼슈트 밴드 〈고심중〉 라이브 클립',
+  client:'외주', year:'2026',
+  yt:'', dur:'', seek:0,
+  card:'라이브는 조명을 제어할 수 없습니다. 후반에서 정리하는 것 말고는 방법이 없는 조건이었습니다.',
+  cardRole:'조연출 · 편집 · 컬러', cardNum:'외주',
+  stats:[ {v:'',l:''}, {v:'',l:''}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['조연출',''], ['편집',''], ['컬러',''] ]
+},
+
+{ key:'asanyeo', cat:'grade', catLabel:'빛과 색',
+  title:'아사달 〈아사녀 (Moonriver)〉 뮤직비디오',
+  client:'POCLANOS', year:'2024',
+  yt:'M7PsPvCh2vg', dur:'4:16', seek:30,
+  card:'상업 뮤직비디오 조명부. 룩이 곧 결과물인 장르에서 빛을 다뤘습니다.',
+  cardRole:'조명부 · POCLANOS', cardNum:'27,146',
+  stats:[ {v:'27,146',l:'조회수'}, {v:'4:16',l:'러닝타임'}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['조명부',''] ]
+},
+
+{ key:'asmr', cat:'grade', catLabel:'빛과 색',
+  title:'교수님이 말아주는 탭핑 &amp; 토킹 ASMR',
+  client:'성균관대학교 공식 유튜브', year:'2024',
+  yt:'hC3jcEM-Ea4', dur:'15:34', seek:60,
+  card:'15분 롱테이크에 가까운 인터뷰 조명. 참여작 중 가장 많이 본 영상입니다.',
+  cardRole:'조명감독', cardNum:'129,103',
+  stats:[ {v:'129,103',l:'조회수'}, {v:'15:34',l:'러닝타임'}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['조명감독',''] ]
+},
+
+{ key:'yusaeng', cat:'grade', catLabel:'빛과 색',
+  title:'유생 계급 댄스 비디오',
+  client:'성균관대학교 공식 유튜브', year:'2023',
+  yt:'tT-cb9IMQm8', dur:'1:45', seek:6,
+  card:'움직임이 큰 피사체는 빛의 방향을 미리 정해두지 않으면 무너집니다.',
+  cardRole:'조명부', cardNum:'4,595',
+  stats:[ {v:'4,595',l:'조회수'}, {v:'1:45',l:'러닝타임'}, {v:'',l:''}, {v:'',l:''} ],
+  story:[ {h:'SITUATION',b:''}, {h:'SOLUTION',b:''}, {h:'RESULTS',b:''} ],
+  credits:[ ['조명부',''] ]
+}
+
+];
+/* ▲▲▲  여기까지  ▲▲▲ ══════════════════════════════════════════════ */
+
+
+var YTB='https://www.youtube-nocookie.com/embed/';
+var RP='referrerpolicy="strict-origin-when-cross-origin"';
+function esc(s){return (s||'')}
+function thumb(id){return 'https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg'}
+function watch(id){return 'https://www.youtube.com/watch?v='+id}
+
+/* file:// 로 열면 origin 이 없어 유튜브가 임베드를 거부합니다(오류 153).
+   그래서 로컬에서는 iframe 을 만들지 않고 썸네일 + 링크로 대체합니다.
+   서버(localhost 포함)나 실제 호스팅에서는 자동으로 임베드가 켜집니다. */
+var LOCAL = location.protocol === 'file:';
+
+/* ── 카드 렌더 ── */
+(function(){
+  var g=document.getElementById('grid');
+  g.innerHTML=WORKS.map(function(w,i){
+    var thumb = w.yt
+      ? '<img src="https://i.ytimg.com/vi/'+w.yt+'/maxresdefault.jpg" alt="'+esc(w.title)+'" loading="lazy" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+w.yt+'/hqdefault.jpg\'">'
+      : '<div class="ph-label">영상 링크 준비 중</div>';
+    return '<article class="work-item'+(w.yt?'':' ph')+'" data-i="'+i+'" data-c="'+w.cat+'">'
+      + '<div class="work-thumb'+(w.yt?'':' ph')+'">'+thumb
+      + '<div class="prev"></div>'+(w.yt?'<div class="prev-tag">PREVIEW</div>':'')
+      + (w.dur?'<div class="pill">'+w.dur+'</div>':'')+'<div class="prev-bar"></div></div>'
+      + '<div class="work-meta"><h3>'+esc(w.title)+'</h3><span class="cat">'+w.catLabel+'</span></div>'
+      + '<p class="work-desc">'+esc(w.card)+'</p>'
+      + '<div class="work-cred"><span>'+esc(w.cardRole)+'</span><span>'+esc(w.cardNum)+'</span></div>'
+      + '</article>';
+  }).join('');
+})();
+
+/* ── 상세 페이지 ── */
+var detail=document.getElementById('detail'), curIdx=-1;
+
+function renderDetail(i){
+  var w=WORKS[i], prev=WORKS[(i-1+WORKS.length)%WORKS.length], next=WORKS[(i+1)%WORKS.length];
+
+  var media;
+  if(!w.yt){
+    media = '<div class="ph" style="position:absolute;inset:0"><div class="ph-label">영상 링크 준비 중입니다</div></div>';
+  }else if(LOCAL){
+    media = '<img src="'+thumb(w.yt)+'" alt="'+esc(w.title)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" '
+          + 'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+w.yt+'/hqdefault.jpg\'">'
+          + '<a class="dt-open" href="'+watch(w.yt)+'" target="_blank" rel="noopener"><b>유튜브에서 보기</b></a>';
+  }else{
+    media = '<iframe src="'+YTB+w.yt+'?rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; fullscreen" '+RP+' allowfullscreen title="'+esc(w.title)+'"></iframe>';
+  }
+
+  var stats=(w.stats||[]).filter(function(s){return s.v}).map(function(s){
+    return '<div class="dt-stat"><b>'+s.v+'</b><span>'+s.l+'</span></div>';
+  }).join('');
+
+  var story=(w.story||[]).map(function(b){
+    var body = b.b
+      ? '<p>'+b.b+'</p>'
+      : '<div class="dt-empty">이 자리에 글을 쓰세요.<br>스크립트 상단 <b>WORKS</b> → <b>'+w.key+'</b> → <b>story</b> 항목의 <b>b:\'\'</b> 안에 입력하시면 됩니다.</div>';
+    return '<div class="dt-block"><h3>'+b.h+'</h3>'+body+'</div>';
+  }).join('');
+
+  var creds=(w.credits||[]).map(function(c){
+    return '<div class="dt-cr"><dt>'+c[0]+'</dt><dd>'+(c[1]||'—')+'</dd></div>';
+  }).join('');
+
+  detail.innerHTML =
+    '<div class="dt-bar"><div class="wrap">'
+      + '<button class="dt-back" id="dtBack"><span>&#8592;</span>작업물로 돌아가기</button>'
+      + '<span class="dt-cat">'+w.catLabel+'</span>'
+    + '</div></div>'
+    + '<div class="wrap"><div class="dt-head">'
+      + '<h2>'+esc(w.title)+'</h2>'
+      + '<div class="dt-meta"><span>클라이언트 <b>'+esc(w.client)+'</b></span><span>연도 <b>'+w.year+'</b></span><span>역할 <b>'+esc(w.cardRole)+'</b></span></div>'
+    + '</div></div>'
+    + '<div class="dt-media"><div class="in"><div class="dt-frame">'+media+'</div></div></div>'
+    + '<div class="wrap">'
+      + (stats?'<div class="dt-stats">'+stats+'</div>':'')
+      + '<div class="dt-story">'+story+'</div>'
+      + '<div class="dt-credits"><h3>CREDITS</h3>'+creds+'</div>'
+      + '<div class="dt-nav">'
+        + '<button data-go="'+((i-1+WORKS.length)%WORKS.length)+'"><span class="lb">이전 작업</span><span class="tt">'+esc(prev.title)+'</span></button>'
+        + '<button class="r" data-go="'+((i+1)%WORKS.length)+'"><span class="lb">다음 작업</span><span class="tt">'+esc(next.title)+'</span></button>'
+      + '</div>'
+    + '</div>';
+
+  document.getElementById('dtBack').addEventListener('click',closeDetail);
+  detail.querySelectorAll('[data-go]').forEach(function(b){
+    b.addEventListener('click',function(){openDetail(+b.dataset.go)});
+  });
+}
+function openDetail(i){
+  curIdx=i; renderDetail(i);
+  detail.classList.add('open'); detail.scrollTop=0;
+  document.body.style.overflow='hidden';
+  history.replaceState(null,'','#work/'+WORKS[i].key);
+}
+function closeDetail(){
+  detail.classList.remove('open'); detail.innerHTML='';
+  document.body.style.overflow='';
+  history.replaceState(null,'','#work');
+}
+
+/* ── 히어로 플레이어 ── */
+var heroPlayer=null, tick=null;
+function onYouTubeIframeAPIReady(){
+  if(LOCAL)return;
+  heroPlayer=new YT.Player('hero-player',{
+    host:'https://www.youtube-nocookie.com', videoId:HERO_ID,
+    playerVars:{autoplay:1,mute:1,controls:0,loop:1,playlist:HERO_ID,modestbranding:1,rel:0,playsinline:1,iv_load_policy:3,disablekb:1,fs:0},
+    events:{
+      onReady:function(e){
+        var f=e.target.getIframe(); if(f)f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+        e.target.mute(); e.target.playVideo();
+        document.getElementById('play').classList.add('playing'); startTick();
+      },
+      onStateChange:function(e){
+        var p=document.getElementById('play');
+        if(e.data===YT.PlayerState.PLAYING)p.classList.add('playing');
+        else if(e.data===YT.PlayerState.PAUSED||e.data===YT.PlayerState.ENDED)p.classList.remove('playing');
+      }
+    }
+  });
+}
+function fmt(s){s=Math.max(0,Math.floor(s||0));var m=Math.floor(s/60),x=s%60;return (m<10?'0':'')+m+':'+(x<10?'0':'')+x}
+function startTick(){clearInterval(tick);tick=setInterval(function(){
+  if(!heroPlayer||!heroPlayer.getCurrentTime)return;
+  document.getElementById('time').textContent=fmt(heroPlayer.getCurrentTime())+' / '+fmt(heroPlayer.getDuration());
+},500)}
+
+(function(){
+  /* 로컬이면 히어로를 정지 이미지로 대체하고 안내 바를 띄웁니다 */
+  if(LOCAL){
+    var bg=document.querySelector('.hero-bg');
+    bg.innerHTML='<img id="hero-still" src="'+thumb(HERO_ID)+'" alt="쇼릴" '
+      +'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+HERO_ID+'/hqdefault.jpg\'">';
+    document.getElementById('time').textContent='유튜브에서 재생';
+    var bar=document.createElement('div');
+    bar.className='localbar';
+    bar.innerHTML='파일을 직접 열면 유튜브 임베드가 차단됩니다(오류 153). '
+      +'폴더에서 <code>python3 -m http.server 8000</code> 을 실행하고 '
+      +'<code>localhost:8000</code> 으로 접속하면 영상이 정상 재생됩니다.'
+      +'<button aria-label="닫기">&times;</button>';
+    document.body.appendChild(bar);
+    bar.querySelector('button').addEventListener('click',function(){bar.remove()});
+  }
+
+  document.getElementById('play').addEventListener('click',function(){
+    if(LOCAL){window.open(watch(HERO_ID),'_blank','noopener');return}
+    if(!heroPlayer)return;
+    if(heroPlayer.getPlayerState()===YT.PlayerState.PLAYING)heroPlayer.pauseVideo();else heroPlayer.playVideo();
+  });
+  var snd=document.getElementById('sound'),sndTx=document.getElementById('sound-tx');
+  snd.addEventListener('click',function(){
+    if(LOCAL||!heroPlayer)return;
+    var on=snd.classList.toggle('on');
+    if(on){heroPlayer.unMute();heroPlayer.setVolume(60);sndTx.textContent='SOUND ON'}
+    else{heroPlayer.mute();sndTx.textContent='SOUND OFF'}
+  });
+
+  var chips=document.getElementById('chips'),items=document.querySelectorAll('.work-item');
+  chips.addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b)return;
+    chips.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active')});
+    b.classList.add('active');
+    items.forEach(function(it){it.hidden = !(b.dataset.f==='all'||it.dataset.c===b.dataset.f)});
+  });
+
+  items.forEach(function(it){
+    var w=WORKS[+it.dataset.i], host=it.querySelector('.prev'), hold=null;
+    if(w.yt && !LOCAL){
+      it.addEventListener('mouseenter',function(){
+        hold=setTimeout(function(){
+          host.innerHTML='<iframe src="'+YTB+w.yt+'?autoplay=1&mute=1&controls=0&start='+(w.seek||0)+'&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&disablekb=1" allow="autoplay" '+RP+' title="preview"></iframe>';
+        },320);
+      });
+      it.addEventListener('mouseleave',function(){clearTimeout(hold);host.innerHTML=''});
+    }
+    it.addEventListener('click',function(){openDetail(+it.dataset.i)});
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(!detail.classList.contains('open'))return;
+    if(e.key==='Escape')closeDetail();
+    if(e.key==='ArrowRight')openDetail((curIdx+1)%WORKS.length);
+    if(e.key==='ArrowLeft')openDetail((curIdx-1+WORKS.length)%WORKS.length);
+  });
+
+  var m=location.hash.match(/^#work\/(.+)$/);
+  if(m){var idx=WORKS.findIndex(function(w){return w.key===m[1]}); if(idx>=0)openDetail(idx)}
+
+  var cmp=document.getElementById('cmp'),after=document.getElementById('after'),handle=document.getElementById('handle'),drag=false;
+  function setPos(x){var r=cmp.getBoundingClientRect();var p=Math.min(100,Math.max(0,((x-r.left)/r.width)*100));after.style.clipPath='inset(0 0 0 '+p+'%)';handle.style.left=p+'%'}
+  cmp.addEventListener('mousedown',function(e){drag=true;setPos(e.clientX)});
+  window.addEventListener('mousemove',function(e){if(drag)setPos(e.clientX)});
+  window.addEventListener('mouseup',function(){drag=false});
+  cmp.addEventListener('touchstart',function(e){drag=true;setPos(e.touches[0].clientX)},{passive:true});
+  window.addEventListener('touchmove',function(e){if(drag)setPos(e.touches[0].clientX)},{passive:true});
+  window.addEventListener('touchend',function(){drag=false});
+
+  var shots=document.getElementById('shots'),bl=document.getElementById('bl'),al=document.getElementById('al');
+  shots.addEventListener('click',function(e){
+    var s=e.target.closest('.shot'); if(!s)return;
+    shots.querySelectorAll('.shot').forEach(function(x){x.classList.remove('active')});
+    s.classList.add('active');
+    bl.innerHTML='before &nbsp;/&nbsp; '+s.dataset.n; al.innerHTML='after &nbsp;/&nbsp; '+s.dataset.n;
+  });
+
+  document.getElementById('form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var h=document.getElementById('hint');
+    if(!this.name.value.trim()||!this.contact.value.trim()){h.textContent='이름과 연락처를 입력해 주세요.';h.style.color='#DE6428';return}
+    h.textContent='폼 전송은 아직 연결되지 않았습니다. 수신 주소를 알려주시면 붙여드립니다.'; h.style.color='';
+  });
+})();
+</script>
+</body>
+</html>
