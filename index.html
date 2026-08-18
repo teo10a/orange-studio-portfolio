@@ -93,6 +93,7 @@ a:hover{color:#DE6428}
         <a href="#profile" style="color:inherit">소개</a>
         <a href="#work" style="color:inherit">작업물</a>
         <a href="#services" style="color:inherit">서비스</a>
+        <a href="process.html" style="color:inherit">보정 과정</a>
         <a href="#about" style="color:inherit">공방 이야기</a>
         <a class="btn btn-primary" href="#contact" style="font-family:'Nanum Myeongjo',serif;letter-spacing:.12em;font-size:13px;padding:9px 20px;border-radius:2px">의뢰하기</a>
       </nav>
@@ -248,6 +249,7 @@ a:hover{color:#DE6428}
       <div data-rv="" style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#DE6428;letter-spacing:.1em">03</span><span style="font-size:11px;letter-spacing:.24em;color:rgba(20,16,13,.5)">COLOR</span></div>
       <h2 data-rv="" data-d="80" style="font-size:clamp(28px,3.4vw,40px);font-weight:700;line-height:1.35;margin:0 0 14px">보정 전 · 후</h2>
       <p data-rv="" data-d="140" style="font-size: 15px; line-height: 1.9; color: rgba(20,16,13,.55); max-width: 640px; margin: 0; width: 552px; height: 55px">행사장은 빛을 고를 수 없습니다. 형광등과 무대 LED와 창문 빛이 한 화면에 섞이면, 가장 먼저 무너지는 건 얼굴색입니다. 한 컷씩 손으로 잡는 이유입니다.</p>
+      <a href="process.html" data-rv="" data-d="170" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.08em;color:#B84A18;margin-top:16px">보정 과정 단계별로 보기 ↗</a>
 
       <div data-rv="" data-d="200" data-cmp="" id="os-cmp" style="position:relative;aspect-ratio:16/9;overflow:hidden;user-select:none;margin-top:40px;cursor:ew-resize;border:7px solid #EFE8DB;outline:1px solid rgba(20,16,13,.15);background:#14100D">
         <div style="position:absolute;inset:0"><image-slot id="grade-before" shape="rect" placeholder="보정 전 스틸을 여기에 끌어다 놓으세요" src="img/Still%202026-08-17%20230237_1.3.1.jpg"></image-slot></div>
@@ -553,7 +555,7 @@ class Component extends DCLogic {
       }
       const ink = dark ? '#EDE6DA' : '#14100D', sub = dark ? 'rgba(237,230,218,.72)' : 'rgba(20,16,13,.6)';
       if (brand) brand.style.color = ink;
-      if (nav) { nav.style.color = sub; nav.querySelectorAll('a').forEach((a, i) => { if (i < 4) a.style.color = sub; }); }
+      if (nav) { nav.style.color = sub; nav.querySelectorAll('a').forEach((a, i) => { if (i < 5) a.style.color = sub; }); }
       const menuBtn = document.getElementById('os-menu-btn');
       if (menuBtn) menuBtn.style.color = ink;
       const hint = document.getElementById('os-hint');

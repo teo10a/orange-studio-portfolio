@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>보정 과정 · 주황색 영상공방</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F2E9; --paper:#FBF8F2; --ink:#14100D; --sub:#6E645A; --faint:#9C9187;
+  --line:rgba(20,16,13,.15); --accent:#DE6428; --accent-600:#B84A18;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,system-ui,sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Nanum Myeongjo",serif;letter-spacing:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent-600)}
+::selection{background:rgba(222,100,40,.22)}
+
+header{position:sticky;top:0;z-index:20;background:rgba(247,242,233,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+.hbar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:"Nanum Myeongjo",serif;font-size:16px;font-weight:800;letter-spacing:.1em;color:var(--ink)}
+.brand span{color:var(--accent)}
+.back{font-size:12.5px;letter-spacing:.08em;color:var(--sub);border:1px solid var(--line);padding:7px 14px;border-radius:6px}
+.back:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero{padding:70px 0 50px}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.24em;color:var(--sub);margin-bottom:16px}
+.eyebrow span:first-child{display:block;width:38px;height:1px;background:var(--accent)}
+h1{font-size:clamp(28px,3.6vw,40px);font-weight:700;line-height:1.4;margin:0 0 18px}
+.lead{font-size:15.5px;line-height:1.95;color:var(--sub);max-width:620px;margin:0}
+
+.block{padding:46px 0;border-top:1px solid var(--line)}
+.block-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.block-title{font-size:13px;letter-spacing:.14em;color:var(--sub)}
+.block-title b{color:var(--ink);font-weight:700}
+.stage-label{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.08em;color:var(--accent-600);background:rgba(222,100,40,.1);padding:5px 11px;border-radius:20px}
+
+.frame{position:relative;aspect-ratio:16/9;background:#14100D;border:7px solid var(--paper);outline:1px solid var(--line);overflow:hidden}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease}
+.frame img.on{opacity:1}
+
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.step-btn{font-family:"Nanum Myeongjo",serif;font-size:13.5px;letter-spacing:.04em;padding:10px 18px;border-radius:2px;border:1px solid var(--line);background:var(--paper);color:var(--sub);cursor:pointer;transition:all .2s ease}
+.step-btn:hover{border-color:var(--accent);color:var(--accent)}
+.step-btn.active{background:var(--ink);border-color:var(--ink);color:#EDE6DA}
+
+.caption{margin-top:16px;padding-top:16px;font-size:13.5px;line-height:1.85;color:var(--sub);max-width:620px;background-image:repeating-linear-gradient(90deg,var(--line) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:top}
+.caption b{color:var(--ink);font-weight:700}
+
+.cta{padding:70px 0 90px;text-align:center}
+.cta h2{font-size:clamp(22px,2.6vw,28px);margin:0 0 14px}
+.cta p{font-size:14.5px;color:var(--sub);margin:0 0 26px}
+.btn-primary{display:inline-block;font-family:"Nanum Myeongjo",serif;font-size:14px;letter-spacing:.14em;padding:14px 34px;border-radius:2px;background:var(--ink);color:#EDE6DA}
+.btn-primary:hover{background:var(--accent-600);color:#fff}
+
+footer{background:#14100D;color:rgba(237,230,218,.5);padding:32px 0;font-size:12px;letter-spacing:.06em;border-top:1px solid rgba(237,230,218,.13)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:center}
+footer b{font-family:"Nanum Myeongjo",serif;color:#EDE6DA;font-weight:700;letter-spacing:.12em}
+footer b span{color:var(--accent)}
+
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .block-head{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hbar">
+    <a class="brand" href="index.html"><span>주황색</span> 영상공방</a>
+    <a class="back" href="index.html#color">← 포트폴리오로</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow"><span></span>PROCESS</div>
+      <h1>한 컷이 완성되는 순서</h1>
+      <p class="lead">버튼을 눌러 같은 컷이 단계마다 어떻게 바뀌는지 확인해보세요. 원본에서 최종 납품본까지, 컬러 그레이딩은 보통 이 순서로 진행됩니다.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="block-head">
+        <div class="block-title"><b>예시 01</b> · 캐릭터 촬영</div>
+        <span class="stage-label" data-stagelabel="p1">STEP 01 · 원본</span>
+      </div>
+      <div class="frame" data-process="p1">
+        <img class="on" data-step="1" src="img/Still%202026-08-17%20222250_1.2.1.jpg" alt="원본">
+        <img data-step="2" src="img/Still%202026-08-17%20222250_1.2.2.jpg" alt="1차 보정">
+        <img data-step="3" src="img/Still%202026-08-17%20230005_1.2.3.jpg" alt="최종 룩">
+      </div>
+      <div class="steps" data-steps="p1">
+        <button class="step-btn active" data-step="1">01 원본</button>
+        <button class="step-btn" data-step="2">02 1차 보정</button>
+        <button class="step-btn" data-step="3">03 최종 룩</button>
+      </div>
+      <p class="caption" data-caption="p1"><b>원본.</b> 촬영 직후 로그/플랫 상태 그대로입니다. 노출과 화이트밸런스가 아직 정리되지 않았습니다.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="block-head">
+        <div class="block-title"><b>예시 02</b> · 실내 행사 현장</div>
+        <span class="stage-label" data-stagelabel="p2">STEP 01 · 원본</span>
+      </div>
+      <div class="frame" data-process="p2">
+        <img class="on" data-step="1" src="img/Still%202026-08-17%20230241_1.4.1.jpg" alt="원본">
+        <img data-step="2" src="img/Still%202026-08-17%20230331_1.4.2.jpg" alt="1차 보정">
+        <img data-step="3" src="img/Still%202026-08-17%20233431_1.4.3.jpg" alt="최종 룩">
+      </div>
+      <div class="steps" data-steps="p2">
+        <button class="step-btn active" data-step="1">01 원본</button>
+        <button class="step-btn" data-step="2">02 1차 보정</button>
+        <button class="step-btn" data-step="3">03 최종 룩</button>
+      </div>
+      <p class="caption" data-caption="p2"><b>원본.</b> 촬영 직후 로그/플랫 상태 그대로입니다. 노출과 화이트밸런스가 아직 정리되지 않았습니다.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="block-head">
+        <div class="block-title"><b>예시 03</b> · 혼합광 환경</div>
+        <span class="stage-label" data-stagelabel="p3">STEP 01 · 원본</span>
+      </div>
+      <div class="frame" data-process="p3">
+        <img class="on" data-step="1" src="img/Still%202026-08-17%20234140_1.7.1.jpg" alt="원본">
+        <img data-step="2" src="img/Still%202026-08-17%20234153_1.7.2.jpg" alt="1차 보정">
+        <img data-step="3" src="img/Still%202026-08-17%20234224_1.7.3.jpg" alt="최종 룩">
+      </div>
+      <div class="steps" data-steps="p3">
+        <button class="step-btn active" data-step="1">01 원본</button>
+        <button class="step-btn" data-step="2">02 1차 보정</button>
+        <button class="step-btn" data-step="3">03 최종 룩</button>
+      </div>
+      <p class="caption" data-caption="p3"><b>원본.</b> 촬영 직후 로그/플랫 상태 그대로입니다. 노출과 화이트밸런스가 아직 정리되지 않았습니다.</p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>비슷한 톤으로 작업하고 싶으신가요?</h2>
+      <p>행사 날짜와 장소, 참고하고 싶은 영상만 알려주셔도 견적이 나옵니다.</p>
+      <a class="btn-primary" href="index.html#contact">의뢰하기 ↗</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b><span>주황색</span> 영상공방</b>
+    <span>한땀한땀 만든 영상이 차이를 만듭니다 &nbsp;·&nbsp; © 2026</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const STEP_TEXT = {
+    1: ['STEP 01 · 원본', '<b>원본.</b> 촬영 직후 로그/플랫 상태 그대로입니다. 노출과 화이트밸런스가 아직 정리되지 않았습니다.'],
+    2: ['STEP 02 · 1차 보정', '<b>1차 보정.</b> 노출과 화이트밸런스를 맞추고, 혼합광으로 무너진 스킨톤을 1차로 정리한 단계입니다.'],
+    3: ['STEP 03 · 최종 룩', '<b>최종 룩.</b> 채도와 대비를 다듬고 최종 톤을 씌운 상태입니다. 이 단계가 실제 납품본입니다.'],
+  };
+  document.querySelectorAll('[data-steps]').forEach((stepsEl) => {
+    const id = stepsEl.getAttribute('data-steps');
+    const frame = document.querySelector('.frame[data-process="' + id + '"]');
+    const label = document.querySelector('[data-stagelabel="' + id + '"]');
+    const caption = document.querySelector('[data-caption="' + id + '"]');
+    stepsEl.querySelectorAll('.step-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const step = btn.getAttribute('data-step');
+        stepsEl.querySelectorAll('.step-btn').forEach((b) => b.classList.toggle('active', b === btn));
+        frame.querySelectorAll('img').forEach((img) => img.classList.toggle('on', img.getAttribute('data-step') === step));
+        if (label) label.textContent = STEP_TEXT[step][0];
+        if (caption) caption.innerHTML = STEP_TEXT[step][1];
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
