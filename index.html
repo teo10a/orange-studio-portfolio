@@ -23,6 +23,44 @@ a{color:#B84A18;text-decoration:none}
 a:hover{color:#DE6428}
 ::selection{background:rgba(222,100,40,.22)}
 @keyframes osHint{0%,100%{transform:translate(-50%,0);opacity:.55}50%{transform:translate(-50%,7px);opacity:1}}
+.os-menu-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:0;cursor:pointer;padding:0;flex-shrink:0}
+.os-menu-bar{display:block;width:100%;height:2px;background:currentColor;border-radius:1px}
+@media (max-width:860px){
+  div[style*="max-width:1240px"]{padding-left:24px!important;padding-right:24px!important}
+  #top{padding:110px 0 0!important}
+  #profile{padding:70px 0!important}
+  #work{padding:80px 0!important}
+  #color{padding:70px 0!important}
+  #clients{padding:60px 0!important}
+  #services{padding:60px 0!important}
+  #gear{padding:60px 0!important}
+  #about{padding:70px 0!important}
+  #contact{padding:70px 0!important}
+  #top div[style*="grid-template-columns:1.02fr"]{grid-template-columns:1fr!important;min-height:auto!important;align-items:start!important;gap:36px!important}
+  #top div[style*="repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important;margin-top:48px!important}
+  #top div[style*="repeat(4,1fr)"]>div{padding:20px 16px 22px!important}
+  #profile div[style*="grid-template-columns:330px"]{grid-template-columns:1fr!important;gap:32px!important}
+  #profile dl>div{grid-template-columns:96px 1fr!important;gap:12px!important}
+  #work article{min-height:auto!important;padding:56px 0!important}
+  #work div[style*="grid-template-columns:1.35fr"]{grid-template-columns:1fr!important;gap:22px!important}
+  #color p[style*="width: 552px"]{width:auto!important;height:auto!important}
+  #clients div[style*="repeat(5,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
+  #services div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+  #gear div[style*="repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
+  #contact div[style*="grid-template-columns:1fr 330px"]{grid-template-columns:1fr!important;gap:32px!important}
+  #os-rail{display:none!important}
+  .os-menu-btn{display:flex!important}
+  #os-nav{position:fixed!important;top:70px;left:0;right:0;flex-direction:column!important;align-items:stretch!important;gap:0!important;background:rgba(20,16,13,.97);backdrop-filter:blur(10px);padding:6px 24px 22px;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .25s ease,transform .25s ease;max-height:calc(100vh - 70px);overflow-y:auto}
+  #os-nav[data-open="true"]{opacity:1;transform:translateY(0);pointer-events:auto}
+  #os-nav a{color:#EDE6DA!important;width:100%;padding:15px 0;border-bottom:1px solid rgba(237,230,218,.12);font-size:13px}
+  #os-nav a.btn-primary{margin-top:12px;text-align:center;border-bottom:0}
+}
+@media (max-width:560px){
+  div[style*="max-width:1240px"]{padding-left:18px!important;padding-right:18px!important}
+  #clients div[style*="repeat(5,1fr)"]{grid-template-columns:1fr 1fr!important}
+  #contact div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+  #profile dl>div{grid-template-columns:1fr!important}
+}
 </style>
 </helmet>
 
@@ -33,13 +71,16 @@ a:hover{color:#DE6428}
   <header id="os-head" style="position:fixed;top:0;left:0;right:0;z-index:80;transition:background .35s ease,border-color .35s ease;border-bottom:1px solid transparent">
     <div style="max-width:1240px;margin:0 auto;padding:0 40px;height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px">
       <a href="#top" id="os-brand" style="font-family:'Nanum Myeongjo',serif;font-size:19px;font-weight:800;letter-spacing:.14em;line-height:1;color:#EDE6DA;white-space:nowrap"><span style="color:#DE6428">주황색</span> 영상공방</a>
-      <nav id="os-nav" style="display:flex;align-items:center;gap:30px;font-size:12px;letter-spacing:.18em;color:rgba(237,230,218,.72)">
+      <nav id="os-nav" data-open="{{ navOpen }}" style="display:flex;align-items:center;gap:30px;font-size:12px;letter-spacing:.18em;color:rgba(237,230,218,.72)">
         <a href="#profile" style="color:inherit">소개</a>
         <a href="#work" style="color:inherit">작업물</a>
         <a href="#services" style="color:inherit">서비스</a>
         <a href="#about" style="color:inherit">공방 이야기</a>
         <a class="btn btn-primary" href="#contact" style="font-family:'Nanum Myeongjo',serif;letter-spacing:.12em;font-size:13px;padding:9px 20px;border-radius:2px">의뢰하기</a>
       </nav>
+      <button id="os-menu-btn" class="os-menu-btn" onClick="{{ toggleNav }}" aria-label="메뉴 열기" aria-expanded="{{ navOpen }}" style="color:#EDE6DA">
+        <span class="os-menu-bar"></span><span class="os-menu-bar"></span><span class="os-menu-bar"></span>
+      </button>
     </div>
   </header>
 
@@ -391,7 +432,7 @@ a:hover{color:#DE6428}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;previewOnHover&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;작업물&quot;},&quot;revealMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;모션&quot;}}">
 class Component extends DCLogic {
-  state = { hover: -1, playing: -1, hero: false, hint: '폼 전송은 아직 연결되지 않았습니다. 수신 주소를 알려주시면 붙여드립니다.', hintColor: 'rgba(237,230,218,.45)' };
+  state = { hover: -1, playing: -1, hero: false, navOpen: false, hint: '폼 전송은 아직 연결되지 않았습니다. 수신 주소를 알려주시면 붙여드립니다.', hintColor: 'rgba(237,230,218,.45)' };
 
   WORKS = [
     { cat:'행사', title:'FUR:RAID 2025 공식 리캡', client:'PRODUCTION GAL', year:'2025', yt:'4tfuB4IzK4s', dur:'2:30', seek:8,
@@ -494,6 +535,8 @@ class Component extends DCLogic {
       const ink = dark ? '#EDE6DA' : '#14100D', sub = dark ? 'rgba(237,230,218,.72)' : 'rgba(20,16,13,.6)';
       if (brand) brand.style.color = ink;
       if (nav) { nav.style.color = sub; nav.querySelectorAll('a').forEach((a, i) => { if (i < 4) a.style.color = sub; }); }
+      const menuBtn = document.getElementById('os-menu-btn');
+      if (menuBtn) menuBtn.style.color = ink;
       const hint = document.getElementById('os-hint');
       if (hint) hint.style.opacity = y > 120 ? '0' : '';
 
@@ -539,6 +582,10 @@ class Component extends DCLogic {
     window.addEventListener('mouseup', this._up);
     window.addEventListener('touchmove', this._tmove, { passive: true });
     window.addEventListener('touchend', this._up);
+
+    const navEl = document.getElementById('os-nav');
+    this._navLinkClose = e => { if (e.target.closest('a')) this.setState({ navOpen: false }); };
+    if (navEl) navEl.addEventListener('click', this._navLinkClose);
   }
 
   componentWillUnmount() {
@@ -547,6 +594,8 @@ class Component extends DCLogic {
     window.removeEventListener('mouseup', this._up);
     window.removeEventListener('touchmove', this._tmove);
     window.removeEventListener('touchend', this._up);
+    const navEl = document.getElementById('os-nav');
+    if (navEl) navEl.removeEventListener('click', this._navLinkClose);
     [this._io, this._sio, this._cio].forEach(o => o && o.disconnect());
     clearTimeout(this._hold); clearTimeout(this._safety); clearTimeout(this._safety2); clearTimeout(this._sweep);
   }
@@ -578,6 +627,8 @@ class Component extends DCLogic {
       heroSrc: this.state.hero ? E + '4tfuB4IzK4s?autoplay=1&rel=0&modestbranding=1&playsinline=1' : '',
       heroBtnOpacity: this.state.hero ? 0 : 1,
       playHero: () => this.setState({ hero: true }),
+      navOpen: this.state.navOpen,
+      toggleNav: () => this.setState({ navOpen: !this.state.navOpen }),
       hint: this.state.hint, hintColor: this.state.hintColor,
       onSubmit: e => {
         e.preventDefault();
