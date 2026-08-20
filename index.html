@@ -123,9 +123,9 @@ a:hover{color:#DE6428}
 
         <div data-rv="" data-d="160">
           <div style="position:relative;aspect-ratio:16/9;background:#0E0B09;border:7px solid rgba(237,230,218,.09);outline:1px solid rgba(237,230,218,.14)">
-            <img src="https://i.ytimg.com/vi/4tfuB4IzK4s/maxresdefault.jpg" alt="쇼릴" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.18) saturate(.85) contrast(1.05) brightness(.62)">
+            <img src="media/showreel_poster.jpg" alt="쇼릴" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.18) saturate(.85) contrast(1.05) brightness(.62)">
             <sc-if value="{{ heroSrc }}" hint-placeholder-val="{{ false }}">
-              <iframe src="{{ heroSrc }}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="" title="쇼릴" style="position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2"></iframe>
+              <video src="{{ heroSrc }}" autoplay="" controls="" playsinline="" title="쇼릴" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;z-index:2"></video>
             </sc-if>
             <button onClick="{{ playHero }}" style="position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;opacity:{{ heroBtnOpacity }}">
               <span style="width:84px;height:84px;border-radius:50%;border:1px solid rgba(237,230,218,.45);background:rgba(20,16,13,.32);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px)">
@@ -163,6 +163,7 @@ a:hover{color:#DE6428}
           </div>
           <p style="font-size: 16px; line-height: 1.9; margin: 0 0 30px; max-width: 640px; font-weight: 500">영화 현장을 조명부로 시작해서, 노출을 제대로 보는 법과 예쁘게 담는 법을 배웠습니다.&nbsp;<br>여러 편의 독립 / 졸업 영화를 거쳐, 현재는 행사 스케치를 주로 담고 있습니다.&nbsp;</p>
           <a class="btn btn-primary" href="https://teo10a.github.io/hwangtaegeon-cv/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;font-family:'Nanum Myeongjo',serif;font-size:15px;letter-spacing:.1em;padding:16px 34px;border-radius:2px;margin-bottom:36px">이력서 보기 ↗</a>
+          <a class="btn" href="#top" onClick="{{ watchShowreel }}" style="display:inline-flex;align-items:center;gap:10px;font-family:'Nanum Myeongjo',serif;font-size:15px;letter-spacing:.1em;padding:16px 34px;border-radius:2px;margin-bottom:36px;margin-left:12px;color:rgba(20,16,13,.75);border-color:rgba(20,16,13,.22)">쇼릴 시청 ▶</a>
           <dl style="margin:0;font-size:14px">
             <div style="display:grid;grid-template-columns:150px 1fr;gap:20px;padding:14px 0;background-image:repeating-linear-gradient(90deg,rgba(20,16,13,.22) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:top"><dt style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#B84A18;letter-spacing:.08em">2023 -</dt><dd style="margin:0;line-height:1.85">성균관대학교 영상학과 재학<br><span style="color: rgba(20, 16, 13, 0.55);"></span></dd></div>
             <div style="display:grid;grid-template-columns:150px 1fr;gap:20px;padding:14px 0;background-image:repeating-linear-gradient(90deg,rgba(20,16,13,.22) 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:top"><dt style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#B84A18;letter-spacing:.08em">2024</dt><dd style="margin:0;line-height:1.85">성균관대학교 제 56대 총학생회 SURE! 미디어컨텐츠국 국원<br><span style="color: rgba(20, 16, 13, 0.55);"></span></dd>
@@ -647,9 +648,16 @@ class Component extends DCLogic {
     });
     return {
       works,
-      heroSrc: this.state.hero ? E + '4tfuB4IzK4s?autoplay=1&rel=0&modestbranding=1&playsinline=1' : '',
+      heroSrc: this.state.hero ? 'media/showreel.mp4' : '',
       heroBtnOpacity: this.state.hero ? 0 : 1,
       playHero: () => this.setState({ hero: true }),
+      watchShowreel: () => {
+        this.setState({ hero: true });
+        requestAnimationFrame(() => {
+          const el = document.getElementById('top');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      },
       navOpen: this.state.navOpen,
       toggleNav: () => this.setState({ navOpen: !this.state.navOpen }),
       hint: this.state.hint, hintColor: this.state.hintColor,
