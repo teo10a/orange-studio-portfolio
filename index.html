@@ -44,7 +44,7 @@ a:hover{color:#DE6428}
   #work article{min-height:auto!important;padding:56px 0!important}
   #work div[style*="grid-template-columns:1.35fr"]{grid-template-columns:1fr!important;gap:22px!important}
   #color p[style*="width: 552px"]{width:auto!important;height:auto!important}
-  #clients div[style*="repeat(5,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
+  #clients div[style*="repeat(6,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
   #services div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
   #gear div[style*="repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
   #contact div[style*="grid-template-columns:1fr 330px"]{grid-template-columns:1fr!important;gap:32px!important}
@@ -75,7 +75,7 @@ a:hover{color:#DE6428}
 }
 @media (max-width:560px){
   div[style*="max-width:1240px"]{padding-left:18px!important;padding-right:18px!important}
-  #clients div[style*="repeat(5,1fr)"]{grid-template-columns:1fr 1fr!important}
+  #clients div[style*="repeat(6,1fr)"]{grid-template-columns:1fr 1fr!important}
   #contact div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
   #profile dl>div{grid-template-columns:1fr!important}
 }
@@ -340,13 +340,15 @@ a:hover{color:#DE6428}
     <div style="max-width:1240px;margin:0 auto;padding:0 40px">
       <div data-rv="" style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#DE6428;letter-spacing:.1em">04</span><span style="font-size:11px;letter-spacing:.24em;color:rgba(20,16,13,.5)">CLIENTS</span></div>
       <h2 data-rv="" data-d="80" style="font-size:clamp(28px,3.4vw,40px);font-weight:700;line-height:1.35;margin:0 0 34px">함께한 곳</h2>
-      <div data-rv="" data-d="140" style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(20,16,13,.15);border-top:1px solid rgba(20,16,13,.15);border-bottom:1px solid rgba(20,16,13,.15)">
+      <div data-rv="" data-d="140" style="display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(20,16,13,.15);border-top:1px solid rgba(20,16,13,.15);border-bottom:1px solid rgba(20,16,13,.15)">
         <div style="background:#F7F2E9;padding:30px 18px;display:flex;flex-direction:column;gap:6px;text-align:center;justify-content:center"><b style="font-family:'Nanum Myeongjo',serif;font-size:16px;font-weight:700">성균관대학교</b><span style="font-size:12px;color:rgba(20,16,13,.5)">공식 유튜브 채널</span></div>
         <div style="background:#F7F2E9;padding:30px 18px;display:flex;flex-direction:column;gap:6px;text-align:center;justify-content:center"><b style="font-family:'Nanum Myeongjo',serif;font-size:16px;font-weight:700">총학생회 SURE</b><span style="font-size:12px;color:rgba(20,16,13,.5)">미디어컨텐츠국</span></div>
         <div style="background:#F7F2E9;padding:30px 18px;display:flex;flex-direction:column;gap:6px;text-align:center;justify-content:center"><b style="font-family:'Nanum Myeongjo',serif;font-size:16px;font-weight:700">PRODUCTION GAL</b><span style="font-size:12px;color:rgba(20,16,13,.5)">퍼:레이드 미디어팀</span></div>
         <div style="background:#F7F2E9;padding:30px 18px;display:flex;flex-direction:column;gap:6px;text-align:center;justify-content:center"><b style="font-family:'Nanum Myeongjo',serif;font-size:16px;font-weight:700">POCLANOS</b><span style="font-size:12px;color:rgba(20,16,13,.5)">뮤직비디오</span></div>
         <div style="background:#F7F2E9;padding:30px 18px;display:flex;flex-direction:column;gap:6px;text-align:center;justify-content:center"><b style="font-family:'Nanum Myeongjo',serif;font-size:16px;font-weight:700">청랑</b><span style="font-size:12px;color:rgba(20,16,13,.5)">성균관대학교</span></div>
+        <div style="background:#F7F2E9;padding:30px 18px;display:flex;flex-direction:column;gap:6px;text-align:center;justify-content:center"><b style="font-family:'Nanum Myeongjo',serif;font-size:16px;font-weight:700">Noisy Neighborhood</b><span style="font-size:12px;color:rgba(20,16,13,.5)">라이브 클립 · 부산국제록페스티벌</span></div>
       </div>
+      <p data-rv="" data-d="180" style="margin:18px 0 0;font-size:13px;line-height:1.8;color:rgba(20,16,13,.55)">2026 부산국제록페스티벌 라이브 클립 참여 아티스트 — 블낫블 · 퓨처피어클럽 · 아스라이 · 베이루트택시 · 에디앤더브릭스 · 김푸름 · 시인을위하여 · 아사달</p>
     </div>
   </section>
 
@@ -481,6 +483,8 @@ class Component extends DCLogic {
       desc:'캐릭터 설정색을 기준으로 컬러를 맞췄습니다. 팬은 그 색을 외우고 있으니까요.', role:'촬영 · 편집 (총괄)', views:'조회수 10,536' },
     { cat:'캐릭터', title:'퍼슈트 밴드 〈고심중〉 라이브 클립', client:'외주', year:'2026', yt:'6zSygvutSMs', dur:'6:29', seek:0,
       desc:'라이브는 조명을 제어할 수 없습니다. 후반에서 정리하는 것 말고는 방법이 없는 조건이었습니다.', role:'조연출 · 편집 · 컬러', views:'조회수 761' },
+    { cat:'빛과 색', title:'시인을 위하여 〈철새〉 LIVE CLIP — 2026 부산국제록페스티벌', client:'Noisy Neighborhood', year:'2026', yt:'yFzx0RODuFA', dur:'4:55', seek:20,
+      desc:'출연 8팀, 약 20곡의 라이브 클립 DI를 원격으로 보조했습니다. LUT 설계와 편집 보조를 맡았습니다.', role:'DI 보조 (LUT 설계 · 편집 보조)', views:'조회수 1,070' },
     { cat:'빛과 색', title:'아사달 〈아사녀 (Moonriver)〉 뮤직비디오', client:'POCLANOS', year:'2024', yt:'M7PsPvCh2vg', dur:'4:16', seek:30,
       desc:'상업 뮤직비디오 조명부. 룩이 곧 결과물인 장르에서 빛을 다뤘습니다.', role:'조명부', views:'조회수 27,146' },
     { cat:'빛과 색', title:'교수님이 말아주는 탭핑 & 토킹 ASMR', client:'성균관대학교 공식 유튜브', year:'2024', yt:'hC3jcEM-Ea4', dur:'15:34', seek:60,
