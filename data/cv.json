@@ -1,0 +1,505 @@
+{
+  "_readme": [
+    "포트폴리오(orange-studio-portfolio)와 이력서(hwangtaegeon-cv)가 함께 쓰는 단 하나의 원본 데이터입니다.",
+    "고친 뒤에는 `python3 build.py`로 두 사이트의 표시 영역(<!-- build:… --> 사이)과 sitemap·robots·llms.txt를 다시 만듭니다.",
+    "모든 항목은 id(고정)와 type(schema.org 타입)을 가지며, 다른 항목은 id로만 가리킵니다. JSON-LD는 이 관계에서 만들어집니다.",
+    "날짜는 데이터에 ISO 형식(YYYY 또는 YYYY-MM)으로 적고, 화면에는 YYYY.MM / 'YYYY – YYYY' / 'YYYY – 현재'로 표시됩니다.",
+    "조회수는 각 플랫폼의 공개 수치를 사람이 옮겨 적은 값입니다. 새로 확인하면 숫자만 바꾸세요."
+  ],
+  "meta": {
+    "updated": "2026-11-05",
+    "featuredCriteria": [
+      "대표작(featured)은 3~6편으로 고르고 featured 값(1부터)이 화면 순서입니다.",
+      "1) 역할: 총괄·조명감독처럼 결과에 책임을 진 역할을 우선합니다.",
+      "2) 조회수: 같은 역할 안에서는 공개 조회수가 높은 쪽을 고릅니다.",
+      "3) 분야: 촬영·편집·컬러·조명·모션이 대표작 안에서 한 번씩은 보이도록 겹치는 분야는 하나만 남깁니다.",
+      "현재 선정: FUR:RAID 2026 공식 리캡(총괄, 촬영·편집·컬러·모션) · 탭핑 & 토킹 ASMR(조명감독, 최다 조회 129,103) · 김푸름 〈가죽〉(컬러, 시리즈 최다 조회 16,707) · 오스카 커버(총괄, 캐릭터 설정색)."
+    ]
+  },
+  "sites": {
+    "portfolio": {
+      "id": "site-portfolio",
+      "type": "WebSite",
+      "name": "주황색 영상공방",
+      "url": "https://teo10a.github.io/orange-studio-portfolio/",
+      "image": "https://teo10a.github.io/orange-studio-portfolio/media/showreel_poster.jpg",
+      "summary": "행사 현장을 촬영하고 색까지 직접 잡는 1인 영상공방, 황태건의 포트폴리오입니다."
+    },
+    "cv": {
+      "id": "site-cv",
+      "type": "WebSite",
+      "name": "황태건 이력서",
+      "url": "https://teo10a.github.io/hwangtaegeon-cv/",
+      "image": "https://teo10a.github.io/orange-studio-portfolio/media/showreel_poster.jpg",
+      "summary": "행사 현장을 촬영하고 컬러까지 직접 마무리하는 영상 제작자 황태건의 이력서입니다."
+    }
+  },
+  "person": {
+    "id": "person-hwangtaegeon",
+    "type": "Person",
+    "name": "황태건",
+    "roleKo": "촬영 · 컬러 그레이딩 · 조명",
+    "telephone": "010-2708-0677",
+    "email": "teodrive44@gmail.com",
+    "instagram": {"handle": "@teolito107", "url": "https://www.instagram.com/teolito107/"},
+    "showreel": {
+      "id": "video-showreel",
+      "type": "VideoObject",
+      "name": "황태건 쇼릴",
+      "url": "https://teo10a.github.io/orange-studio-portfolio/media/showreel.mp4",
+      "thumbnail": "https://teo10a.github.io/orange-studio-portfolio/media/showreel_poster.jpg",
+      "duration": "0:47"
+    },
+    "availableFrom": "2027-04",
+    "affiliationNote": "성균관대학교 영상학과",
+    "lightingCredits": {"director": 5, "crew": 7},
+    "brand": "studio",
+    "alumniOf": "edu-skku-film",
+    "bio": "성균관대학교 영상학과에서 촬영과 조명을 공부했고 학과 졸업작품 현장을 거쳐 지금은 행사 스케치와 컬러 작업을 주로 맡고 있습니다."
+  },
+  "organizations": [
+    {"id": "studio", "type": "Organization", "name": "주황색 영상공방", "founder": "person-hwangtaegeon", "url": "https://teo10a.github.io/orange-studio-portfolio/"},
+    {"id": "skku", "type": "CollegeOrUniversity", "name": "성균관대학교"},
+    {"id": "skku-film", "type": "EducationalOrganization", "name": "성균관대학교 영상학과", "parent": "skku"},
+    {"id": "sure", "type": "Organization", "name": "성균관대학교 제56대 총학생회 SURE", "short": "총학생회 SURE", "parent": "skku"},
+    {"id": "insideout", "type": "Organization", "name": "외주 팀 '인사이드아웃'", "parent": "skku-film"},
+    {"id": "cheongrang", "type": "Organization", "name": "성균관대학교 청랑", "short": "성균관대 청랑", "parent": "skku"},
+    {"id": "poclanos", "type": "Organization", "name": "POCLANOS"},
+    {"id": "noisy", "type": "Organization", "name": "Noisy Neighborhood"},
+    {"id": "gnik", "type": "Organization", "name": "그니크리에이티브"},
+    {"id": "productiongal", "type": "Organization", "name": "PRODUCTION GAL", "description": "영상 제작 동인", "url": "https://www.youtube.com/@ProductionGAL"},
+    {"id": "oscar", "type": "Person", "name": "오스카", "description": "퍼슈트 Vtuber"}
+  ],
+  "events": [
+    {"id": "furraid", "type": "EventSeries", "name": "FUR:RAID", "organizer": "gnik", "description": "800명 규모 서브컬처 호텔 컨벤션"},
+    {"id": "furraid-2024", "type": "Event", "name": "FUR:RAID 2024", "superEvent": "furraid", "startDate": "2024"},
+    {"id": "furraid-2025", "type": "Event", "name": "FUR:RAID 2025", "superEvent": "furraid", "startDate": "2025", "attendees": 800, "durationDays": 3},
+    {"id": "furraid-2026", "type": "Event", "name": "FUR:RAID 2026", "superEvent": "furraid", "startDate": "2026", "durationDays": 3},
+    {"id": "bif-2026", "type": "MusicEvent", "name": "2026 부산국제록페스티벌", "startDate": "2026"},
+    {"id": "daedongje-2024", "type": "Festival", "name": "2024 대동제: 청춘전야", "startDate": "2024"},
+    {"id": "eskara-2024", "type": "Festival", "name": "ESKARA: 초록의 파도", "startDate": "2024"},
+    {"id": "gohanora-2023", "type": "Event", "name": "2023 고하노라", "startDate": "2023"}
+  ],
+  "education": [
+    {
+      "id": "edu-skku-film",
+      "type": "EducationalOrganization",
+      "org": "skku-film",
+      "start": "2023",
+      "end": "2029",
+      "status": "휴학 중",
+      "milestones": [
+        {"date": "2027-03", "label": "3학년 복학"},
+        {"date": "2029-02", "label": "졸업 예정"}
+      ],
+      "gpa": "3.67 / 4.5",
+      "short": "성균관대학교 영상학과"
+    }
+  ],
+  "positions": [
+    {
+      "id": "pos-bif-2026",
+      "type": "OrganizationRole",
+      "section": "experience",
+      "roleName": "라이브 클립 LUT·룩 설계 (외주 · 원격)",
+      "org": "noisy",
+      "event": "bif-2026",
+      "orgLine": "2026 부산국제록페스티벌 / Noisy Neighborhood",
+      "start": "2026",
+      "end": "2026",
+      "body": "출연 8팀, 약 20곡 라이브 클립의 LUT·룩 설계와 편집 보조.",
+      "short": "부산국제록페스티벌 라이브 클립 LUT·룩 설계"
+    },
+    {
+      "id": "pos-sure-2024",
+      "type": "OrganizationRole",
+      "section": "experience",
+      "roleName": "미디어컨텐츠국 국원",
+      "org": "sure",
+      "start": "2024",
+      "end": "2024",
+      "body": "총학생회 공식 축제 · 홍보 영상 4편 촬영 및 제작.",
+      "short": "총학생회 SURE 미디어컨텐츠국 국원"
+    },
+    {
+      "id": "pos-insideout",
+      "type": "OrganizationRole",
+      "section": "experience",
+      "roleName": "외주 팀 '인사이드아웃'",
+      "org": "insideout",
+      "orgLine": "성균관대학교 영상학과",
+      "start": "2023",
+      "end": "2024",
+      "body": "대학 공식 유튜브 영상 11편 제작.",
+      "short": "영상학과 외주 팀 '인사이드아웃'"
+    },
+    {
+      "id": "pos-furraid-lead",
+      "type": "OrganizationRole",
+      "section": "project",
+      "roleName": "FUR:RAID 미디어팀 팀장",
+      "org": "productiongal",
+      "event": "furraid",
+      "orgLine": "그니크리에이티브 주관 800명 규모 서브컬처 호텔 컨벤션 · 영상 제작 동인 PRODUCTION GAL 비디오 크루 소속으로 미디어팀 운영",
+      "start": "2025",
+      "end": null,
+      "body": "2025년 사전 티저 기획부터 현장 촬영, 편집, 컬러, 모션, 엔딩크레딧까지 미디어팀을 꾸려 총괄. 2026년에는 티저 조연출을 맡고 공식 리캡과 현장 당일 리캡 3편, 단체 댄스 공식 영상 촬영을 총괄. 미디어팀 10명의 근무 시프트를 직접 작성해 행사 촬영에 공백이 없도록 배치하고 촬영 인원의 컨디션까지 고려해 전체 일정을 관리.",
+      "short": "FUR:RAID 미디어팀 팀장"
+    },
+    {
+      "id": "pos-furraid-2024",
+      "type": "OrganizationRole",
+      "section": "project",
+      "roleName": "FUR:RAID 2024 공식 리캡 촬영·편집 (단독)",
+      "event": "furraid-2024",
+      "orgLine": "FUR:RAID 2024",
+      "start": "2024",
+      "end": "2024",
+      "body": "촬영·편집·컬러·모션 단독 제작. 이듬해 미디어팀 팀장으로 발탁."
+    }
+  ],
+  "categories": ["촬영", "편집", "컬러", "조명", "모션", "연출"],
+  "works": [
+    {
+      "id": "work-furraid-2026-recap", "type": "VideoObject", "featured": 1,
+      "title": "FUR:RAID 2026 공식 리캡", "year": "2026", "clientLabel": "FUR:RAID", "event": "furraid-2026",
+      "youtube": "XScZIS4xzs0", "duration": "4:08", "views": 431,
+      "credit": "촬영·편집·컬러·모션(총괄)", "lead": "총괄", "categories": ["촬영", "편집", "컬러", "모션"],
+      "summary": "사흘간의 컨벤션을 4분으로 담았습니다. 금·토·일 당일 리캡 3편도 현장에서 완성해 그날 바로 올렸습니다.",
+      "cvTag": "행사",
+      "cvDescription": "사흘간의 컨벤션을 4분 리캡으로 제작했습니다. 촬영부터 편집, 컬러까지 총괄하고 행사 로고 모션 일부를 제작했습니다. 또한 금·토·일 각 1분 30초~2분 분량의 리캡 3편을 현장에서 완성해 당일 업로드했습니다.",
+      "cvStats": "미디어팀 10명 · 현장 3일 · 공식 리캡 1편 + SNS용 당일 리캡 3편 납품",
+      "sameDay": {
+        "label": "당일 리캡 X 조회수",
+        "platform": "X",
+        "items": [
+          {"name": "금요일", "url": "https://x.com/furraid_kr/status/2108561368538611762", "views": 15676},
+          {"name": "토요일", "url": "https://x.com/furraid_kr/status/2108923213530923251", "views": 12865},
+          {"name": "일요일", "url": "https://x.com/furraid_kr/status/2109242475143655836", "views": 19867}
+        ]
+      }
+    },
+    {
+      "id": "work-bif-2026-gajuk", "type": "VideoObject", "featured": 3, "partOf": "series-bif-2026",
+      "title": "김푸름 〈가죽〉 LIVE CLIP · 2026 부산국제록페스티벌", "partTitle": "김푸름 〈가죽〉", "year": "2026", "client": "noisy", "event": "bif-2026",
+      "youtube": "V6Mn4gQFzgE", "duration": "3:38", "views": 16707,
+      "credit": "LUT·룩 설계 · 편집 보조", "categories": ["컬러", "편집"],
+      "summary": "출연 8팀, 약 20곡의 라이브 클립 LUT와 룩을 원격으로 설계했습니다. 시리즈에서 가장 많이 본 영상입니다."
+    },
+    {
+      "id": "work-oscar-cover", "type": "VideoObject", "featured": 4,
+      "title": "퍼슈트 Vtuber 오스카 커버 〈너에게 닿기를〉", "year": "2026", "client": "oscar",
+      "youtube": "MzXM5cuDHzc", "duration": "", "views": 10536,
+      "credit": "촬영·편집·컬러(총괄)", "lead": "총괄", "categories": ["촬영", "편집", "컬러"],
+      "summary": "캐릭터의 공식 설정색을 기준으로 컬러를 맞췄습니다. 팬들은 그 색을 기억하고 있으니까요."
+    },
+    {
+      "id": "work-furraid-2026-cover", "type": "VideoObject",
+      "title": "FUR:RAID 2026 오리지널송 스페셜 커버 〈다시 만나잔 인사로〉", "year": "2026", "clientLabel": "FUR:RAID", "event": "furraid-2026",
+      "youtube": "JR489b5mv4g", "duration": "4:08", "views": 5952,
+      "credit": "촬영·편집·DI", "categories": ["촬영", "편집", "컬러"],
+      "summary": "행사 오리지널송의 스페셜 커버. 촬영부터 편집, DI까지 맡았습니다.",
+      "cvTag": "캐릭터",
+      "cvDescription": "행사 오리지널송의 스페셜 커버 영상입니다. 촬영과 편집, DI를 맡았습니다."
+    },
+    {
+      "id": "work-bif-2026-cheolsae", "type": "VideoObject", "partOf": "series-bif-2026",
+      "title": "시인을위하여 〈철새〉 LIVE CLIP · 2026 부산국제록페스티벌", "partTitle": "시인을위하여 〈철새〉", "year": "2026", "client": "noisy", "event": "bif-2026",
+      "youtube": "yFzx0RODuFA", "duration": "4:55", "views": 1070,
+      "credit": "LUT·룩 설계 · 편집 보조", "categories": ["컬러", "편집"],
+      "summary": "같은 시리즈의 라이브 클립. 공연 조명이 바뀌는 속에서도 아티스트의 톤을 일정하게 유지했습니다."
+    },
+    {
+      "id": "work-furraid-2026-dance", "type": "VideoObject",
+      "title": "FUR:RAID 2026 단체 댄스 〈밴텀 선생님과 함께 춤을〉", "year": "2026", "clientLabel": "FUR:RAID", "event": "furraid-2026",
+      "youtube": "trs3IueBJKE", "duration": "2:25", "views": 918,
+      "credit": "촬영(총괄)", "lead": "촬영 총괄", "categories": ["촬영"],
+      "summary": "참가자들이 함께 춘 단체 댄스의 공식 영상입니다."
+    },
+    {
+      "id": "work-gosimjung-live", "type": "VideoObject",
+      "title": "퍼슈트 밴드 〈고심중〉 라이브 클립", "year": "2026", "clientLabel": "외주",
+      "youtube": "6zSygvutSMs", "duration": "6:29", "views": 761,
+      "credit": "조연출·편집·컬러", "categories": ["연출", "편집", "컬러"],
+      "summary": "조명을 제어할 수 없는 라이브 현장. 후반에서 조명 편차를 정리했습니다.",
+      "cvTag": "캐릭터",
+      "cvDescription": "라이브 공연 특성상 조명을 촬영 쪽에서 제어할 수 없는 조건이었습니다. 현장에서는 조연출로 촬영을 보조하고 후반 편집·컬러 단계에서 조명 편차를 최대한 정리했습니다."
+    },
+    {
+      "id": "work-furraid-2025-recap", "type": "VideoObject",
+      "title": "FUR:RAID 2025 공식 리캡", "year": "2025", "clientLabel": "FUR:RAID", "event": "furraid-2025",
+      "youtube": "4tfuB4IzK4s", "duration": "2:30", "views": 1746,
+      "credit": "촬영·편집·컬러·모션(총괄)", "lead": "총괄", "categories": ["촬영", "편집", "컬러", "모션"],
+      "summary": "사흘간의 현장을 2분 30초로. 미디어팀을 꾸려 티저부터 엔딩크레딧까지 맡았습니다.",
+      "cvTag": "행사",
+      "cvDescription": "3일간 진행된 서브컬처 컨벤션을 2분 30초 리캡으로 제작했습니다. 일정 시프트와 셀렉 가이드를 만들어 미디어팀을 운영했습니다. 참가자가 800명으로 늘었고 색온도가 낮은 호텔 조명과 색이 계속 바뀌는 무대 조명이 섞여 컷마다 톤을 맞춰야 했습니다.",
+      "cvStats": "사진팀 5명 · 영상팀 2명 · 현장 3일 · 티저·리캡·엔딩크레딧 3종 납품"
+    },
+    {
+      "id": "work-asmr", "type": "VideoObject", "featured": 2,
+      "title": "교수님이 말아주는 탭핑 & 토킹 ASMR", "year": "2024", "client": "skku", "clientLabel": "성균관대학교 공식 유튜브",
+      "youtube": "hC3jcEM-Ea4", "duration": "15:34", "views": 129103,
+      "credit": "조명감독", "lead": "조명감독", "categories": ["조명"],
+      "summary": "15분에 가까운 인터뷰 내내 표정과 피부 톤이 흔들리지 않도록 빛을 설계했습니다.",
+      "cvTag": "조명",
+      "cvDescription": "플랫한 인터뷰 조명 설계 및 운영을 맡았습니다. 촬영 특성상 대화 흐름 내내 인물의 표정과 피부 톤이 안정적으로 보이도록 라이팅을 구성했습니다. 참여작 중 가장 많이 재생된 영상입니다."
+    },
+    {
+      "id": "work-asadal-mv", "type": "VideoObject",
+      "title": "아사달 〈아사녀 (Moonriver)〉 뮤직비디오", "year": "2024", "client": "poclanos",
+      "youtube": "M7PsPvCh2vg", "duration": "4:16", "views": 27146,
+      "credit": "조명부", "categories": ["조명"],
+      "summary": "첫 상업 작업. LED 백그라운드 앞에서 반사와 잡광을 정리하며 장면마다 빛을 바꿨습니다.",
+      "cvTag": "조명",
+      "cvDescription": "첫 상업 작업으로 뮤직비디오 조명부에 참여했습니다. 장면마다 바뀌는 분위기에 맞춰 광원 위치와 색온도를 조정했습니다. LED 백그라운드 환경에서는 필터로 반사와 잡광을 정리했습니다."
+    },
+    {
+      "id": "work-daedongje-2024", "type": "VideoObject",
+      "title": "2024 대동제: 청춘전야 스케치", "year": "2024", "client": "sure", "event": "daedongje-2024",
+      "youtube": "wL_vEktTsO0", "duration": "4:22", "views": 1415,
+      "credit": "촬영", "categories": ["촬영"],
+      "summary": "수천 명이 모인 야외 축제. 해질녘부터 무대 조명까지 바뀌는 색온도를 촬영 중에 계속 맞췄습니다.",
+      "cvTag": "행사",
+      "cvDescription": "수천 명 규모의 야외 축제 스케치 촬영을 담당했습니다. 해질녘 자연광에서 무대 조명으로 색온도가 계속 바뀌는 조건이라, 시간대별로 노출과 화이트밸런스를 촬영 중 지속적으로 재조정했습니다. 완성 영상은 총학생회 공식 채널과 인스타그램에 게시되었습니다."
+    },
+    {
+      "id": "work-eskara-2024", "type": "VideoObject",
+      "title": "ESKARA: 초록의 파도 — 시네마틱 트레일러", "year": "2024", "client": "sure", "event": "eskara-2024",
+      "youtube": "T5497AajItY", "duration": "1:06", "views": 1002,
+      "credit": "촬영", "categories": ["촬영"],
+      "summary": "행사 3주 전에 공개한 66초 사전 티저. 사람들을 축제로 부르는 것이 목적이었습니다.",
+      "cvTag": "행사",
+      "cvDescription": "행사 3주 전 공개되는 66초 사전 티저를 촬영했습니다. 실제 행사 분위기를 담은 시네마틱 톤으로 기획·촬영했습니다."
+    },
+    {
+      "id": "work-furraid-2024-recap", "type": "VideoObject",
+      "title": "FUR:RAID 2024 공식 리캡", "year": "2024", "clientLabel": "FUR:RAID", "event": "furraid-2024",
+      "youtube": "fg9mPB_qlJo", "duration": "2:20", "views": 986,
+      "credit": "촬영·편집·컬러·모션(단독)", "lead": "단독 제작", "categories": ["촬영", "편집", "컬러", "모션"],
+      "summary": "혼자 찍고 편집하고 색까지 잡은 첫 행사 리캡. 이 한 편으로 이듬해 미디어팀을 맡게 됐습니다."
+    },
+    {
+      "id": "work-gohanora-2023", "type": "VideoObject",
+      "title": "2023 고하노라 스케치", "year": "2023", "client": "cheongrang", "event": "gohanora-2023",
+      "youtube": "CtlZSifwiNg", "duration": "3:25", "views": 2049,
+      "credit": "촬영", "categories": ["촬영"],
+      "summary": "혜화에서 청계천까지 이어진 행진을 따라가며 기록했습니다. 카메라 한 대가 부서졌지만 서브캠으로 끝까지 담았습니다.",
+      "cvTag": "행사",
+      "cvDescription": "실외 행진 행사를 기록했습니다. 혜화에서 청계천까지 이어지는 행진 구간을 이동하며 촬영해 정적인 세팅 없이 현장 상황에 맞춰 앵글과 동선을 즉시 판단해야 했습니다. 촬영 도중 카메라 한 대가 파손됐지만 개인 서브캠을 즉시 투입해 빠지는 앵글 없이 촬영을 마쳤습니다."
+    },
+    {
+      "id": "work-street-fighter", "type": "VideoObject",
+      "title": "유생 계급 댄스 비디오 〈스트릿 성균관 파이터〉", "year": "2023", "client": "skku", "clientLabel": "성균관대학교 공식 유튜브",
+      "youtube": "tT-cb9IMQm8", "duration": "1:45", "views": 4595,
+      "credit": "조명부", "categories": ["조명"],
+      "summary": "계속 움직이는 안무를 위해 촬영 전에 동선을 읽고 빛의 방향을 미리 정해 두었습니다.",
+      "cvTag": "조명",
+      "cvDescription": "움직임이 큰 안무 촬영의 조명을 맡았습니다. 피사체가 계속 이동하는 조건이라 촬영 전 동선을 파악해 빛의 방향과 그림자 위치를 미리 정해두었습니다. 프리프로덕션 단계에서 조명 장비의 광량 한계를 먼저 확인하고 현장 조명과 후반 그레이딩의 역할을 나눠 계획했습니다. 부족한 노출은 그레이딩에서 끌어올리고 NR로 정리했습니다."
+    }
+  ],
+  "series": [
+    {
+      "id": "series-bif-2026", "type": "CreativeWorkSeries",
+      "title": "2026 부산국제록페스티벌 LIVE CLIP 시리즈", "year": "2026", "client": "noisy", "event": "bif-2026",
+      "credit": "LUT·룩 설계 · 편집 보조",
+      "cvTag": "컬러",
+      "cvDescription": "출연 8팀, 약 20곡의 라이브 클립 LUT와 룩을 원격으로 설계하고 편집을 보조했습니다.",
+      "partsLabel": "공개된 클립",
+      "parts": [
+        {"name": "블낫블 〈EXIT〉", "url": "https://www.youtube.com/watch?v=oI1jxyXKgqE"},
+        {"name": "블낫블 〈오늘의 주인공은 너야〉", "url": "https://www.youtube.com/watch?v=hNZ3hAH-J_E"},
+        {"name": "아스라이 〈blue, blue!〉", "url": "https://www.instagram.com/asraii.official/reel/DerJZFWz0Eu/"},
+        {"name": "아스라이 〈우리의 여름은 푸른 무지개를 달려〉", "url": "https://www.instagram.com/asraii.official/reel/DerHribTIgk/"},
+        {"work": "work-bif-2026-gajuk"},
+        {"name": "김푸름 〈사는 게 숨이 차도〉", "url": "https://www.youtube.com/watch?v=LjgHlhQVUrw"},
+        {"work": "work-bif-2026-cheolsae"},
+        {"name": "시인을위하여 〈느린박자〉", "url": "https://www.youtube.com/watch?v=brZbUmcku-E"}
+      ]
+    }
+  ],
+  "films": [
+    {"id": "film-gift", "type": "Movie", "title": "Gift", "org": "skku-film", "kind": "졸업작품", "roles": ["제작부"]},
+    {"id": "film-heading", "type": "Movie", "title": "Heading", "org": "skku-film", "kind": "졸업작품", "roles": ["연출부", "제작부"]},
+    {"id": "film-magam", "type": "Movie", "title": "마감", "org": "skku-film", "kind": "졸업작품", "roles": ["조명부"]},
+    {"id": "film-wrapping-paper", "type": "Movie", "title": "Wrapping Paper", "org": "skku-film", "kind": "작품", "roles": ["조명부"]}
+  ],
+  "tools": [
+    {"id": "tool-premiere", "type": "SoftwareApplication", "name": "Premiere Pro"},
+    {"id": "tool-resolve", "type": "SoftwareApplication", "name": "DaVinci Resolve Studio"},
+    {"id": "tool-aftereffects", "type": "SoftwareApplication", "name": "After Effects"},
+    {"id": "tool-illustrator", "type": "SoftwareApplication", "name": "Illustrator"},
+    {"id": "tool-photoshop", "type": "SoftwareApplication", "name": "Photoshop"},
+    {"id": "tool-figma", "type": "SoftwareApplication", "name": "Figma"},
+    {"id": "tool-lightroom", "type": "SoftwareApplication", "name": "Lightroom"},
+    {"id": "cam-fx6", "type": "Product", "name": "Sony FX6"},
+    {"id": "cam-fx3", "type": "Product", "name": "Sony FX3"},
+    {"id": "cam-a7iii", "type": "Product", "name": "Sony α7 III"},
+    {"id": "cam-a7iv", "type": "Product", "name": "Sony α7 IV"},
+    {"id": "cam-a7v", "type": "Product", "name": "Sony α7 V"},
+    {"id": "cam-c50", "type": "Product", "name": "Canon EOS C50"},
+    {"id": "cam-r5ii", "type": "Product", "name": "Canon EOS R5 Mark II"},
+    {"id": "cam-r6iii", "type": "Product", "name": "Canon EOS R6 Mark III"},
+    {"id": "lens-2470gm2", "type": "Product", "name": "Sony FE 24-70mm F2.8 GM II"},
+    {"id": "mbp-m1pro", "type": "Product", "name": "MacBook Pro M1 Pro"}
+  ],
+  "skills": [
+    {
+      "id": "skill-tools", "type": "DefinedTermSet", "name": "툴",
+      "tools": ["tool-premiere", "tool-resolve", "tool-aftereffects", "tool-illustrator", "tool-photoshop", "tool-figma", "tool-lightroom"],
+      "items": [
+        "편집·컬러 — Premiere Pro, DaVinci Resolve Studio (컬러 그레이딩, LUT 설계)",
+        "모션·디자인 — After Effects, Illustrator, Photoshop, Figma",
+        "사진 — Lightroom"
+      ]
+    },
+    {
+      "id": "skill-camera", "type": "DefinedTermSet", "name": "카메라",
+      "tools": ["cam-fx6", "cam-fx3", "cam-a7iii", "cam-a7iv", "cam-a7v", "cam-c50", "cam-r5ii", "cam-r6iii"],
+      "items": [
+        "Sony — FX6, FX3, α7 III · α7 IV · α7 V 등 소니 미러리스 전반",
+        "Canon — EOS C50, EOS R5 Mark II, EOS R6 Mark III"
+      ]
+    },
+    {
+      "id": "skill-lighting", "type": "DefinedTermSet", "name": "조명",
+      "items": [
+        "조명감독 5편 · 조명부 7편 참여",
+        "시네마틱 라이팅 플랜 수립 및 실행 — 촬영 전 콘티 단계에서 광원 위치·색온도·명암비를 설계하고 현장에서 실시간 조정",
+        "형광등·무대 LED·자연광이 혼합된 환경에서의 조명 대응 및 노출 관리",
+        "움직임이 큰 피사체 (안무, 행진 등) 촬영을 위한 사전 동선 기반 조명 설계",
+        "인터뷰·롱테이크 촬영에서 표정·피부 톤이 안정적으로 유지되는 조명 설계 및 구현"
+      ]
+    },
+    {
+      "id": "skill-color", "type": "DefinedTermSet", "name": "컬러 그레이딩",
+      "items": [
+        "다중 카메라·혼합광 촬영본의 스킨톤 매칭",
+        "S-Log2/3 · V-Log · C-Log 소스를 Rec.709 / Gamma 2.4로 변환·그레이딩",
+        "BRAW · ProRes RAW 소스를 Rec.709 / Gamma 2.4로 현상·그레이딩",
+        "XML · EDL 타임라인 납품",
+        "캐릭터·코스튬 공식 설정색 기준 컬러 매칭",
+        "스킨톤 정리 및 시네마틱 룩 설계"
+      ]
+    },
+    {
+      "id": "skill-production", "type": "DefinedTermSet", "name": "제작·연출",
+      "items": [
+        "행사 미디어팀 근무 시프트 설계 — 촬영 공백 없는 인원 배치",
+        "사전 티저 기획부터 현장 촬영, 편집, 모션, 엔딩크레딧까지 전 과정 프로젝트 총괄",
+        "현장 동시다발 상황에서의 실시간 인력 조율 및 앵글·동선 조정",
+        "촬영 당일 편집·컬러·납품 가능"
+      ]
+    }
+  ],
+  "gear": {
+    "note": "필요하면 현장·클라이언트 장비도 운용합니다. 소니 FX6·FX3·α7 시리즈, 캐논 C50·R5 Mark II·R6 Mark III 운용 경험이 있습니다.",
+    "items": [
+      {"kind": "카메라", "tool": "cam-fx3", "icon": "camera", "note": "짐벌과 함께 운용합니다."},
+      {"kind": "렌즈", "tool": "lens-2470gm2", "icon": "aperture", "note": "표준 줌 한 개로 행사 현장에 대응합니다."},
+      {"kind": "편집", "tool": "mbp-m1pro", "icon": "laptop", "note": "현장에서 당일 편집·납품까지 가능합니다."},
+      {"kind": "그레이딩", "tool": "tool-resolve", "icon": "sliders", "note": "컬러 그레이딩과 LUT 설계를 직접 진행합니다."}
+    ]
+  },
+  "business": {
+    "services": [
+      {
+        "id": "svc-event", "type": "Service", "icon": "video", "name": "행사 스케치 촬영",
+        "description": "사전 티저부터 현장, 리캡, 숏폼까지 행사의 처음과 끝을 담습니다.",
+        "items": ["반나절(촬영 4시간 이하) · 종일(8시간 이하)", "현장음 수음 — 장비 구성은 협의", "컬러 그레이딩 포함", "하이라이트 1편 · 세로·숏폼 추가본은 별도", "수정 2회 포함"]
+      },
+      {
+        "id": "svc-color", "type": "Service", "icon": "palette", "name": "컬러 그레이딩",
+        "description": "촬영본만 보내주셔도 됩니다. 전 과정 원격으로 진행하며 색으로 고칠 수 없는 부분은 먼저 말씀드립니다.",
+        "items": ["다중 카메라 · 혼합광 톤 매칭", "스킨톤 정리 · 색온도 보정", "캐릭터 · 코스튬은 공식 설정색 기준 매칭", "S-Log · V-Log · C-Log · BRAW · ProRes RAW 소스 대응", "1차 작업 후 확인 단계 · XML/EDL 납품 가능"]
+      }
+    ],
+    "brief": [
+      {"key": "date", "icon": "calendar", "label": "행사 날짜", "hint": "하루인지, 며칠인지도 함께", "required": true},
+      {"key": "place", "icon": "map-pin", "label": "장소", "hint": "도시와 장소 이름이면 충분합니다", "required": true},
+      {"key": "type", "icon": "video", "label": "원하는 작업", "hint": "둘 다 고르셔도 됩니다", "required": false, "options": "services"},
+      {"key": "moment", "icon": "clipboard", "label": "꼭 담아야 할 순간", "hint": "타임테이블이 있다면 함께 보내 주세요", "required": false, "input": "textarea"},
+      {"key": "ref", "icon": "link", "label": "참고 영상", "hint": "원하는 분위기의 링크 한두 개", "required": false, "input": "url"},
+      {"key": "name", "icon": "user", "label": "성함 · 단체명", "hint": "답장드릴 때 부를 이름", "required": false}
+    ],
+    "quick": [
+      {"icon": "message", "text": "상담과 견적은 무료입니다"},
+      {"icon": "clock", "text": "하루 안에 답장드립니다"},
+      {"icon": "calendar", "text": "가능하면 행사 한 달 전에 문의해 주세요"}
+    ],
+    "replyNote": "행사 날짜와 장소만 알려주셔도 괜찮습니다. 하루 안에 답장드립니다.",
+    "bookingNote": "행사는 날짜가 정해져 있어 일정이 빨리 차니, 가능하면 한 달 전에 문의해 주세요.",
+    "process": [
+      {"icon": "message", "name": "문의 · 상담", "body": "행사 날짜와 장소, 영상의 용도를 여쭙습니다. 상담과 견적은 무료입니다."},
+      {"icon": "clipboard", "name": "계획표 전달", "body": "타임테이블을 받아 촬영 계획표를 먼저 드립니다. 꼭 담아야 할 순간이 있다면 그것부터 알려주세요."},
+      {"icon": "file", "name": "계약", "body": "범위와 납기를 문서로 확정합니다. 계약금 50%를 받은 뒤 일정을 확정합니다."},
+      {"icon": "camera", "name": "촬영", "body": "행사는 재촬영이 없기 때문에, 계획표에서 정한 순간부터 놓치지 않게 담습니다."},
+      {"icon": "eye", "name": "초안 · 확인", "body": "편집 초안을 먼저 보여드립니다. 컬러는 1차 작업 후 반드시 확인 단계를 거칩니다."},
+      {"icon": "send", "name": "납품", "body": "수정 2회 포함. 용도별 규격으로 내보내 드리고 원본은 6개월간 보관합니다."}
+    ],
+    "faq": [
+      {"q": "촬영만 또는 컬러만 맡길 수 있나요?", "a": "네. 촬영본을 보내주시면 컬러만 진행합니다. 반대로 촬영만 필요하시면 그렇게 견적을 드립니다."},
+      {"q": "납품까지 얼마나 걸리나요?", "a": "행사 리캡은 보통 2주 내외, 컬러 단독은 1주 이내입니다. 행사 성격에 따라 조율합니다."},
+      {"q": "촬영 인원은 몇 명인가요?", "a": "기본은 1인이며, 규모가 큰 행사는 촬영 인원을 팀으로 구성해 운영합니다."},
+      {"q": "원본 파일도 받을 수 있나요?", "a": "협의 가능합니다. 용량이 크기 때문에 전달 방식은 사전에 정합니다."}
+    ]
+  },
+  "pages": {
+    "portfolio:index": {
+      "site": "portfolio", "path": "", "file": "index.html",
+      "title": "주황색 영상공방 · 황태건",
+      "description": "행사 현장을 촬영하고 색까지 직접 잡는 1인 영상공방, 황태건의 포트폴리오입니다. 촬영 · 컬러 그레이딩 · 조명.",
+      "stats": [
+        {"value": "$views_total", "label": "참여작 누적 조회수"},
+        {"value": "$lighting_total편", "label": "조명 참여 · 감독 $lighting_director · 조명부 $lighting_crew", "jumpCat": "조명"},
+        {"value": "$furraid_years년 연속", "label": "FUR:RAID 공식 리캡 제작"},
+        {"value": "당일 $sameday_count편", "label": "현장에서 완성한 행사 리캡"}
+      ],
+      "partners": [
+        {"org": "skku", "note": "공식 유튜브 채널"},
+        {"org": "poclanos", "note": "뮤직비디오"},
+        {"org": "noisy", "note": "부산국제록페스티벌 라이브 클립"},
+        {"label": "FUR:RAID", "note": "800명 규모 컨벤션 미디어팀"},
+        {"org": "sure", "note": "축제 · 홍보 영상"},
+        {"org": "cheongrang", "note": "고하노라 행사 기록"}
+      ]
+    },
+    "portfolio:request": {
+      "site": "portfolio", "path": "request.html", "file": "request.html",
+      "title": "의뢰 안내 · 주황색 영상공방",
+      "description": "행사 스케치 촬영과 컬러 그레이딩 의뢰 안내. 보내주실 내용, 진행 순서, 장비, 연락처를 정리했습니다."
+    },
+    "portfolio:guide": {
+      "site": "portfolio", "path": "guide.html", "file": "guide.html",
+      "title": "서비스 소개서 · 주황색 영상공방",
+      "description": "주황색 영상공방 서비스 소개서(A4). 행사 스케치 촬영, 컬러 그레이딩, 진행 방식과 자주 묻는 질문."
+    },
+    "cv:index": {
+      "site": "cv", "path": "", "file": "index.html",
+      "title": "황태건 이력서",
+      "description": "행사 현장을 촬영하고 컬러까지 직접 마무리하는 영상 제작자 황태건의 이력서입니다.",
+      "role": "Videographer · Colorist · Lighting",
+      "summary": "행사 현장을 촬영하고 컬러까지 직접 마무리하는 영상 제작자입니다. 영화 현장 조명부에서 시작해 빛과 노출을 현장에서 잡는 법을 익혔고 학과 졸업작품 현장을 거쳐 현재는 행사 스케치 촬영과 컬러 그레이딩을 주로 맡고 있습니다. 다중 카메라·혼합광 환경에서도 톤이 흐트러지지 않게 작업하며 자연스러운 스킨톤과 캐릭터 설정색을 기준으로 컬러를 정리합니다. FUR:RAID 2026에서는 미디어팀 10명을 이끌며 금·토·일 리캡을 현장에서 완성해 당일 업로드했습니다.",
+      "works": ["work-asmr", "work-asadal-mv", "series-bif-2026", "work-furraid-2026-recap", "work-furraid-2025-recap", "work-daedongje-2024", "work-gohanora-2023"],
+      "skills": ["skill-tools", "skill-camera", "skill-lighting", "skill-color", "skill-production"]
+    },
+    "cv:di": {
+      "site": "cv", "path": "di.html", "file": "di.html",
+      "title": "황태건 이력서 · 컬러 / DI",
+      "description": "다중 카메라·혼합광 촬영본의 톤을 맞추는 컬러 작업 중심의 황태건 이력서입니다.",
+      "role": "Colorist · Videographer",
+      "summary": "다중 카메라·혼합광 촬영본의 톤을 맞추는 컬러 작업을 주로 합니다. DaVinci Resolve Studio로 행사·라이브·캐릭터 영상을 그레이딩하며 2026 부산국제록페스티벌에서는 출연 8팀, 약 20곡 라이브 클립의 LUT와 룩을 설계했습니다. 색온도가 낮은 호텔 조명과 무대 LED가 섞인 컨벤션 촬영본을 자연스러운 스킨톤 기준으로 정리하고 캐릭터·코스튬은 공식 설정색을 기준으로 맞춥니다. 영화 현장 조명부에서 시작해 소스가 어떤 빛 아래에서 찍혔는지 읽고 그레이딩합니다.",
+      "works": ["series-bif-2026", "work-furraid-2026-cover", "work-furraid-2026-recap", "work-furraid-2025-recap", "work-gosimjung-live", "work-street-fighter"],
+      "skills": ["skill-color", "skill-tools", "skill-lighting", "skill-camera", "skill-production"]
+    },
+    "cv:inhouse": {
+      "site": "cv", "path": "inhouse.html", "file": "inhouse.html",
+      "title": "황태건 이력서 · 인하우스 영상",
+      "description": "촬영부터 편집, 컬러, 당일 납품까지 혼자 마무리하는 영상 제작자 황태건의 이력서입니다.",
+      "role": "Videographer · Editor · Colorist",
+      "summary": "행사 현장을 촬영부터 편집, 컬러, 납품까지 혼자 마무리하는 영상 제작자입니다. 영화 현장 조명부에서 시작해 빛과 노출을 현장에서 잡는 법을 익혔고 대학 공식 유튜브와 총학생회 영상을 거쳐 800명 규모 컨벤션의 미디어팀을 이끌고 있습니다. FUR:RAID 2026에서는 금·토·일 리캡을 현장에서 완성해 당일 업로드했고 X 조회수 합산 4.8만 회를 기록했습니다. 2025년에는 사진·영상 7명 팀의 일정 시프트와 셀렉 가이드를 직접 만들어 티저·리캡·엔딩크레딧 3종을 납품했습니다.",
+      "works": ["work-asmr", "work-furraid-2026-recap", "work-furraid-2025-recap", "work-furraid-2026-cover", "work-daedongje-2024", "work-eskara-2024", "work-gohanora-2023", "work-asadal-mv"],
+      "skills": ["skill-production", "skill-tools", "skill-camera", "skill-lighting", "skill-color"]
+    }
+  },
+  "cvClients": ["skku", "poclanos", "cheongrang", "noisy"]
+}
