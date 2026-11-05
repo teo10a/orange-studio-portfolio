@@ -9,7 +9,7 @@
 - 조명 참여: 조명감독 5편 · 조명부 7편
 - 쇼릴: https://teo10a.github.io/orange-studio-portfolio/media/showreel.mp4 (0:47)
 - 구조화 데이터 원본: https://teo10a.github.io/orange-studio-portfolio/data/cv.json (schema.org 타입과 고정 id로 정리, 이 파일과 각 페이지 JSON-LD는 여기서 생성)
-- 기준일: 2026-11-06
+- 기준일: 2026-11-06 (YouTube 조회수는 2026-11-06 기준, FUR:RAID 당일 리캡 수치는 X 조회수)
 
 ## 페이지
 
@@ -20,10 +20,10 @@
 
 ## 대표작
 
-- [FUR:RAID 2026 공식 리캡](https://www.youtube.com/watch?v=XScZIS4xzs0): 2026 · FUR:RAID · 촬영·편집·컬러·모션(총괄) · 조회수 431. 사흘간의 컨벤션을 4분으로 담았습니다. 금·토·일 당일 리캡 3편도 현장에서 완성해 그날 바로 올렸습니다.
-- [교수님이 말아주는 탭핑 & 토킹 ASMR](https://www.youtube.com/watch?v=hC3jcEM-Ea4): 2024 · 성균관대학교 공식 유튜브 · 조명감독 · 조회수 129,103. 15분에 가까운 인터뷰 내내 표정과 피부 톤이 흔들리지 않도록 빛을 설계했습니다.
-- [김푸름 〈가죽〉 LIVE CLIP · 2026 부산국제록페스티벌](https://www.youtube.com/watch?v=V6Mn4gQFzgE): 2026 · Noisy Neighborhood · LUT·룩 설계 · 편집 보조 · 조회수 16,707. 출연 8팀, 약 20곡의 라이브 클립 LUT와 룩을 원격으로 설계했습니다. 시리즈에서 가장 많이 본 영상입니다.
-- [퍼슈트 Vtuber 오스카 커버 〈너에게 닿기를〉](https://www.youtube.com/watch?v=MzXM5cuDHzc): 2026 · 오스카 · 촬영·편집·컬러(총괄) · 조회수 10,536. 캐릭터의 공식 설정색을 기준으로 컬러를 맞췄습니다. 팬들은 그 색을 기억하고 있으니까요.
+- [FUR:RAID 2026 공식 리캡](https://www.youtube.com/watch?v=XScZIS4xzs0): 2026 · FUR:RAID · 촬영·편집·컬러·모션(총괄) · 조회수 710. 사흘간의 컨벤션을 4분으로 담았습니다. 금·토·일 당일 리캡 3편도 현장에서 완성해 그날 바로 올렸습니다.
+- [교수님이 말아주는 탭핑 & 토킹 ASMR](https://www.youtube.com/watch?v=hC3jcEM-Ea4): 2024 · 성균관대학교 공식 유튜브 · 조명감독 · 조회수 131,383. 15분에 가까운 인터뷰 내내 표정과 피부 톤이 흔들리지 않도록 빛을 설계했습니다.
+- [김푸름 〈가죽〉 LIVE CLIP · 2026 부산국제록페스티벌](https://www.youtube.com/watch?v=V6Mn4gQFzgE): 2026 · Noisy Neighborhood · LUT·룩 설계 · 편집 보조 · 조회수 16,862. 출연 8팀, 약 20곡의 라이브 클립 LUT와 룩을 원격으로 설계했습니다. 시리즈에서 가장 많이 본 영상입니다.
+- [퍼슈트 Vtuber 오스카 커버 〈너에게 닿기를〉](https://www.youtube.com/watch?v=MzXM5cuDHzc): 2026 · 오스카 · 촬영·편집·컬러(총괄) · 조회수 10,780. 캐릭터의 공식 설정색을 기준으로 컬러를 맞췄습니다. 팬들은 그 색을 기억하고 있으니까요.
 
 ## 의뢰
 
@@ -37,14 +37,14 @@
 
 ## Optional
 
-- [FUR:RAID 2026 오리지널송 스페셜 커버 〈다시 만나잔 인사로〉](https://www.youtube.com/watch?v=JR489b5mv4g): 2026 · FUR:RAID · 촬영·편집·DI · 조회수 5,952. 행사 오리지널송의 스페셜 커버. 촬영부터 편집, DI까지 맡았습니다.
-- [시인을위하여 〈철새〉 LIVE CLIP · 2026 부산국제록페스티벌](https://www.youtube.com/watch?v=yFzx0RODuFA): 2026 · Noisy Neighborhood · LUT·룩 설계 · 편집 보조 · 조회수 1,070. 같은 시리즈의 라이브 클립. 공연 조명이 바뀌는 속에서도 아티스트의 톤을 일정하게 유지했습니다.
-- [FUR:RAID 2026 단체 댄스 〈밴텀 선생님과 함께 춤을〉](https://www.youtube.com/watch?v=trs3IueBJKE): 2026 · FUR:RAID · 촬영(총괄) · 조회수 918. 참가자들이 함께 춘 단체 댄스의 공식 영상입니다.
-- [퍼슈트 밴드 〈고심중〉 라이브 클립](https://www.youtube.com/watch?v=6zSygvutSMs): 2026 · 외주 · 조연출·편집·컬러 · 조회수 761. 조명을 제어할 수 없는 라이브 현장. 후반에서 조명 편차를 정리했습니다.
-- [FUR:RAID 2025 공식 리캡](https://www.youtube.com/watch?v=4tfuB4IzK4s): 2025 · FUR:RAID · 촬영·편집·컬러·모션(총괄) · 조회수 1,746. 사흘간의 현장을 2분 30초로. 미디어팀을 꾸려 티저부터 엔딩크레딧까지 맡았습니다.
-- [아사달 〈아사녀 (Moonriver)〉 뮤직비디오](https://www.youtube.com/watch?v=M7PsPvCh2vg): 2024 · POCLANOS · 조명부 · 조회수 27,146. 첫 상업 작업. LED 백그라운드 앞에서 반사와 잡광을 정리하며 장면마다 빛을 바꿨습니다.
-- [2024 대동제: 청춘전야 스케치](https://www.youtube.com/watch?v=wL_vEktTsO0): 2024 · 총학생회 SURE · 촬영 · 조회수 1,415. 수천 명이 모인 야외 축제. 해질녘부터 무대 조명까지 바뀌는 색온도를 촬영 중에 계속 맞췄습니다.
-- [ESKARA: 초록의 파도 — 시네마틱 트레일러](https://www.youtube.com/watch?v=T5497AajItY): 2024 · 총학생회 SURE · 촬영 · 조회수 1,002. 행사 3주 전에 공개한 66초 사전 티저. 사람들을 축제로 부르는 것이 목적이었습니다.
-- [FUR:RAID 2024 공식 리캡](https://www.youtube.com/watch?v=fg9mPB_qlJo): 2024 · FUR:RAID · 촬영·편집·컬러·모션(단독) · 조회수 986. 혼자 찍고 편집하고 색까지 잡은 첫 행사 리캡. 이 한 편으로 이듬해 미디어팀을 맡게 됐습니다.
-- [2023 고하노라 스케치](https://www.youtube.com/watch?v=CtlZSifwiNg): 2023 · 성균관대학교 청랑 · 촬영 · 조회수 2,049. 혜화에서 청계천까지 이어진 행진을 따라가며 기록했습니다. 카메라 한 대가 부서졌지만 서브캠으로 끝까지 담았습니다.
-- [유생 계급 댄스 비디오 〈스트릿 성균관 파이터〉](https://www.youtube.com/watch?v=tT-cb9IMQm8): 2023 · 성균관대학교 공식 유튜브 · 조명부 · 조회수 4,595. 계속 움직이는 안무를 위해 촬영 전에 동선을 읽고 빛의 방향을 미리 정해 두었습니다.
+- [FUR:RAID 2026 오리지널송 스페셜 커버 〈다시 만나잔 인사로〉](https://www.youtube.com/watch?v=JR489b5mv4g): 2026 · FUR:RAID · 촬영·편집·DI · 조회수 6,449. 행사 오리지널송의 스페셜 커버. 촬영부터 편집, DI까지 맡았습니다.
+- [시인을위하여 〈철새〉 LIVE CLIP · 2026 부산국제록페스티벌](https://www.youtube.com/watch?v=yFzx0RODuFA): 2026 · Noisy Neighborhood · LUT·룩 설계 · 편집 보조 · 조회수 1,169. 같은 시리즈의 라이브 클립. 공연 조명이 바뀌는 속에서도 아티스트의 톤을 일정하게 유지했습니다.
+- [FUR:RAID 2026 단체 댄스 〈밴텀 선생님과 함께 춤을〉](https://www.youtube.com/watch?v=trs3IueBJKE): 2026 · FUR:RAID · 촬영(총괄) · 조회수 991. 참가자들이 함께 춘 단체 댄스의 공식 영상입니다.
+- [퍼슈트 밴드 〈고심중〉 라이브 클립](https://www.youtube.com/watch?v=6zSygvutSMs): 2026 · 외주 · 조연출·편집·컬러 · 조회수 798. 조명을 제어할 수 없는 라이브 현장. 후반에서 조명 편차를 정리했습니다.
+- [FUR:RAID 2025 공식 리캡](https://www.youtube.com/watch?v=4tfuB4IzK4s): 2025 · FUR:RAID · 촬영·편집·컬러·모션(총괄) · 조회수 2,543. 사흘간의 현장을 2분 30초로. 미디어팀을 꾸려 티저부터 엔딩크레딧까지 맡았습니다.
+- [아사달 〈아사녀 (Moonriver)〉 뮤직비디오](https://www.youtube.com/watch?v=M7PsPvCh2vg): 2024 · POCLANOS · 조명부 · 조회수 27,313. 첫 상업 작업. LED 백그라운드 앞에서 반사와 잡광을 정리하며 장면마다 빛을 바꿨습니다.
+- [2024 대동제: 청춘전야 스케치](https://www.youtube.com/watch?v=wL_vEktTsO0): 2024 · 총학생회 SURE · 촬영 · 조회수 1,421. 수천 명이 모인 야외 축제. 해질녘부터 무대 조명까지 바뀌는 색온도를 촬영 중에 계속 맞췄습니다.
+- [ESKARA: 초록의 파도 — 시네마틱 트레일러](https://www.youtube.com/watch?v=T5497AajItY): 2024 · 총학생회 SURE · 촬영 · 조회수 1,031. 행사 3주 전에 공개한 66초 사전 티저. 사람들을 축제로 부르는 것이 목적이었습니다.
+- [FUR:RAID 2024 공식 리캡](https://www.youtube.com/watch?v=fg9mPB_qlJo): 2024 · FUR:RAID · 촬영·편집·컬러·모션(단독) · 조회수 1,051. 혼자 찍고 편집하고 색까지 잡은 첫 행사 리캡. 이 한 편으로 이듬해 미디어팀을 맡게 됐습니다.
+- [2023 고하노라 스케치](https://www.youtube.com/watch?v=CtlZSifwiNg): 2023 · 성균관대학교 청랑 · 촬영 · 조회수 2,083. 혜화에서 청계천까지 이어진 행진을 따라가며 기록했습니다. 카메라 한 대가 부서졌지만 서브캠으로 끝까지 담았습니다.
+- [유생 계급 댄스 비디오 〈스트릿 성균관 파이터〉](https://www.youtube.com/watch?v=tT-cb9IMQm8): 2023 · 성균관대학교 공식 유튜브 · 조명부 · 조회수 4,629. 계속 움직이는 안무를 위해 촬영 전에 동선을 읽고 빛의 방향을 미리 정해 두었습니다.

@@ -86,9 +86,11 @@ section{padding:112px 0}
 .stat+.stat{padding-left:28px;border-left:1px solid var(--line-dark)}
 .stat b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(24px,2.4vw,32px);line-height:1.2;color:var(--on-dark);font-variant-numeric:tabular-nums}
 .stat span{display:block;font-size:14px;color:var(--on-dark-muted);margin-top:8px}
+.stats-note{margin:0;padding:0 0 24px;font-size:13px;color:var(--on-dark-muted)}
 .stat-link{color:inherit;display:block;transition:background .2s}
 .stat-link:hover{background:rgba(237,230,218,.04)}
 .stat-link .ic{--ic:16px;color:var(--orange);vertical-align:-3px}
+.stat-link .jump{margin-top:4px;color:var(--on-dark)}
 
 /* ---------- 대표작 ---------- */
 .featured{padding-bottom:96px}

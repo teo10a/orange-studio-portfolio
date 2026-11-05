@@ -2,7 +2,12 @@
 """data/cv.json 하나로 포트폴리오와 이력서의 데이터 영역을 다시 만듭니다.
 
   python3 build.py          # 생성 영역·sitemap·robots·llms.txt를 다시 씀
-  python3 build.py --check  # 디스크 내용이 data/cv.json과 다르면 목록을 찍고 1로 종료
+  python3 build.py --check  # 디스크 내용이 data/cv.json과 다르거나, 이력서가 가리키는 포트폴리오 파일이
+                            #   이 저장소에 없으면 목록을 찍고 1로 종료 (아무것도 쓰지 않음)
+
+배포 순서: 포트폴리오(P, 이 저장소)를 먼저 push하고 GitHub Pages 배포가 끝난 뒤 이력서(C)를 push합니다.
+이력서 페이지는 포트폴리오 주소의 이미지(img/web/…)·쇼릴 포스터(og:image)·data/cv.json을 그대로 불러 쓰므로,
+이력서가 먼저 올라가면 포트폴리오 배포가 끝날 때까지 그 사진과 링크가 깨집니다.
 
 HTML은 손으로 쓴 그대로 두고 <!-- build:이름 --> … <!-- /build:이름 --> 사이만 바꿉니다.
 같은 입력이면 같은 출력이 나오도록 정렬·고정 순서만 쓰고, 날짜는 data의 meta.updated만 씁니다.
@@ -14,7 +19,7 @@ import re
 import sys
 from pathlib import Path
 from string import Template
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 ROOT = Path(__file__).resolve().parent
 CV_ROOT = ROOT.parent / 'cv' / 'hwangtaegeon-cv'
@@ -154,7 +159,7 @@ def ld_work(w):
                 thumbnailUrl=f'https://i.ytimg.com/vi/{w["youtube"]}/hqdefault.jpg', uploadDate=w.get('uploadDate'), dateCreated=w['year'],
                 duration=iso_duration(w.get('duration')), description=w.get('summary'), inLanguage='ko',
                 keywords=', '.join(w['categories']), interactionStatistic=stat, contributor=person_role(w['credit']),
-                sourceOrganization=ref(w['client']) if w.get('client') else None,
+                producer=ref(w['client']) if w.get('client') else None,   # 의뢰한 쪽(사람·단체 모두 가능)
                 recordedAt=ref(w['event']) if w.get('event') else None,
                 isPartOf=ref(w['partOf']) if w.get('partOf') else None)
 
@@ -162,24 +167,30 @@ def ld_work(w):
 def ld_series(s):
     parts = [ref(p['work']) if 'work' in p else {'@type': 'CreativeWork', 'name': p['name'], 'url': p['url']} for p in s['parts']]
     return node(s, name=s['title'], dateCreated=s['year'], description=s['cvDescription'], hasPart=parts,
-                contributor=person_role(s['credit']), sourceOrganization=ref(s['client']), about=ref(s['event']))
+                contributor=person_role(s['credit']), producer=ref(s['client']), about=ref(s['event']))
 
 
 def ld_core(job_title):
     p = PERSON
+    # 소속(멤버십)만 memberOf로. 한 번 맡은 외주(relation: client)는 소속이 아니라
+    # 해당 작업물의 producer(의뢰한 쪽) + contributor(Role)로만 표현합니다.
     roles = [{'@type': 'OrganizationRole', 'roleName': r['roleName'], 'startDate': r['start'], 'endDate': r.get('end'),
-              'memberOf': ref(r['org'])} for r in by_period(D['positions']) if r.get('org')]
+              'memberOf': ref(r['org'])} for r in by_period(D['positions']) if r.get('org') and r.get('relation') != 'client']
+    edu = ENT[p['alumniOf']]
+    # 재학 중(휴학)이라 졸업생을 뜻하는 alumniOf 대신 학교 소속 Role로
+    roles.append({'@type': 'OrganizationRole', 'roleName': f'재학({edu["status"]})', 'startDate': edu['start'], 'endDate': None,
+                  'memberOf': ref(edu['org']), 'description': ' · '.join(f'{ym(m["date"])} {m["label"]}' for m in edu['milestones'])})
     for r in roles:
         if r['endDate'] is None:
             del r['endDate']
-    edu = ENT[p['alumniOf']]
     nodes = [
         node(p, name=p['name'], jobTitle=job_title, email='mailto:' + p['email'], telephone=p['telephone'],
-             url=P_URL, sameAs=[p['instagram']['url'], C_URL], alumniOf=ref(edu['org']), memberOf=roles,
+             url=P_URL, sameAs=[p['instagram']['url'], C_URL], memberOf=roles,
              knowsAbout=[ref(s['id']) for s in D['skills']] + [ref(x['id']) for x in D['tools']],
              subjectOf=ref(p['showreel']['id'])),
         node(p['showreel'], name=p['showreel']['name'], contentUrl=p['showreel']['url'], thumbnailUrl=p['showreel']['thumbnail'],
-             duration=iso_duration(p['showreel']['duration']), uploadDate=p['showreel'].get('uploadDate'), creator=ref(p['id'])),
+             duration=iso_duration(p['showreel']['duration']), uploadDate=p['showreel'].get('uploadDate'),
+             description=p['showreel']['description'], creator=ref(p['id'])),
     ]
     for o in D['organizations']:
         nodes.append(node(o, name=o['name'], alternateName=o.get('short'), description=o.get('description'), url=o.get('url'),
@@ -334,6 +345,7 @@ def p_stats():
     values = {
         'views_total': num(sum(w.get('views', 0) for w in D['works'])),
         'lighting_total': lc['director'] + lc['crew'], 'lighting_director': lc['director'], 'lighting_crew': lc['crew'],
+        'lighting_public': sum('조명' in w['categories'] for w in D['works']),
         'furraid_years': len(recap_years),
         'sameday_count': sum(len(w['sameDay']['items']) for w in D['works'] if w.get('sameDay')),
     }
@@ -342,10 +354,18 @@ def p_stats():
         v, lbl = Template(s['value']).substitute(values), Template(s['label']).substitute(values)
         if s.get('jumpCat'):
             out.append(f'<a class="stat stat-link" href="#work" data-jump-cat="{a(s["jumpCat"])}"><b>{t(v)}</b>'
-                       f'<span>{t(lbl)} {icon("arrow-right")}</span></a>')
+                       f'<span>{t(lbl)}</span><span class="jump">{t(Template(s["jumpLabel"]).substitute(values))} {icon("arrow-right")}</span></a>')
         else:
             out.append(f'<div class="stat"><b>{t(v)}</b><span>{t(lbl)}</span></div>')
     return '\n'.join(out)
+
+
+def views_as_of():
+    return ym(D['meta']['viewsAsOf'])
+
+
+def p_stats_note():
+    return f'      <p class="stats-note">조회수는 {views_as_of()} YouTube 기준입니다.</p>'
 
 
 def p_partners():
@@ -543,7 +563,7 @@ def cv_bottom(key):
     skills = '\n'.join(f'  <div class="skillgroup">\n    <h3>{t(ENT[s]["name"])}</h3>\n    <ul>' + ''.join(f'\n      <li>{t(i)}</li>' for i in ENT[s]['items']) + '\n    </ul>\n  </div>'
                        for s in pg['skills'])
     clients = '  <p class="tags">' + ''.join(f'<span>{t(org_label(o))}</span>' for o in D['cvClients']) + '</p>'
-    foot = f'<footer class="foot">\n  <span>{t(PERSON["name"])}</span>\n  <span>{ym(UPDATED[:7])} 갱신</span>\n</footer>'
+    foot = f'<footer class="foot">\n  <span>{t(PERSON["name"])}</span>\n  <span>조회수 {views_as_of()} 기준 · {ym(UPDATED[:7])} 갱신</span>\n</footer>'
     return '\n\n'.join([sec('works', '주요 작업', works), sec('films', '영화 현장', films, 'films'), sec('skills', '기술', skills),
                         sec('clients', '클라이언트', clients), foot])
 
@@ -570,7 +590,7 @@ def llms_facts():
         f'- 조명 참여: 조명감독 {p["lightingCredits"]["director"]}편 · 조명부 {p["lightingCredits"]["crew"]}편',
         f'- 쇼릴: {p["showreel"]["url"]} ({p["showreel"]["duration"]})',
         f'- 구조화 데이터 원본: {P_URL}data/cv.json (schema.org 타입과 고정 id로 정리, 이 파일과 각 페이지 JSON-LD는 여기서 생성)',
-        f'- 기준일: {UPDATED}',
+        f'- 기준일: {UPDATED} (YouTube 조회수는 {D["meta"]["viewsAsOf"]} 기준, FUR:RAID 당일 리캡 수치는 X 조회수)',
     ]
 
 
@@ -629,7 +649,7 @@ def outputs():
         sys.exit(f'이력서 저장소를 찾을 수 없습니다: {CV_ROOT}')
     out = {}
     out[ROOT / 'index.html'] = fill(ROOT / 'index.html', {
-        'head': head('portfolio:index'), 'reel': p_reel(), 'stats': p_stats(), 'featured-title': p_featured_title(), 'featured': p_featured(), 'partners': p_partners(),
+        'head': head('portfolio:index'), 'reel': p_reel(), 'stats': p_stats(), 'stats-note': p_stats_note(), 'featured-title': p_featured_title(), 'featured': p_featured(), 'partners': p_partners(),
         'works': p_works(), 'profile': p_profile(), 'contact': p_contact(), 'footer': p_footer('#top')})
     out[ROOT / 'request.html'] = fill(ROOT / 'request.html', {
         'head': head('portfolio:request'), 'quick': r_quick(), 'brief': r_brief(), 'flow': r_flow(), 'services': r_services(),
@@ -649,13 +669,30 @@ def outputs():
     return out
 
 
+def missing_portfolio_files(out):
+    """이력서 출력이 가리키는 포트폴리오 주소 중 이 저장소에 파일이 없는 것 (배포 순서 보호)"""
+    missing = set()
+    for path, text in out.items():
+        if CV_ROOT not in path.parents:
+            continue
+        for u in re.findall(re.escape(P_URL) + r'[^"\s<>)]*', text):
+            rel_path = unquote(u[len(P_URL):].split('#')[0].split('?')[0]) or 'index.html'
+            if rel_path.endswith('/'):
+                rel_path += 'index.html'
+            if not (ROOT / rel_path).is_file():
+                missing.add((path.name, rel_path))
+    return sorted(missing)
+
+
 def main():
     args = sys.argv[1:]
     if args not in ([], ['--check']):
         sys.exit('사용법: python3 build.py          # 다시 만들기\n        python3 build.py --check  # 오래된 파일 검사만 (쓰지 않음)')
     check = args == ['--check']
     stale = []
-    for path, text in outputs().items():
+    out = outputs()
+    missing = missing_portfolio_files(out) if check else []
+    for path, text in out.items():
         old = path.read_text('utf-8') if path.exists() else None
         if old != text:
             stale.append(path)
@@ -664,8 +701,15 @@ def main():
     if check:
         for p in stale:
             print(f'오래됨: {p}')
-        print('최신 상태입니다' if not stale else f'{len(stale)}개 파일이 data/cv.json과 다릅니다. python3 build.py를 실행하세요.')
-        sys.exit(1 if stale else 0)
+        for page, f in missing:
+            print(f'없음: 이력서 {page} → 포트폴리오 파일 {f}')
+        if stale:
+            print(f'{len(stale)}개 파일이 data/cv.json과 다릅니다. python3 build.py를 실행하세요.')
+        if missing:
+            print(f'포트폴리오에 없는 파일 {len(missing)}개 — 이 파일을 포트폴리오에 넣고 먼저 배포해야 이력서가 깨지지 않습니다.')
+        if not stale and not missing:
+            print('최신 상태입니다')
+        sys.exit(1 if stale or missing else 0)
     print(f'{len(stale)}개 파일을 새로 썼습니다' if stale else '바뀐 파일이 없습니다')
 
 
