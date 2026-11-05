@@ -151,9 +151,9 @@ def person_role(role_name):
 def ld_work(w):
     stat = {'@type': 'InteractionCounter', 'interactionType': 'https://schema.org/WatchAction', 'userInteractionCount': w['views']} if w.get('views') else None
     return node(w, name=w['title'], url=yt_url(w), embedUrl=f'https://www.youtube-nocookie.com/embed/{w["youtube"]}',
-                thumbnailUrl=f'https://i.ytimg.com/vi/{w["youtube"]}/hqdefault.jpg', dateCreated=w['year'],
+                thumbnailUrl=f'https://i.ytimg.com/vi/{w["youtube"]}/hqdefault.jpg', uploadDate=w.get('uploadDate'), dateCreated=w['year'],
                 duration=iso_duration(w.get('duration')), description=w.get('summary'), inLanguage='ko',
-                genre=w.get('categories'), interactionStatistic=stat, contributor=person_role(w['credit']),
+                keywords=', '.join(w['categories']), interactionStatistic=stat, contributor=person_role(w['credit']),
                 sourceOrganization=ref(w['client']) if w.get('client') else None,
                 recordedAt=ref(w['event']) if w.get('event') else None,
                 isPartOf=ref(w['partOf']) if w.get('partOf') else None)
@@ -179,7 +179,7 @@ def ld_core(job_title):
              knowsAbout=[ref(s['id']) for s in D['skills']] + [ref(x['id']) for x in D['tools']],
              subjectOf=ref(p['showreel']['id'])),
         node(p['showreel'], name=p['showreel']['name'], contentUrl=p['showreel']['url'], thumbnailUrl=p['showreel']['thumbnail'],
-             duration=iso_duration(p['showreel']['duration']), creator=ref(p['id'])),
+             duration=iso_duration(p['showreel']['duration']), uploadDate=p['showreel'].get('uploadDate'), creator=ref(p['id'])),
     ]
     for o in D['organizations']:
         nodes.append(node(o, name=o['name'], alternateName=o.get('short'), description=o.get('description'), url=o.get('url'),
@@ -312,7 +312,7 @@ def p_works():
 
 def p_reel():
     r = PERSON['showreel']
-    return (f'<div class="reel" id="reel">\n'
+    return (f'<div class="reel" id="reel" style="--reel-ar:{r["activePicture"]}">\n'
             f'  <video id="reel-video" src="{a(rel(r["url"]))}" poster="{a(rel(r["thumbnail"]))}" preload="none" playsinline '
             f'aria-label="{a(r["name"])}, {r["duration"]}"></video>\n'
             f'  <button class="reel-play" type="button" data-play-reel><span class="disc" aria-hidden="true">{icon("play")}</span>'

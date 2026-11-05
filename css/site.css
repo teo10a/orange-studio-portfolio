@@ -66,7 +66,13 @@ section{padding:112px 0}
 .hero h1 em{font-style:normal;color:var(--orange)}
 .hero .lead{font-size:16px;margin:0 0 20px}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
-.reel{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
+.hero-more{margin:12px 0 0;font-size:14px}
+.hero-more a{display:inline-flex;align-items:center;gap:4px;min-height:44px;color:var(--on-dark-muted);text-decoration:underline;text-underline-offset:3px}
+.hero-more a:hover{color:var(--on-dark)}
+.hero-more .ic{--ic:16px}
+/* 쇼릴은 16:9 파일이지만 실제 화면은 위아래 검은 띠를 뺀 약 2.24:1(--reel-ar). 대기 중에는 띠를 잘라 화면만, 재생하면 하단 크레딧 줄까지 보이게 16:9로 */
+.reel{position:relative;aspect-ratio:var(--reel-ar,16/9);border-radius:var(--radius);overflow:hidden;background:#000;transition:aspect-ratio .3s ease}
+.reel.playing{aspect-ratio:16/9}
 .reel video{width:100%;height:100%;object-fit:cover}
 .reel-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(20,16,13,.24);border:0;cursor:pointer;padding:0;color:var(--white);transition:background .2s}
 .reel-play:hover{background:rgba(20,16,13,.1)}
@@ -308,7 +314,10 @@ section{padding:112px 0}
   .hero{padding-top:40px}
   .hero-head{grid-template-columns:1fr;margin-bottom:24px}
   .reel{margin:0 -20px;border-radius:0}
-  .reel-play .disc{width:72px;height:72px}
+  .reel-play{gap:8px}
+  .reel-play .disc{width:56px;height:56px}
+  .reel-play .disc .ic{--ic:24px}
+  .reel-cap{font-size:13px}
   .about-grid,.color-intro,.stage,.cta-grid,.brief-grid,.faq-grid{grid-template-columns:1fr;gap:32px}
   .brief-grid .sec-head{position:static}
   .brief-form{padding:20px}
