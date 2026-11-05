@@ -80,12 +80,12 @@ section{padding:112px 0}
 
 /* ---------- partners ---------- */
 .partners{padding:56px 0;background:var(--paper-2);border-bottom:1px solid var(--line)}
-.partners-row{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center}
-.partners h2{font-size:15px;font-weight:700;margin:0;color:var(--muted)}
-.partner-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-.partner-list li{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px;min-height:88px;display:flex;flex-direction:column;justify-content:center}
-.partner-list strong{font-size:15px;font-weight:800;letter-spacing:-.01em;line-height:1.35}
-.partner-list span{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.45}
+.partners-row{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start}
+.partners h2{font-size:15px;font-weight:600;margin:0;padding-top:20px;color:var(--muted)}
+.partner-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);column-gap:32px}
+.partner-list li{padding:20px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.partner-list strong{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.4}
+.partner-list span{font-size:13px;color:var(--muted);line-height:1.5}
 
 /* ---------- about ---------- */
 .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:start}
@@ -220,7 +220,6 @@ section{padding:112px 0}
 
 /* ---------- responsive ---------- */
 @media (max-width:1080px){
-  .partner-list{grid-template-columns:repeat(3,1fr)}
   .grid{grid-template-columns:repeat(2,1fr)}
   .gear{grid-template-columns:repeat(2,1fr)}
 }
@@ -237,8 +236,10 @@ section{padding:112px 0}
   .stats{grid-template-columns:1fr 1fr;margin-top:56px}
   .stat:nth-child(3){padding-left:0;border-left:0}
   .stat:nth-child(n+3){border-top:1px solid var(--line-dark)}
-  .partners-row{grid-template-columns:1fr;gap:16px}
-  .partner-list{grid-template-columns:1fr 1fr}
+  .partners-row{grid-template-columns:1fr;gap:12px}
+  .partners h2{padding-top:0}
+  .partner-list{grid-template-columns:1fr 1fr;column-gap:20px}
+  .partner-list strong{font-size:16px}
   .grid,.cmp-grid,.svc-grid,.flow,.contact-cards{grid-template-columns:1fr}
   .gear{grid-template-columns:1fr 1fr}
   .timeline li{grid-template-columns:84px 1fr}
