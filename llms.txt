@@ -9,7 +9,7 @@
 - 조명 참여: 조명감독 5편 · 조명부 7편
 - 쇼릴: https://teo10a.github.io/orange-studio-portfolio/media/showreel.mp4 (0:47)
 - 구조화 데이터 원본: https://teo10a.github.io/orange-studio-portfolio/data/cv.json (schema.org 타입과 고정 id로 정리, 이 파일과 각 페이지 JSON-LD는 여기서 생성)
-- 기준일: 2026-11-05
+- 기준일: 2026-11-06
 
 ## 페이지
 

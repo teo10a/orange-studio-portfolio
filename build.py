@@ -267,6 +267,14 @@ def work_link(w):
     return f'<a class="card-link" href="{a(yt_url(w))}" data-work="{a(w["id"])}">{t(w["title"])}</a>'
 
 
+def p_featured_title():
+    words = {3: '세', 4: '네', 5: '다섯', 6: '여섯'}   # 대표작은 3~6편 (meta.featuredCriteria)
+    n = len(featured())
+    if n not in words:
+        sys.exit(f'대표작은 3~6편이어야 합니다 (지금 {n}편)')
+    return f'        <h2 class="h2" id="featured-title">먼저 보시면 좋은 {words[n]} 편</h2>'
+
+
 def p_featured():
     out = ['<ol class="feat-list">']
     for w in featured():
@@ -349,7 +357,9 @@ def p_partners():
 
 
 def timeline_items():
-    return by_period([r for r in D['positions'] if r.get('short')] + D['education'])
+    # 학력은 이력서처럼 기간 옆에 마지막 예정 일정(예: 2029.02 졸업 예정)을 붙임
+    edu = [dict(e, short=f'{e["short"]} · {ym(e["milestones"][-1]["date"])} {e["milestones"][-1]["label"]}') for e in D['education']]
+    return by_period([r for r in D['positions'] if r.get('short')] + edu)
 
 
 def p_profile():
@@ -619,7 +629,7 @@ def outputs():
         sys.exit(f'이력서 저장소를 찾을 수 없습니다: {CV_ROOT}')
     out = {}
     out[ROOT / 'index.html'] = fill(ROOT / 'index.html', {
-        'head': head('portfolio:index'), 'reel': p_reel(), 'stats': p_stats(), 'featured': p_featured(), 'partners': p_partners(),
+        'head': head('portfolio:index'), 'reel': p_reel(), 'stats': p_stats(), 'featured-title': p_featured_title(), 'featured': p_featured(), 'partners': p_partners(),
         'works': p_works(), 'profile': p_profile(), 'contact': p_contact(), 'footer': p_footer('#top')})
     out[ROOT / 'request.html'] = fill(ROOT / 'request.html', {
         'head': head('portfolio:request'), 'quick': r_quick(), 'brief': r_brief(), 'flow': r_flow(), 'services': r_services(),
@@ -640,7 +650,10 @@ def outputs():
 
 
 def main():
-    check = '--check' in sys.argv[1:]
+    args = sys.argv[1:]
+    if args not in ([], ['--check']):
+        sys.exit('사용법: python3 build.py          # 다시 만들기\n        python3 build.py --check  # 오래된 파일 검사만 (쓰지 않음)')
+    check = args == ['--check']
     stale = []
     for path, text in outputs().items():
         old = path.read_text('utf-8') if path.exists() else None
