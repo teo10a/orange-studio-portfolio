@@ -15,7 +15,7 @@
     "uploadDateSource": "works[].uploadDate는 각 YouTube 시청 페이지의 itemprop=\"uploadDate\" 값(시간대 포함 ISO 8601)을 2026-11-06에 그대로 옮긴 것입니다.",
     "durationSource": "works[].duration은 YouTube 플레이어 표시 길이입니다. 오스카 커버의 2:40은 시청 페이지의 lengthSeconds 160(approxDurationMs 160208)에서 옮겼습니다. itemprop=\"duration\"(PT2M41S)은 초를 올려 적는 값이라 쓰지 않았습니다.",
     "showreelUploadDateSource": "person.showreel.uploadDate는 이 저장소에 media/showreel.mp4가 올라간 커밋 278b9b4(2026-08-20)의 날짜입니다. YouTube에는 올라가 있지 않습니다.",
-    "showreelSource": "showreel_poster_wide.jpg는 media/showreel.mp4의 8.6초 프레임에서 위아래 검은 띠(112px)를 잘라낸 1920×856 이미지입니다. 쇼릴의 실제 화면은 대부분 1920×856(약 2.24:1)이고, 나머지는 영상에 들어간 검은 띠와 하단 크레딧 줄입니다.",
+    "showreelSource": "showreel_poster_wide.jpg는 media/showreel.mp4의 1.0초 제목 화면 프레임에서 위아래 검은 띠(112px)를 잘라낸 1920×856 이미지입니다. 쇼릴의 실제 화면은 대부분 1920×856(약 2.24:1)이고, 나머지는 영상에 들어간 검은 띠와 하단 크레딧 줄입니다.",
     "featuredCriteria": [
       "대표작(featured)은 3~6편으로 고르고 featured 값(1부터)이 화면 순서입니다.",
       "1) 역할: 총괄·조명감독처럼 결과에 책임을 진 역할을 우선합니다.",
