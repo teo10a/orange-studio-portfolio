@@ -552,10 +552,21 @@ def r_contact():
 
 
 # ---------- 서비스 소개서 (guide.html, A4 doc-page) ----------
+SPACING_PROP = re.compile(r'((?:padding|margin|gap|row-gap|column-gap)(?:-(?:top|right|bottom|left))?\s*:\s*)([^;"}]+)')
+
+
+def snap_spacing(html_text):
+    """서비스 소개서 인라인 스타일의 간격을 4px 단위로 (같은 거리면 큰 쪽). 0·1px·2px와 mm 값은 그대로"""
+    def px(m):
+        n = float(m.group(1))
+        return m.group(0) if n <= 2 else f'{int((n + 2) // 4 * 4)}px'
+    return SPACING_PROP.sub(lambda m: m.group(1) + re.sub(r'(?<![\d.])(\d+(?:\.\d+)?)px', px, m.group(2)), html_text)
+
+
 # 문장과 배치는 guide.html에 손으로 쓴 그대로 두고, 사실(숫자·크레딧·목록·연락처)만 여기서 넣습니다.
 G_MUTED = '#6E645A'
 G_DOT = ("style-before=\"content:'';position:absolute;left:0;top:9px;width:7px;height:1px;background:#DE6428\"")
-G_DASH = 'background-image:repeating-linear-gradient(90deg,#DDD3C4 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:bottom'
+G_DASH = 'border-bottom:1px dashed #DDD3C4'
 
 
 def g_svc_items(sid):
@@ -615,11 +626,15 @@ def g_why():
     w = COPY['why']
     body = w['body']
     return '\n'.join(
-        [f'    <p style="font-family:\'Nanum Myeongjo\',serif;font-size:19px;font-weight:700;color:#DE6428;line-height:1.8;margin:0 0 22px">{"<br>".join(t(x) for x in w["title"])}</p>']
-        + [f'    <p style="{G_P};margin:0{" 0 22px" if i < len(body) - 1 else ""}">{t(x)}</p>' for i, x in enumerate(body)])
+        [f'    <p style="font-family:\'Nanum Myeongjo\',serif;font-size:19px;font-weight:700;color:#DE6428;line-height:1.8;margin:0 0 32px">{"<br>".join(t(x) for x in w["title"])}</p>']
+        + [f'    <p style="{G_P};margin:0{" 0 28px" if i < len(body) - 1 else ""}">{t(x)}</p>' for i, x in enumerate(body)])
 
 
 def guide_regions():
+    return {k: snap_spacing(v) for k, v in _guide_regions().items()}
+
+
+def _guide_regions():
     lc = PERSON['lightingCredits']
     svc = {x['id']: x for x in BIZ['services']}
     partners = [org_label(x['org']) if x.get('org') else x['label'] for x in PAGES['portfolio:index']['partners']]
@@ -780,7 +795,8 @@ def llms_cv():
     out += ['', '## 주요 작업', '']
     out += [llms_work(w) for w in by_year(D['works'])]
     out += ['', '## 기술', '']
-    out += [f'- {s["name"]}: ' + ' / '.join(s['items']) for s in D['skills']]
+    for s in D['skills']:   # 묶음 이름 아래 하위 목록 (항목 안의 '라벨: 내용'과 콜론이 겹치지 않게)
+        out += [f'- {s["name"]}'] + [f'  - {i}' for i in s['items']]
     out += ['', '## Optional', '']
     out += [f'- 영화 현장: ' + ' / '.join(f'{f["title"]} ({ENT[f["org"]]["name"]} {f["kind"]} · {" · ".join(f["roles"])})' for f in D['films'])]
     return '\n'.join(out) + '\n'

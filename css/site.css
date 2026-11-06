@@ -23,6 +23,7 @@ button,input,textarea{font:inherit;color:inherit}
 /* 한국어 줄 끝에 낱말 하나만 남지 않게(본문), 제목은 줄 길이를 고르게 (word-break:keep-all 유지) */
 p,li,figcaption,.desc,.lead{text-wrap:pretty}
 h1,h2,h3,.m-title{text-wrap:balance}
+.card h3{text-wrap:pretty}   /* 작품 제목은 balance면 '· 2026 …'처럼 구분자로 줄이 시작돼서 pretty */
 :focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:var(--r-sm)}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
 .nowrap{white-space:nowrap}
@@ -214,7 +215,7 @@ section{padding:112px 0}
 .stage-view{position:relative;min-width:0}
 .stage-cap:empty{display:none}
 .stage-cap{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;margin:0;padding:8px 12px;border-radius:var(--r-sm);background:rgba(20,16,13,.78);color:var(--on-dark);font-size:14px;line-height:1.6}
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-rows:repeat(5,1fr);gap:8px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-auto-rows:1fr;gap:8px}   /* 단계 수는 cv.json에서: 행 수를 적지 않고 같은 높이로 나눔 */
 .steps li{display:flex}
 .step-btn{width:100%;min-height:48px;text-align:left;display:grid;grid-template-columns:40px 1fr;align-content:center;gap:4px 8px;padding:8px 16px;border:1px solid var(--line);background:var(--white);border-radius:var(--radius);cursor:pointer;transition:border-color .2s var(--ease),background .2s var(--ease)}
 .step-btn .no{grid-row:span 2;font-family:var(--serif);font-weight:700;font-size:18px;color:var(--faint);font-variant-numeric:tabular-nums}
@@ -366,7 +367,7 @@ section{padding:112px 0}
   .partner-list{grid-template-columns:1fr 1fr;column-gap:20px}
   .partner-list strong{font-size:16px}
   .grid,.feat-list,.cmp-grid,.svc-grid,.flow,.contact-cards{grid-template-columns:1fr}
-  .steps{grid-template-rows:none;grid-auto-rows:48px}
+  .steps{grid-auto-rows:48px}
   /* 좁은 화면: 설명은 사진 아래 고정 높이(3줄)로 — 사진을 가리지 않고 단계를 바꿔도 높이 그대로 */
   .stage-cap{position:static;margin:8px 0 0;padding:0;height:calc(3 * 1.6em);background:none;color:var(--muted);font-size:14px;line-height:1.6;overflow:hidden}
   .gear{grid-template-columns:1fr 1fr}
