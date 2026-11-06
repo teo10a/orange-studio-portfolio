@@ -60,12 +60,14 @@ section{padding:112px 0}
 .btn-ghost:hover{background:rgba(20,16,13,.05)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
 /* 등장: JS가 <html class="js">를 붙였고 움직임을 허용한 경우에만 숨겼다가 보여 줌 (JS 없음·움직임 줄이기 = 처음부터 보임) */
-@media (prefers-reduced-motion:no-preference){
+@media screen and (prefers-reduced-motion:no-preference){
   .js .enter{animation:enter .5s var(--ease) both;animation-delay:calc(var(--i,0) * 80ms)}
   .js .rv{opacity:0;transform:translateY(12px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
   .js .rv.in{opacity:1;transform:none}
   @keyframes enter{from{opacity:0;transform:translateY(8px)}}
 }
+/* 인쇄·PDF 저장: 화면 밖이라 아직 등장하지 않은 요소도 모두 보이게 */
+@media print{.rv,.enter{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}}
 
 /* ---------- hero: 쇼릴이 화면의 주인 ---------- */
 .hero{padding:56px 0 0;background:var(--ink);color:var(--on-dark)}
@@ -162,7 +164,7 @@ section{padding:112px 0}
 .card .credit{font-size:13.5px;font-weight:600;color:var(--orange-t);margin:0 0 8px}
 .card .desc{font-size:14.5px;line-height:1.7;color:var(--ink-2);margin:0}
 @supports (grid-template-rows:subgrid){
-  .grid .card{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0;align-content:start}
+  .grid .card{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:0;align-content:start}
   .grid .card[hidden]{display:none}
 }
 
@@ -208,6 +210,8 @@ section{padding:112px 0}
 .stage-frame{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
 .stage-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
 .stage-frame img.on{opacity:1}
+.stage-view{position:relative;min-width:0}
+.stage-cap:empty{display:none}
 .stage-cap{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;margin:0;padding:8px 12px;border-radius:var(--r-sm);background:rgba(20,16,13,.78);color:var(--on-dark);font-size:14px;line-height:1.6}
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-rows:repeat(5,1fr);gap:8px}
 .steps li{display:flex}
@@ -347,7 +351,8 @@ section{padding:112px 0}
   .partner-list strong{font-size:16px}
   .grid,.feat-list,.cmp-grid,.svc-grid,.flow,.contact-cards{grid-template-columns:1fr}
   .steps{grid-template-rows:none;grid-auto-rows:48px}
-  .stage-cap{left:8px;right:8px;bottom:8px;font-size:13px;padding:6px 10px}
+  /* 좁은 화면: 설명은 사진 아래 고정 높이(3줄)로 — 사진을 가리지 않고 단계를 바꿔도 높이 그대로 */
+  .stage-cap{position:static;margin:8px 0 0;padding:0;height:calc(3 * 1.6em);background:none;color:var(--muted);font-size:13.5px;line-height:1.6;overflow:hidden}
   .gear{grid-template-columns:1fr 1fr}
   .timeline li{grid-template-columns:96px 1fr}
   .cta-links a{flex-wrap:wrap;gap:4px 16px}

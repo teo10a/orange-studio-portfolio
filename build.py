@@ -279,12 +279,31 @@ def work_link(w):
     return f'<a class="card-link" href="{a(yt_url(w))}" data-work="{a(w["id"])}">{t(w["title"])}</a>'
 
 
-def p_featured_title():
-    words = {3: '세', 4: '네', 5: '다섯', 6: '여섯'}   # 대표작은 3~6편 (meta.featuredCriteria)
-    n = len(featured())
+def count_word(n, what):
+    words = {3: '세', 4: '네', 5: '다섯', 6: '여섯'}
     if n not in words:
-        sys.exit(f'대표작은 3~6편이어야 합니다 (지금 {n}편)')
-    return f'        <h2 class="h2" id="featured-title">먼저 보시면 좋은 {words[n]} 편</h2>'
+        sys.exit(f'{what}은(는) 3~6개여야 합니다 (지금 {n}개)')
+    return words[n]
+
+
+def p_featured_title():
+    # 대표작은 3~6편 (meta.featuredCriteria)
+    return f'        <h2 class="h2" id="featured-title">먼저 보시면 좋은 {count_word(len(featured()), "대표작")} 편</h2>'
+
+
+def p_process_stage():
+    """보정 과정: 사진·단계 버튼을 cv.json colorProcess 한 목록에서. 설명 문장은 버튼 안에 한 번만 두고
+    고른 단계의 설명은 JS가 #stage-cap으로 옮김 (JS 없으면 버튼 안 설명이 보임)"""
+    st = D['colorProcess']['steps']
+    first, rest = ' class="on"', ' loading="lazy"'
+    imgs = '\n'.join(f'              <img src="{a(x["image"])}" alt="보정 과정 {i}단계: {a(x["label"])}"{first if i == 1 else rest}>'
+                     for i, x in enumerate(st, 1))
+    btns = '\n'.join(f'            <li><button class="step-btn" type="button" data-s="{i}" aria-pressed="{"true" if i == 0 else "false"}">'
+                     f'<span class="no">{i + 1:02d}</span><span class="t">{t(x["label"])}</span><span class="d">{t(x["body"])}</span></button></li>'
+                     for i, x in enumerate(st))
+    return (f'        <div class="stage rv">\n          <div class="stage-view">\n            <div class="stage-frame" id="stage-frame">\n{imgs}\n            </div>\n'
+            f'            <p class="stage-cap" id="stage-cap" aria-live="polite"></p>\n          </div>\n'
+            f'          <ol class="steps" id="steps">\n{btns}\n          </ol>\n        </div>')
 
 
 def p_featured():
@@ -319,9 +338,11 @@ def p_works():
             f'  <article class="card rv" data-cats="{a(" ".join(w["categories"]))}">\n'
             f'    {thumb(w)}\n'
             f'    <h3>{work_link(w)}</h3>\n'
-            f'    <p class="meta">{t(client_label(w))} · {w["year"]}{views}</p>\n'
-            f'    <p class="credit">{t(w["credit"])}</p>\n'
-            f'    <p class="desc">{t(w["summary"])}</p>\n'
+            f'    <div class="card-body">\n'
+            f'      <p class="meta">{t(client_label(w))} · {w["year"]}{views}</p>\n'
+            f'      <p class="credit">{t(w["credit"])}</p>\n'
+            f'      <p class="desc">{t(w["summary"])}</p>\n'
+            f'    </div>\n'
             f'  </article>')
     out.append('</div>')
     return '\n'.join(out)
@@ -354,7 +375,7 @@ def p_why():
 
 def p_reel():
     r = PERSON['showreel']
-    return (f'<div class="reel enter" id="reel" style="--reel-ar:{r["activePicture"]};--i:2">\n'
+    return (f'<div class="reel" id="reel" style="--reel-ar:{r["activePicture"]}">\n'   # 쇼릴(LCP)은 바로 보이게: 등장 움직임 없음
             f'  <video id="reel-video" src="{a(rel(r["url"]))}" poster="{a(rel(r["thumbnail"]))}" preload="none" playsinline '
             f'aria-label="{a(r["name"])}, {r["duration"]}"></video>\n'
             f'  <button class="reel-play" type="button" data-play-reel><span class="disc" aria-hidden="true">{icon("play")}</span>'
@@ -594,8 +615,8 @@ def g_why():
     w = COPY['why']
     body = w['body']
     return '\n'.join(
-        [f'    <p style="font-family:\'Nanum Myeongjo\',serif;font-size:19px;font-weight:700;color:#DE6428;line-height:1.8;margin:0 0 16px">{"<br>".join(t(x) for x in w["title"])}</p>']
-        + [f'    <p style="{G_P};margin:0{" 0 16px" if i < len(body) - 1 else ""}">{t(x)}</p>' for i, x in enumerate(body)])
+        [f'    <p style="font-family:\'Nanum Myeongjo\',serif;font-size:19px;font-weight:700;color:#DE6428;line-height:1.8;margin:0 0 22px">{"<br>".join(t(x) for x in w["title"])}</p>']
+        + [f'    <p style="{G_P};margin:0{" 0 22px" if i < len(body) - 1 else ""}">{t(x)}</p>' for i, x in enumerate(body)])
 
 
 def guide_regions():
@@ -606,6 +627,7 @@ def guide_regions():
         'g-year': UPDATED[:4],
         'g-headline': '<br>'.join(headline_html(G_EM)),
         'g-lead': '<br>'.join(t(x) for x in COPY['lead']['lines']),
+        'g-role': t(PERSON['roleKo']),
         'g-why-label': t(COPY['why']['label']),
         'g-why': g_why(),
         'g-svc-event-desc': t(svc['svc-event']['description']),
@@ -790,7 +812,7 @@ def outputs():
         sys.exit(f'이력서 저장소를 찾을 수 없습니다: {CV_ROOT}')
     out = {}
     out[ROOT / 'index.html'] = fill(ROOT / 'index.html', {
-        'head': head('portfolio:index'), 'hero-eyebrow': t(PERSON['roleKo']), 'hero-title': p_hero_title(), 'hero-lead': p_hero_lead(), 'why': p_why(), 'reel': p_reel(), 'stats': p_stats(), 'stats-note': p_stats_note(), 'featured-title': p_featured_title(), 'featured': p_featured(), 'partners': p_partners(),
+        'head': head('portfolio:index'), 'hero-eyebrow': t(PERSON['roleKo']), 'hero-title': p_hero_title(), 'hero-lead': p_hero_lead(), 'why': p_why(), 'process-stage': p_process_stage(), 'process-count': count_word(len(D['colorProcess']['steps']), '보정 단계'), 'reel': p_reel(), 'stats': p_stats(), 'stats-note': p_stats_note(), 'featured-title': p_featured_title(), 'featured': p_featured(), 'partners': p_partners(),
         'works': p_works(), 'profile': p_profile(), 'contact': p_contact(), 'footer': p_footer('#top')})
     out[ROOT / 'request.html'] = fill(ROOT / 'request.html', {
         'head': head('portfolio:request'), 'quick': r_quick(), 'brief': r_brief(), 'flow': r_flow(), 'services': r_services(),
