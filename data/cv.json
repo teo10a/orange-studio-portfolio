@@ -382,24 +382,24 @@
       "id": "skill-tools", "type": "DefinedTermSet", "name": "툴",
       "tools": ["tool-premiere", "tool-resolve", "tool-aftereffects", "tool-illustrator", "tool-photoshop", "tool-figma", "tool-lightroom"],
       "items": [
-        "편집·컬러 — Premiere Pro, DaVinci Resolve Studio (컬러 그레이딩, LUT 설계)",
-        "모션·디자인 — After Effects, Illustrator, Photoshop, Figma",
-        "사진 — Lightroom"
+        "편집·컬러: Premiere Pro, DaVinci Resolve Studio (컬러 그레이딩, LUT 설계)",
+        "모션·디자인: After Effects, Illustrator, Photoshop, Figma",
+        "사진: Lightroom"
       ]
     },
     {
       "id": "skill-camera", "type": "DefinedTermSet", "name": "카메라",
       "tools": ["cam-fx6", "cam-fx3", "cam-a7iii", "cam-a7iv", "cam-a7v", "cam-c50", "cam-r5ii", "cam-r6iii"],
       "items": [
-        "Sony — FX6, FX3, α7 III · α7 IV · α7 V 등 소니 미러리스 전반",
-        "Canon — EOS C50, EOS R5 Mark II, EOS R6 Mark III"
+        "Sony: FX6, FX3, α7 III · α7 IV · α7 V 등 소니 미러리스 전반",
+        "Canon: EOS C50, EOS R5 Mark II, EOS R6 Mark III"
       ]
     },
     {
       "id": "skill-lighting", "type": "DefinedTermSet", "name": "조명",
       "items": [
         "조명감독 5편 · 조명부 7편 참여",
-        "시네마틱 라이팅 플랜 수립 및 실행 — 촬영 전 콘티 단계에서 광원 위치·색온도·명암비를 설계하고 현장에서 실시간 조정",
+        "시네마틱 라이팅 플랜 수립 및 실행: 촬영 전 콘티 단계에서 광원 위치·색온도·명암비를 설계하고 현장에서 실시간 조정",
         "형광등·무대 LED·자연광이 혼합된 환경에서의 조명 대응 및 노출 관리",
         "움직임이 큰 피사체 (안무, 행진 등) 촬영을 위한 사전 동선 기반 조명 설계",
         "인터뷰·롱테이크 촬영에서 표정·피부 톤이 안정적으로 유지되는 조명 설계 및 구현"
@@ -419,7 +419,7 @@
     {
       "id": "skill-production", "type": "DefinedTermSet", "name": "제작·연출",
       "items": [
-        "행사 미디어팀 근무 시프트 설계 — 촬영 공백 없는 인원 배치",
+        "행사 미디어팀 근무 시프트 설계, 촬영 공백 없는 인원 배치",
         "사전 티저 기획부터 현장 촬영, 편집, 모션, 엔딩크레딧까지 전 과정 프로젝트 총괄",
         "현장 동시다발 상황에서의 실시간 인력 조율 및 앵글·동선 조정",
         "촬영 당일 편집·컬러·납품 가능"
