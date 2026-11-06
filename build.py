@@ -33,6 +33,7 @@ ENT = {x['id']: x for k in ('organizations', 'events', 'education', 'positions',
        for x in D[k]}
 ENT[PERSON['id']] = PERSON
 P_URL, C_URL = SITES['portfolio']['url'], SITES['cv']['url']
+COPY = D['copy']
 UPDATED = D['meta']['updated']
 
 
@@ -190,7 +191,7 @@ def ld_core(job_title):
              subjectOf=ref(p['showreel']['id'])),
         node(p['showreel'], name=p['showreel']['name'], contentUrl=p['showreel']['url'], thumbnailUrl=p['showreel']['thumbnail'],
              duration=iso_duration(p['showreel']['duration']), uploadDate=p['showreel'].get('uploadDate'),
-             description=p['showreel']['description'], creator=ref(p['id'])),
+             description=f'{p["showreel"]["name"]}. {lead_text()}', creator=ref(p['id'])),
     ]
     for o in D['organizations']:
         nodes.append(node(o, name=o['name'], alternateName=o.get('short'), description=o.get('description'), url=o.get('url'),
@@ -290,7 +291,7 @@ def p_featured():
     out = ['<ol class="feat-list">']
     for w in featured():
         out.append(
-            f'  <li class="card feat">\n'
+            f'  <li class="card feat rv">\n'
             f'    {thumb(w)}\n'
             f'    <div class="feat-body">\n'
             f'      <h3>{work_link(w)}</h3>\n'
@@ -312,25 +313,48 @@ def p_works():
             f'{t(c)}<span class="n">{n}<span class="sr-only">편</span></span></button></li>' for i, (c, n) in enumerate(chips)]
     out += ['</ul>', '<p class="sr-only" id="filter-status" role="status" aria-live="polite"></p>', '<div class="grid" id="grid">']
     for w in works:
-        lead = f'<span class="lead-role">{t(w["lead"])}</span>' if w.get('lead') else ''
+        views = f' · 조회수 {num(w["views"])}' if w.get('views') else ''
+        # 모달은 이 카드의 제목·meta·credit·desc 글자를 그대로 옮겨 보여 줍니다 (모달 전용 문구 없음)
         out.append(
-            f'  <article class="card" data-cats="{a(" ".join(w["categories"]))}">\n'
+            f'  <article class="card rv" data-cats="{a(" ".join(w["categories"]))}">\n'
             f'    {thumb(w)}\n'
             f'    <h3>{work_link(w)}</h3>\n'
-            f'    <p class="meta"><span>{t(client_label(w))} · {w["year"]}</span>{lead}</p>\n'
-            f'    <p class="roles"><span class="sr-only">역할: </span>{t(" · ".join(w["categories"]))}</p>\n'
+            f'    <p class="meta">{t(client_label(w))} · {w["year"]}{views}</p>\n'
+            f'    <p class="credit">{t(w["credit"])}</p>\n'
+            f'    <p class="desc">{t(w["summary"])}</p>\n'
             f'  </article>')
     out.append('</div>')
-    data = {w['id']: {'t': w['title'], 'c': client_label(w), 'y': w['year'], 'yt': w['youtube'], 'v': w.get('views', 0),
-                      'cr': w['credit'], 'x': w['summary']} for w in works}
-    js = json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(',', ':')).replace('</', '<\\/')
-    out.append(f'<script type="application/json" id="works-data">{js}</script>')
     return '\n'.join(out)
+
+
+def lead_text():
+    return ' '.join(COPY['lead']['lines'])
+
+
+def headline_html(em_attr=''):
+    h = COPY['headline']
+    return [t(line).replace(t(h['emphasis']), f'<em{em_attr}>{t(h["emphasis"])}</em>') for line in h['lines']]
+
+
+def p_hero_title():
+    return '          <h1 id="hero-title">' + ''.join(f'<span class="line">{x}</span>' for x in headline_html()) + '</h1>'
+
+
+def p_hero_lead():
+    # 넓은 화면에서만 의도한 자리에서 줄을 바꿈 (좁으면 br-wide를 숨겨 자연스럽게 흐름)
+    return '          <p class="lead">' + '<br class="br-wide"> '.join(t(x) for x in COPY['lead']['lines']) + '</p>'
+
+
+def p_why():
+    w = COPY['why']
+    return '\n'.join([f'        <p class="eyebrow">{t(w["label"])}</p>',
+                      f'        <h2 class="h2" id="about-title">{"<br>".join(t(x) for x in w["title"])}</h2>']
+                     + [f'        <p>{t(x)}</p>' for x in w['body']] + [f'        <p class="sign">{t(w["sign"])}</p>'])
 
 
 def p_reel():
     r = PERSON['showreel']
-    return (f'<div class="reel" id="reel" style="--reel-ar:{r["activePicture"]}">\n'
+    return (f'<div class="reel enter" id="reel" style="--reel-ar:{r["activePicture"]};--i:2">\n'
             f'  <video id="reel-video" src="{a(rel(r["url"]))}" poster="{a(rel(r["thumbnail"]))}" preload="none" playsinline '
             f'aria-label="{a(r["name"])}, {r["duration"]}"></video>\n'
             f'  <button class="reel-play" type="button" data-play-reel><span class="disc" aria-hidden="true">{icon("play")}</span>'
@@ -353,6 +377,7 @@ def stat_values():
         'lighting_total': lc['director'] + lc['crew'], 'lighting_director': lc['director'], 'lighting_crew': lc['crew'],
         'lighting_public': sum('조명' in w['categories'] for w in D['works']),
         'furraid_streak': streak(recap_years),
+        'furraid_desc': ENT['furraid']['description'],   # 첫 화면에서는 행사 이름 대신 일반화한 설명
         'sameday_count': sum(len(w['sameDay']['items']) for w in D['works'] if w.get('sameDay')),
     }
 
@@ -561,11 +586,30 @@ def g_contact():
             + '\n'.join(cell.format(t(k), t(v)) for k, v in rows) + '\n    </div>')
 
 
+G_EM = ' style="font-style:normal;color:#DE6428"'
+G_P = 'font-family:\'Nanum Myeongjo\',serif;font-size:15px;line-height:2.05'
+
+
+def g_why():
+    w = COPY['why']
+    body = w['body']
+    return '\n'.join(
+        [f'    <p style="font-family:\'Nanum Myeongjo\',serif;font-size:19px;font-weight:700;color:#DE6428;line-height:1.8;margin:0 0 16px">{"<br>".join(t(x) for x in w["title"])}</p>']
+        + [f'    <p style="{G_P};margin:0{" 0 16px" if i < len(body) - 1 else ""}">{t(x)}</p>' for i, x in enumerate(body)])
+
+
 def guide_regions():
     lc = PERSON['lightingCredits']
+    svc = {x['id']: x for x in BIZ['services']}
     partners = [org_label(x['org']) if x.get('org') else x['label'] for x in PAGES['portfolio:index']['partners']]
     return {
         'g-year': UPDATED[:4],
+        'g-headline': '<br>'.join(headline_html(G_EM)),
+        'g-lead': '<br>'.join(t(x) for x in COPY['lead']['lines']),
+        'g-why-label': t(COPY['why']['label']),
+        'g-why': g_why(),
+        'g-svc-event-desc': t(svc['svc-event']['description']),
+        'g-svc-color-desc': t(svc['svc-color']['description']),
         'g-lighting': f'조명감독 {lc["director"]}회·조명부 {lc["crew"]}회',
         'g-svc-event': g_svc_items('svc-event'),
         'g-svc-color': g_svc_items('svc-color'),
@@ -746,7 +790,7 @@ def outputs():
         sys.exit(f'이력서 저장소를 찾을 수 없습니다: {CV_ROOT}')
     out = {}
     out[ROOT / 'index.html'] = fill(ROOT / 'index.html', {
-        'head': head('portfolio:index'), 'reel': p_reel(), 'stats': p_stats(), 'stats-note': p_stats_note(), 'featured-title': p_featured_title(), 'featured': p_featured(), 'partners': p_partners(),
+        'head': head('portfolio:index'), 'hero-eyebrow': t(PERSON['roleKo']), 'hero-title': p_hero_title(), 'hero-lead': p_hero_lead(), 'why': p_why(), 'reel': p_reel(), 'stats': p_stats(), 'stats-note': p_stats_note(), 'featured-title': p_featured_title(), 'featured': p_featured(), 'partners': p_partners(),
         'works': p_works(), 'profile': p_profile(), 'contact': p_contact(), 'footer': p_footer('#top')})
     out[ROOT / 'request.html'] = fill(ROOT / 'request.html', {
         'head': head('portfolio:request'), 'quick': r_quick(), 'brief': r_brief(), 'flow': r_flow(), 'services': r_services(),

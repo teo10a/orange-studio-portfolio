@@ -42,6 +42,20 @@
       "summary": "행사 현장을 촬영하고 컬러까지 직접 마무리하는 영상 제작자 황태건의 이력서입니다."
     }
   },
+  "copy": {
+    "_note": "사이트와 서비스 소개서(guide.html)가 같이 쓰는 문장입니다. 한쪽만 고치지 말고 여기서 고치세요. lines는 넓은 화면에서 의도적으로 줄을 바꾸는 자리입니다.",
+    "headline": {"lines": ["빨리 소비되는 영상보다", "오래 남는 영상을 만듭니다."], "emphasis": "오래 남는 영상"},
+    "lead": {"lines": ["영화 현장 조명부에서 시작해 지금은 행사와 라이브 무대를 촬영하고", "컬러 그레이딩까지 맡고 있습니다."]},
+    "why": {
+      "label": "왜 공방인가",
+      "title": ["한 컷씩,", "손으로 다듬습니다."],
+      "body": [
+        "AI가 영상을 만들고 숏폼이 하루에 수천 개씩 쏟아지는 시대입니다. 그럴수록 사람이 직접 보고 고른 장면, 손으로 맞춘 색이 차이를 만든다고 믿습니다.",
+        "공방이라는 이름은 그 약속입니다. 행사를 기록하는 일도 영화를 찍는 마음으로 대하고 마음에 들 때까지 한 컷을 다시 봅니다."
+      ],
+      "sign": "주황색 영상공방 · 황태건"
+    }
+  },
   "person": {
     "id": "person-hwangtaegeon",
     "type": "Person",
@@ -58,8 +72,7 @@
       "thumbnail": "https://teo10a.github.io/orange-studio-portfolio/media/showreel_poster_wide.jpg",
       "activePicture": "1920 / 856",
       "uploadDate": "2026-08-20",
-      "duration": "0:47",
-      "description": "황태건 쇼릴. 영화 현장 조명부에서 시작해 지금은 행사와 라이브 무대를 촬영하고 컬러 그레이딩까지 맡고 있습니다."
+      "duration": "0:47"
     },
     "availableFrom": "2027-04",
     "affiliationNote": "성균관대학교 영상학과",
@@ -463,7 +476,7 @@
       "stats": [
         {"value": "$views_total", "label": "참여작 누적 조회수"},
         {"value": "$lighting_total편", "label": "조명 참여 · 감독 $lighting_director · 조명부 $lighting_crew", "jumpLabel": "그중 공개 영상 $lighting_public편 보기", "jumpCat": "조명"},
-        {"value": "$furraid_streak", "label": "FUR:RAID 공식 리캡 제작"},
+        {"value": "$furraid_streak", "label": "$furraid_desc 공식 리캡"},
         {"value": "당일 $sameday_count편", "label": "현장에서 완성한 행사 리캡"}
       ],
       "partners": [

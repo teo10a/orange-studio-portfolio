@@ -11,6 +11,7 @@
   --serif:'Nanum Myeongjo',serif;
   --sans:Pretendard,-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
   --wrap:1200px; --radius:8px; --r-sm:4px; --ic:20px;
+  --ease:cubic-bezier(.2,.7,.2,1);   /* 등장 움직임은 이 곡선 하나만 */
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
@@ -58,10 +59,17 @@ section{padding:112px 0}
 .btn-ghost{color:var(--ink);border-color:rgba(20,16,13,.3)}
 .btn-ghost:hover{background:rgba(20,16,13,.05)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+/* 등장: JS가 <html class="js">를 붙였고 움직임을 허용한 경우에만 숨겼다가 보여 줌 (JS 없음·움직임 줄이기 = 처음부터 보임) */
+@media (prefers-reduced-motion:no-preference){
+  .js .enter{animation:enter .5s var(--ease) both;animation-delay:calc(var(--i,0) * 80ms)}
+  .js .rv{opacity:0;transform:translateY(12px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+  .js .rv.in{opacity:1;transform:none}
+  @keyframes enter{from{opacity:0;transform:translateY(8px)}}
+}
 
 /* ---------- hero: 쇼릴이 화면의 주인 ---------- */
 .hero{padding:56px 0 0;background:var(--ink);color:var(--on-dark)}
-.hero-head{display:grid;grid-template-columns:1.1fr .9fr;gap:24px 48px;align-items:end;margin-bottom:32px}
+.hero-head{display:grid;grid-template-columns:1fr 1fr;gap:24px 48px;align-items:end;margin-bottom:32px}
 .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,3.4vw,46px);line-height:1.3;letter-spacing:-.015em;margin:0}
 .hero h1 .line{display:block}
 .hero h1 em{font-style:normal;color:var(--orange)}
@@ -86,7 +94,7 @@ section{padding:112px 0}
 .stat{padding:28px 0 36px}
 .stat+.stat{padding-left:28px;border-left:1px solid var(--line-dark)}
 .stat b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(24px,2.4vw,32px);line-height:1.2;color:var(--on-dark);font-variant-numeric:tabular-nums}
-.stat span{display:block;font-size:14px;color:var(--on-dark-muted);margin-top:8px}
+.stat > span{display:block;font-size:14px;color:var(--on-dark-muted);margin-top:8px}
 .stats-note{margin:0;padding:0 0 24px;font-size:13px;color:var(--on-dark-muted)}
 .stat-link{color:inherit;display:block;transition:background .2s}
 .stat-link:hover{background:rgba(237,230,218,.04)}
@@ -99,9 +107,9 @@ section{padding:112px 0}
 .feat:first-child{grid-column:1/-1;display:grid;grid-template-columns:1.6fr 1fr;gap:32px;align-items:center}
 .feat-body h3{font-size:19px;font-weight:600;line-height:1.45;letter-spacing:-.01em;margin:16px 0 4px}
 .feat:first-child .feat-body h3{font-family:var(--serif);font-weight:700;font-size:clamp(22px,2.2vw,28px);line-height:1.4;margin-top:0}
-.feat .meta{font-size:13.5px;color:var(--muted);margin:0;font-variant-numeric:tabular-nums}
-.feat .credit{font-size:13.5px;font-weight:600;color:var(--orange-t);margin:4px 0 0}
-.feat .desc{font-size:15px;line-height:1.75;color:var(--ink-2);margin:12px 0 0}
+.feat .meta{margin:0}
+.feat .credit{margin:4px 0 0}
+.feat .desc{font-size:15px;line-height:1.75;margin:12px 0 0}
 
 /* ---------- partners ---------- */
 .partners{padding:56px 0;background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -150,12 +158,11 @@ section{padding:112px 0}
 .card:hover h3{color:var(--orange-t)}
 .card:hover .thumb img{transform:scale(1.03)}
 .card:hover .thumb .play,.card:focus-within .thumb .play{opacity:1}
-.card .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:0 0 4px;font-variant-numeric:tabular-nums}
-.lead-role{font-size:12.5px;font-weight:600;color:var(--orange-t)}
-.lead-role::before{content:"·";color:var(--faint);margin-right:8px;font-weight:400}
-.card .roles{font-size:13px;color:var(--faint);margin:0}
+.card .meta{font-size:13.5px;color:var(--muted);margin:0 0 4px;font-variant-numeric:tabular-nums}
+.card .credit{font-size:13.5px;font-weight:600;color:var(--orange-t);margin:0 0 8px}
+.card .desc{font-size:14.5px;line-height:1.7;color:var(--ink-2);margin:0}
 @supports (grid-template-rows:subgrid){
-  .grid .card{display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:0;align-content:start}
+  .grid .card{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0;align-content:start}
   .grid .card[hidden]{display:none}
 }
 
@@ -189,26 +196,29 @@ section{padding:112px 0}
 .cmp-main{margin-bottom:12px}
 .cmp-cap{font-size:14.5px;color:var(--muted);margin:12px 0 0}
 .cmp-cap b{color:var(--ink);font-weight:600}
-.cmp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px 28px;margin-top:28px}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px 32px;margin-top:28px}
 .sub-head{margin:88px 0 0;max-width:680px}
 .sub-head h3{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2vw,26px);line-height:1.45;margin:0 0 8px}
 .sub-head p{margin:0;color:var(--muted);font-size:16px;line-height:1.8}
 
 .process{margin-top:104px;padding-top:72px;border-top:1px solid var(--line)}
 .process-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
-.stage{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:start}
+/* 단계 버튼 열과 화면은 늘 같은 높이: 버튼은 번호·이름만, 고른 단계의 설명은 화면 위 자막(.stage-cap) */
+.stage{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:stretch}
 .stage-frame{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
 .stage-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
 .stage-frame img.on{opacity:1}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.step-btn{width:100%;min-height:48px;text-align:left;display:grid;grid-template-columns:40px 1fr;gap:4px 8px;padding:12px 16px;border:1px solid var(--line);background:var(--white);border-radius:var(--radius);cursor:pointer;transition:border-color .2s,background .2s}
+.stage-cap{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;margin:0;padding:8px 12px;border-radius:var(--r-sm);background:rgba(20,16,13,.78);color:var(--on-dark);font-size:14px;line-height:1.6}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-rows:repeat(5,1fr);gap:8px}
+.steps li{display:flex}
+.step-btn{width:100%;min-height:48px;text-align:left;display:grid;grid-template-columns:40px 1fr;align-content:center;gap:4px 8px;padding:8px 16px;border:1px solid var(--line);background:var(--white);border-radius:var(--radius);cursor:pointer;transition:border-color .2s,background .2s}
 .step-btn .no{grid-row:span 2;font-family:var(--serif);font-weight:700;font-size:18px;color:var(--faint);font-variant-numeric:tabular-nums}
 .step-btn .t{font-weight:600;font-size:15px}
-.step-btn .d{font-size:13.5px;color:var(--muted);line-height:1.6;display:none}
+.step-btn .d{grid-column:2;font-size:13.5px;color:var(--muted);line-height:1.6}
+.js .step-btn .d{display:none}
 .step-btn:hover{border-color:rgba(20,16,13,.4)}
 .step-btn[aria-pressed="true"]{border-color:var(--orange);background:#FFF8F2}
 .step-btn[aria-pressed="true"] .no{color:var(--orange-d)}
-.step-btn[aria-pressed="true"] .d{display:block}
 
 /* ---------- contact strip / footer ---------- */
 .cta-strip{padding:96px 0}
@@ -302,6 +312,7 @@ section{padding:112px 0}
 
 /* ---------- responsive ---------- */
 @media (max-width:1080px){
+  .br-wide{display:none}
   .grid,.feat-list{grid-template-columns:repeat(2,1fr)}
   .gear{grid-template-columns:repeat(2,1fr)}
   .cmp-grid{grid-template-columns:1fr 1fr}
@@ -335,6 +346,8 @@ section{padding:112px 0}
   .partner-list{grid-template-columns:1fr 1fr;column-gap:20px}
   .partner-list strong{font-size:16px}
   .grid,.feat-list,.cmp-grid,.svc-grid,.flow,.contact-cards{grid-template-columns:1fr}
+  .steps{grid-template-rows:none;grid-auto-rows:48px}
+  .stage-cap{left:8px;right:8px;bottom:8px;font-size:13px;padding:6px 10px}
   .gear{grid-template-columns:1fr 1fr}
   .timeline li{grid-template-columns:96px 1fr}
   .cta-links a{flex-wrap:wrap;gap:4px 16px}
