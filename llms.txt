@@ -7,16 +7,16 @@
 - 학력: 성균관대학교 영상학과 2023 – 2029 (휴학 중, 2027.03 3학년 복학, 2029.02 졸업 예정)
 - 근무 가능: 2027.04부터
 - 조명 참여: 조명감독 5편 · 조명부 7편
-- 쇼릴: https://teo10a.github.io/orange-studio-portfolio/media/showreel.mp4 (0:47)
-- 구조화 데이터 원본: https://teo10a.github.io/orange-studio-portfolio/data/cv.json (schema.org 타입과 고정 id로 정리, 이 파일과 각 페이지 JSON-LD는 여기서 생성)
+- 쇼릴: https://taegeon.work/media/showreel.mp4 (0:47)
+- 구조화 데이터 원본: https://taegeon.work/data/cv.json (schema.org 타입과 고정 id로 정리, 이 파일과 각 페이지 JSON-LD는 여기서 생성)
 - 기준일: 2026-11-06 (YouTube 조회수는 2026-11-06 기준, FUR:RAID 당일 리캡 수치는 X 조회수)
 
 ## 페이지
 
-- [주황색 영상공방 · 황태건](https://teo10a.github.io/orange-studio-portfolio/): 행사 현장을 촬영하고 색까지 직접 잡는 1인 영상공방, 황태건의 포트폴리오입니다. 촬영 · 컬러 그레이딩 · 조명.
-- [의뢰 안내 · 주황색 영상공방](https://teo10a.github.io/orange-studio-portfolio/request.html): 행사 스케치 촬영과 컬러 그레이딩 의뢰 안내. 보내주실 내용, 진행 순서, 장비, 연락처를 정리했습니다.
-- [서비스 소개서 · 주황색 영상공방](https://teo10a.github.io/orange-studio-portfolio/guide.html): 주황색 영상공방 서비스 소개서(A4). 행사 스케치 촬영, 컬러 그레이딩, 진행 방식과 자주 묻는 질문.
-- [황태건 이력서](https://teo10a.github.io/hwangtaegeon-cv/): 행사 현장을 촬영하고 컬러까지 직접 마무리하는 영상 제작자 황태건의 이력서입니다.
+- [주황색 영상공방 · 황태건](https://taegeon.work/): 행사 현장을 촬영하고 색까지 직접 잡는 1인 영상공방, 황태건의 포트폴리오입니다. 촬영 · 컬러 그레이딩 · 조명.
+- [의뢰 안내 · 주황색 영상공방](https://taegeon.work/request.html): 행사 스케치 촬영과 컬러 그레이딩 의뢰 안내. 보내주실 내용, 진행 순서, 장비, 연락처를 정리했습니다.
+- [서비스 소개서 · 주황색 영상공방](https://taegeon.work/guide.html): 주황색 영상공방 서비스 소개서(A4). 행사 스케치 촬영, 컬러 그레이딩, 진행 방식과 자주 묻는 질문.
+- [황태건 이력서](https://cv.taegeon.work/): 행사 현장을 촬영하고 컬러까지 직접 마무리하는 영상 제작자 황태건의 이력서입니다.
 
 ## 대표작
 

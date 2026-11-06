@@ -5,6 +5,7 @@
   python3 build.py --check  # 디스크 내용이 data/cv.json과 다르거나, 이력서가 가리키는 포트폴리오 파일이
                             #   이 저장소에 없으면 목록을 찍고 1로 종료 (아무것도 쓰지 않음)
 
+주소: 포트폴리오 https://taegeon.work/, 이력서 https://cv.taegeon.work/ (각 저장소 루트의 CNAME 파일로 사용자 도메인).
 배포 순서: 포트폴리오(P, 이 저장소)를 먼저 push하고 GitHub Pages 배포가 끝난 뒤 이력서(C)를 push합니다.
 이력서 페이지는 포트폴리오 주소의 이미지(img/web/…)·쇼릴 포스터(og:image)·data/cv.json을 그대로 불러 쓰므로,
 이력서가 먼저 올라가면 포트폴리오 배포가 끝날 때까지 그 사진과 링크가 깨집니다.
