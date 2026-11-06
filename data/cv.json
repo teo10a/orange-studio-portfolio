@@ -9,6 +9,7 @@
   ],
   "meta": {
     "updated": "2026-11-06",
+    "artistNameSource": "'시인을 위하여'(띄어 씀)는 밴드 공식 YouTube 채널 이름(ownerChannelName)과 영상 제목 표기를 따른 것입니다 (2026-11-06 확인).",
     "viewsAsOf": "2026-11-06",
     "viewsSource": "works[].views는 2026-11-06에 각 YouTube 시청 페이지의 videoDetails.viewCount 값을 옮긴 것입니다. FUR:RAID 당일 리캡의 X 조회수(sameDay)는 YouTube가 아니라 따로 적은 값이라 이번에 바꾸지 않았습니다.",
     "uploadDateSource": "works[].uploadDate는 각 YouTube 시청 페이지의 itemprop=\"uploadDate\" 값(시간대 포함 ISO 8601)을 2026-11-06에 그대로 옮긴 것입니다.",
@@ -215,7 +216,7 @@
     },
     {
       "id": "work-bif-2026-cheolsae", "type": "VideoObject", "partOf": "series-bif-2026",
-      "title": "시인을위하여 〈철새〉 LIVE CLIP · 2026 부산국제록페스티벌", "partTitle": "시인을위하여 〈철새〉", "year": "2026", "client": "noisy", "event": "bif-2026",
+      "title": "시인을 위하여 〈철새〉 LIVE CLIP · 2026 부산국제록페스티벌", "partTitle": "시인을 위하여 〈철새〉", "year": "2026", "client": "noisy", "event": "bif-2026",
       "youtube": "yFzx0RODuFA", "uploadDate": "2026-10-14T21:50:20-07:00", "duration": "4:55", "views": 1169,
       "credit": "LUT·룩 설계 · 편집 보조", "categories": ["컬러", "편집"],
       "summary": "같은 시리즈의 라이브 클립. 공연 조명이 바뀌는 속에서도 아티스트의 톤을 일정하게 유지했습니다."
@@ -324,7 +325,7 @@
         {"work": "work-bif-2026-gajuk"},
         {"name": "김푸름 〈사는 게 숨이 차도〉", "url": "https://www.youtube.com/watch?v=LjgHlhQVUrw"},
         {"work": "work-bif-2026-cheolsae"},
-        {"name": "시인을위하여 〈느린박자〉", "url": "https://www.youtube.com/watch?v=brZbUmcku-E"}
+        {"name": "시인을 위하여 〈느린박자〉", "url": "https://www.youtube.com/watch?v=brZbUmcku-E"}
       ]
     }
   ],
@@ -462,7 +463,7 @@
       "stats": [
         {"value": "$views_total", "label": "참여작 누적 조회수"},
         {"value": "$lighting_total편", "label": "조명 참여 · 감독 $lighting_director · 조명부 $lighting_crew", "jumpLabel": "그중 공개 영상 $lighting_public편 보기", "jumpCat": "조명"},
-        {"value": "$furraid_years년 연속", "label": "FUR:RAID 공식 리캡 제작"},
+        {"value": "$furraid_streak", "label": "FUR:RAID 공식 리캡 제작"},
         {"value": "당일 $sameday_count편", "label": "현장에서 완성한 행사 리캡"}
       ],
       "partners": [
@@ -482,6 +483,7 @@
     "portfolio:guide": {
       "site": "portfolio", "path": "guide.html", "file": "guide.html",
       "title": "서비스 소개서 · 주황색 영상공방",
+      "works": ["work-furraid-2025-recap", "work-asadal-mv", "work-asmr", "work-daedongje-2024", "work-eskara-2024", "work-street-fighter", "work-oscar-cover", "work-gosimjung-live"],
       "description": "주황색 영상공방 서비스 소개서(A4). 행사 스케치 촬영, 컬러 그레이딩, 진행 방식과 자주 묻는 질문."
     },
     "cv:index": {

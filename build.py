@@ -289,13 +289,12 @@ def p_featured_title():
 def p_featured():
     out = ['<ol class="feat-list">']
     for w in featured():
-        views = f' · 조회수 {num(w["views"])}' if w.get('views') else ''
         out.append(
             f'  <li class="card feat">\n'
             f'    {thumb(w)}\n'
             f'    <div class="feat-body">\n'
             f'      <h3>{work_link(w)}</h3>\n'
-            f'      <p class="meta">{t(client_label(w))} · {w["year"]}{views}</p>\n'
+            f'      <p class="meta">{t(client_label(w))} · {w["year"]}</p>\n'
             f'      <p class="credit">{t(w["credit"])}</p>\n'
             f'      <p class="desc">{t(w["summary"])}</p>\n'
             f'    </div>\n'
@@ -339,22 +338,40 @@ def p_reel():
             f'</div>')
 
 
-def p_stats():
+def streak(years):
+    """해마다 빠짐없이 이어졌으면 'N년 연속', 아니면 'N회'"""
+    ys = sorted({int(y) for y in years})
+    consecutive = len(ys) > 1 and ys == list(range(ys[0], ys[-1] + 1))
+    return f'{len(ys)}년 연속' if consecutive else f'{len(ys)}회'
+
+
+def stat_values():
     lc = PERSON['lightingCredits']
-    recap_years = {w['year'] for w in D['works'] if w['id'].endswith('-recap') and ENT.get(w.get('event'), {}).get('superEvent') == 'furraid'}
-    values = {
+    recap_years = [w['year'] for w in D['works'] if w['id'].endswith('-recap') and ENT.get(w.get('event'), {}).get('superEvent') == 'furraid']
+    return {
         'views_total': num(sum(w.get('views', 0) for w in D['works'])),
         'lighting_total': lc['director'] + lc['crew'], 'lighting_director': lc['director'], 'lighting_crew': lc['crew'],
         'lighting_public': sum('조명' in w['categories'] for w in D['works']),
-        'furraid_years': len(recap_years),
+        'furraid_streak': streak(recap_years),
         'sameday_count': sum(len(w['sameDay']['items']) for w in D['works'] if w.get('sameDay')),
     }
+
+
+def stats():
+    """[(값, 설명, 원본 정의)] — 포트폴리오 히어로와 서비스 소개서가 같이 씀"""
+    values = stat_values()
+    return [(Template(s['value']).substitute(values), Template(s['label']).substitute(values), s) for s in PAGES['portfolio:index']['stats']]
+
+
+def p_stats():
+    values = stat_values()
     out = []
-    for s in PAGES['portfolio:index']['stats']:
-        v, lbl = Template(s['value']).substitute(values), Template(s['label']).substitute(values)
+    for v, lbl, s in stats():
         if s.get('jumpCat'):
+            *head_words, last = Template(s['jumpLabel']).substitute(values).split(' ')
+            jump = f'{t(" ".join(head_words))} <span class="nowrap">{t(last)} {icon("arrow-right")}</span>'   # 마지막 낱말과 화살표는 붙여서 줄바꿈
             out.append(f'<a class="stat stat-link" href="#work" data-jump-cat="{a(s["jumpCat"])}"><b>{t(v)}</b>'
-                       f'<span>{t(lbl)}</span><span class="jump">{t(Template(s["jumpLabel"]).substitute(values))} {icon("arrow-right")}</span></a>')
+                       f'<span>{t(lbl)}</span><span class="jump">{jump}</span></a>')
         else:
             out.append(f'<div class="stat"><b>{t(v)}</b><span>{t(lbl)}</span></div>')
     return '\n'.join(out)
@@ -486,6 +503,80 @@ def r_contact():
         out.append(f'  <li><a href="{a(href)}"{tgt}>{icon(ic)}<span class="k">{t(k)}</span><b>{t(v)}</b><span>{t(hints[ic])}</span>{sr}</a></li>')
     out += ['</ul>', f'<p class="note">작업물이 궁금하시면 <a href="index.html#featured">대표작</a>과 <a href="{a(C_URL)}"{NEW}>이력서<span class="sr-only">(새 창)</span></a>를 함께 봐 주세요.</p>']
     return '\n'.join(out)
+
+
+# ---------- 서비스 소개서 (guide.html, A4 doc-page) ----------
+# 문장과 배치는 guide.html에 손으로 쓴 그대로 두고, 사실(숫자·크레딧·목록·연락처)만 여기서 넣습니다.
+G_MUTED = '#6E645A'
+G_DOT = ("style-before=\"content:'';position:absolute;left:0;top:9px;width:7px;height:1px;background:#DE6428\"")
+G_DASH = 'background-image:repeating-linear-gradient(90deg,#DDD3C4 0 7px,transparent 7px 14px);background-size:100% 1px;background-repeat:no-repeat;background-position:bottom'
+
+
+def g_svc_items(sid):
+    svc = next(x for x in BIZ['services'] if x['id'] == sid)
+    return '\n'.join(f'        <li style="font-size:12.5px;color:{G_MUTED};padding-left:15px;position:relative" {G_DOT}>{t(i)}</li>' for i in svc['items'])
+
+
+def g_works():
+    rows = []
+    for w in by_year([ENT[i] for i in PAGES['portfolio:guide']['works']]):
+        views = num(w['views']) if w.get('views') else '—'
+        rows.append(
+            f'    <div style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:13px 0;align-items:baseline;{G_DASH}">\n'
+            f'      <div><h3 style="font-family:\'Nanum Myeongjo\',serif;font-size:14.5px;font-weight:700;margin:0 0 2px">{t(w["title"])}</h3>'
+            f'<p style="font-size:12px;color:{G_MUTED};margin:0">{t(w["summary"])}</p></div>\n'
+            f'      <div style="text-align:right;white-space:nowrap;font-size:11.5px;color:{G_MUTED};font-family:ui-monospace,Menlo,Consolas,monospace">'
+            f'<b style="display:block;color:#1A1512;font-weight:400;font-size:13px">{views}</b>{t(w["credit"])} · {t(client_label(w))}</div>\n'
+            f'    </div>')
+    return '\n'.join(rows)
+
+
+def g_stats():
+    return '\n'.join(
+        f'    <div style="border:1px solid #DDD3C4;padding:16px 12px;text-align:center">\n'
+        f'      <div style="font-family:\'Nanum Myeongjo\',serif;font-size:20px;font-weight:700">{t(v)}</div>\n'
+        f'      <div style="font-size:10.5px;color:{G_MUTED};margin-top:3px">{t(lbl)}</div>\n'
+        f'    </div>' for v, lbl, _ in stats())
+
+
+def g_process():
+    return '\n'.join(
+        f'    <div style="border-left:2px solid #DE6428;padding-left:16px"><b style="display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:#DE6428;letter-spacing:.1em;margin-bottom:5px">STEP {i:02d}</b>'
+        f'<h3 style="font-family:\'Nanum Myeongjo\',serif;font-weight:700;font-size:15px;margin:0 0 5px">{t(s["name"])}</h3>'
+        f'<p style="font-size:12.5px;color:{G_MUTED};margin:0">{t(s["body"])}</p></div>' for i, s in enumerate(BIZ['process'], 1))
+
+
+def g_faq():
+    return '\n'.join(
+        f'      <div style="padding:14px 0;{G_DASH}"><h3 style="font-family:\'Nanum Myeongjo\',serif;font-weight:700;font-size:13.5px;margin:0 0 5px">{t(f["q"])}</h3>'
+        f'<p style="font-size:12.5px;color:{G_MUTED};margin:0">{t(f["a"])}</p></div>' for f in BIZ['faq'])
+
+
+def g_contact():
+    p = PERSON
+    cell = '      <div style="font-size:13px"><span style="display:block;font-size:10.5px;letter-spacing:.14em;color:#7E746A;margin-bottom:3px">{}</span>{}</div>'
+    rows = [('이메일', p['email']), ('연락처', p['telephone']), ('포트폴리오', P_URL.split('://', 1)[1].rstrip('/')), ('인스타그램', p['instagram']['handle'])]
+    return (f'    <p style="font-size:13px;color:#9C9187;margin:0 0 22px">{t(BIZ["replyNote"])}</p>\n'
+            f'    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">\n'
+            + '\n'.join(cell.format(t(k), t(v)) for k, v in rows) + '\n    </div>')
+
+
+def guide_regions():
+    lc = PERSON['lightingCredits']
+    partners = [org_label(x['org']) if x.get('org') else x['label'] for x in PAGES['portfolio:index']['partners']]
+    return {
+        'g-year': UPDATED[:4],
+        'g-lighting': f'조명감독 {lc["director"]}회·조명부 {lc["crew"]}회',
+        'g-svc-event': g_svc_items('svc-event'),
+        'g-svc-color': g_svc_items('svc-color'),
+        'g-views-asof': f'{views_as_of()} YouTube',
+        'g-works': g_works(),
+        'g-stats': g_stats(),
+        'g-partners': ' · '.join(t(x) for x in partners),
+        'g-process': g_process(),
+        'g-faq': g_faq(),
+        'g-contact': g_contact(),
+    }
 
 
 # ---------- 이력서 ----------
@@ -631,10 +722,16 @@ def llms_cv():
 
 # ---------- 조립 ----------
 def put(text, name, content, path):
-    pat = re.compile(r'(<!-- build:%s -->\n).*?(<!-- /build:%s -->)' % (re.escape(name), re.escape(name)), re.S)
-    if len(pat.findall(text)) != 1:
+    """블록 영역(표시 뒤 줄바꿈)은 내용을 줄 단위로, 같은 줄 안의 영역은 글자 사이에 그대로 넣음"""
+    n = re.escape(name)
+    block = re.compile(r'(<!-- build:%s -->\n).*?(<!-- /build:%s -->)' % (n, n), re.S)
+    inline = re.compile(r'(<!-- build:%s -->)[^\n]*?(<!-- /build:%s -->)' % (n, n))
+    nb, ni = len(block.findall(text)), len(inline.findall(text))
+    if nb + ni != 1:
         sys.exit(f'{path}: <!-- build:{name} --> 영역이 정확히 한 개 있어야 합니다')
-    return pat.sub(lambda m: m.group(1) + content + '\n' + m.group(2), text)
+    if nb:
+        return block.sub(lambda m: m.group(1) + content + '\n' + m.group(2), text)
+    return inline.sub(lambda m: m.group(1) + content + m.group(2), text)
 
 
 def fill(path, regions):
@@ -654,13 +751,15 @@ def outputs():
     out[ROOT / 'request.html'] = fill(ROOT / 'request.html', {
         'head': head('portfolio:request'), 'quick': r_quick(), 'brief': r_brief(), 'flow': r_flow(), 'services': r_services(),
         'gear': r_gear(), 'faq': r_faq(), 'contact': r_contact(), 'footer': p_footer('index.html')})
-    out[ROOT / 'guide.html'] = fill(ROOT / 'guide.html', {'head': head('portfolio:guide')})
+    out[ROOT / 'guide.html'] = fill(ROOT / 'guide.html', dict({'head': head('portfolio:guide')}, **guide_regions()))
     style = re.search(r'^<style>\n.*?^</style>', (CV_ROOT / 'index.html').read_text('utf-8'), re.S | re.M).group(0)
     for key in ('cv:index', 'cv:di', 'cv:inhouse'):
         path = CV_ROOT / PAGES[key]['file']
         regions = {'head': head(key), 'cv-toolbar': cv_toolbar(), 'cv-top': cv_top(key), 'cv-bottom': cv_bottom(key)}
         if key != 'cv:index':
             regions['style'] = style
+        if key == 'cv:di':
+            regions['cv-ba-more'] = f'    <p class="ba-more"><a href="{a(P_URL)}#process"{NEW}>보정 과정 단계별로 보기 {EXT}</a></p>'
         out[path] = fill(path, regions)
     for site, root, llms in (('portfolio', ROOT, llms_portfolio()), ('cv', CV_ROOT, llms_cv())):
         out[root / 'sitemap.xml'] = sitemap(site)
