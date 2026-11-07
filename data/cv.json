@@ -84,7 +84,7 @@
     "bio": "성균관대학교 영상학과에서 촬영과 조명을 공부했고 학과 졸업작품 현장을 거쳐 지금은 행사 스케치와 컬러 작업을 주로 맡고 있습니다."
   },
   "organizations": [
-    {"id": "studio", "type": "Organization", "name": "주황색 영상공방", "founder": "person-hwangtaegeon", "url": "https://taegeon.work/"},
+    {"id": "studio", "type": "Organization", "name": "주황색 영상공방", "founder": "person-hwangtaegeon", "url": "https://taegeon.work/", "logo": "https://taegeon.work/img/logo-mark.svg"},
     {"id": "skku", "type": "CollegeOrUniversity", "name": "성균관대학교"},
     {"id": "skku-film", "type": "EducationalOrganization", "name": "성균관대학교 영상학과", "parent": "skku"},
     {"id": "sure", "type": "Organization", "name": "성균관대학교 제56대 총학생회 SURE", "short": "총학생회 SURE", "parent": "skku"},

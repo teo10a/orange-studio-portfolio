@@ -197,7 +197,7 @@ def ld_core(job_title):
     for o in D['organizations']:
         nodes.append(node(o, name=o['name'], alternateName=o.get('short'), description=o.get('description'), url=o.get('url'),
                           parentOrganization=ref(o['parent']) if o.get('parent') else None,
-                          founder=ref(o['founder']) if o.get('founder') else None))
+                          founder=ref(o['founder']) if o.get('founder') else None, logo=o.get('logo')))
     for e in D['events']:
         nodes.append(node(e, name=e['name'], startDate=e.get('startDate'), description=e.get('description'),
                           organizer=ref(e['organizer']) if e.get('organizer') else None,
@@ -252,6 +252,9 @@ def head(key):
         f'<title>{t(pg["title"])}</title>',
         f'<meta name="description" content="{a(pg["description"])}">',
         f'<link rel="canonical" href="{a(url)}">',
+        f'<link rel="icon" href="{P_URL}img/favicon.svg" type="image/svg+xml">',
+        f'<link rel="icon" href="{P_URL}img/favicon-32.png" sizes="32x32" type="image/png">',
+        f'<link rel="apple-touch-icon" href="{P_URL}img/apple-touch-icon.png">',
         '<meta property="og:type" content="' + ('profile' if pg['site'] == 'cv' else 'website') + '">',
         f'<meta property="og:site_name" content="{a(site["name"])}">',
         '<meta property="og:locale" content="ko_KR">',
@@ -477,7 +480,7 @@ def p_footer(home):
     links = [('이력서', C_URL, NEW), ('YouTube', ENT['productiongal']['url'], NEW), ('Instagram', PERSON['instagram']['url'], NEW), ('서비스 소개서', 'guide.html', NEW)]
     lis = ''.join(f'<li><a href="{a(u)}"{tg}>{t(n)}<span class="sr-only">(새 창)</span></a></li>' for n, u, tg in links)
     return (f'<footer class="site-footer">\n  <div class="wrap">\n'
-            f'    <a class="logo" href="{home}"><span class="logo-mark" aria-hidden="true"></span><span><b>주황색</b> 영상공방</span></a>\n'
+            f'    <a class="logo" href="{home}"><img class="logo-mark" src="img/logo-mark.svg" alt="" width="37" height="32"><span class="logo-word" aria-hidden="true"></span><span class="sr-only">주황색 영상공방</span></a>\n'
             f'    <ul class="foot-links">{lis}</ul>\n'
             f'    <p>© {UPDATED[:4]} {t(PERSON["name"])}</p>\n  </div>\n</footer>')
 

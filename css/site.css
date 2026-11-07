@@ -35,9 +35,10 @@ h1,h2,h3,.m-title{text-wrap:balance}
 /* ---------- header ---------- */
 .site-header{position:sticky;top:0;z-index:50;background:rgba(20,16,13,.94);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--line-dark);color:var(--on-dark)}
 .site-header .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.logo{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;font-size:16px;letter-spacing:-.01em;color:var(--on-dark);white-space:nowrap}
-.logo-mark{width:16px;height:16px;border-radius:50%;background:var(--orange)}
-.logo b{color:var(--orange);font-weight:600}
+.logo{display:inline-flex;align-items:center;gap:12px;min-height:44px;color:var(--on-dark)}
+.logo-mark{display:block;width:auto;height:32px}
+/* 글씨 로고는 마스크로 그려 글자색(currentColor)을 따른다 — 어두운 바탕에서 밝게 */
+.logo-word{display:block;width:132px;height:32px;background:currentColor;-webkit-mask:url(../img/logo-wordmark.svg) left center/contain no-repeat;mask:url(../img/logo-wordmark.svg) left center/contain no-repeat}
 .nav{display:flex;align-items:center;gap:4px}
 .nav a.scroll{display:inline-flex;align-items:center;gap:4px;min-height:44px;font-size:14px;color:var(--on-dark-muted);padding:0 12px;border-radius:var(--r-sm);transition:color .2s var(--ease),background .2s var(--ease)}
 .nav a.scroll.is-current{color:var(--on-dark);background:rgba(237,230,218,.08)}
