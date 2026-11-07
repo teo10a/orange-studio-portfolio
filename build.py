@@ -584,7 +584,7 @@ def g_works():
         views = num(w['views']) if w.get('views') else '—'
         rows.append(
             f'    <div style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:13px 0;align-items:baseline;{G_DASH}">\n'
-            f'      <div><h3 style="font-family:\'Nanum Myeongjo\',serif;font-size:14.5px;font-weight:700;margin:0 0 2px">{t(w["title"])}</h3>'
+            f'      <div><h3 style="font-family:Pretendard,-apple-system,system-ui,sans-serif;font-size:14.5px;font-weight:600;margin:0 0 2px">{t(w["title"])}</h3>'
             f'<p style="font-size:12px;color:{G_MUTED};margin:0">{t(w["summary"])}</p></div>\n'
             f'      <div style="text-align:right;white-space:nowrap;font-size:11.5px;color:{G_MUTED};font-family:ui-monospace,Menlo,Consolas,monospace">'
             f'<b style="display:block;color:#1A1512;font-weight:400;font-size:13px">{views}</b>{t(w["credit"])} · {t(client_label(w))}</div>\n'
@@ -595,7 +595,7 @@ def g_works():
 def g_stats():
     return '\n'.join(
         f'    <div style="border:1px solid #DDD3C4;padding:16px 12px;text-align:center">\n'
-        f'      <div style="font-family:\'Nanum Myeongjo\',serif;font-size:20px;font-weight:700">{t(v)}</div>\n'
+        f'      <div style="font-family:Pretendard,-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600">{t(v)}</div>\n'
         f'      <div style="font-size:10.5px;color:{G_MUTED};margin-top:3px">{t(lbl)}</div>\n'
         f'    </div>' for v, lbl, _ in stats())
 
@@ -603,13 +603,13 @@ def g_stats():
 def g_process():
     return '\n'.join(
         f'    <div style="border-left:2px solid #DE6428;padding-left:16px"><b style="display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:#DE6428;letter-spacing:.1em;margin-bottom:5px">STEP {i:02d}</b>'
-        f'<h3 style="font-family:\'Nanum Myeongjo\',serif;font-weight:700;font-size:15px;margin:0 0 5px">{t(s["name"])}</h3>'
+        f'<h3 style="font-family:Pretendard,-apple-system,system-ui,sans-serif;font-weight:600;font-size:15px;margin:0 0 5px">{t(s["name"])}</h3>'
         f'<p style="font-size:12.5px;color:{G_MUTED};margin:0">{t(s["body"])}</p></div>' for i, s in enumerate(BIZ['process'], 1))
 
 
 def g_faq():
     return '\n'.join(
-        f'      <div style="padding:14px 0;{G_DASH}"><h3 style="font-family:\'Nanum Myeongjo\',serif;font-weight:700;font-size:13.5px;margin:0 0 5px">{t(f["q"])}</h3>'
+        f'      <div style="padding:14px 0;{G_DASH}"><h3 style="font-family:Pretendard,-apple-system,system-ui,sans-serif;font-weight:600;font-size:13.5px;margin:0 0 5px">{t(f["q"])}</h3>'
         f'<p style="font-size:12.5px;color:{G_MUTED};margin:0">{t(f["a"])}</p></div>' for f in BIZ['faq'])
 
 
@@ -623,14 +623,14 @@ def g_contact():
 
 
 G_EM = ' style="font-style:normal;color:#DE6428"'
-G_P = 'font-family:\'Nanum Myeongjo\',serif;font-size:15px;line-height:2.05'
+G_P = 'font-family:Pretendard,-apple-system,system-ui,sans-serif;font-size:15px;line-height:1.9'
 
 
 def g_why():
     w = COPY['why']
     body = w['body']
     return '\n'.join(
-        [f'    <p style="font-family:\'Nanum Myeongjo\',serif;font-size:19px;font-weight:700;color:#DE6428;line-height:1.8;margin:0 0 32px">{"<br>".join(t(x) for x in w["title"])}</p>']
+        [f'    <p style="font-family:Pretendard,-apple-system,system-ui,sans-serif;font-size:19px;font-weight:600;color:#DE6428;line-height:1.8;margin:0 0 32px">{"<br>".join(t(x) for x in w["title"])}</p>']
         + [f'    <p style="{G_P};margin:0{" 0 28px" if i < len(body) - 1 else ""}">{t(x)}</p>' for i, x in enumerate(body)])
 
 
