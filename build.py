@@ -602,7 +602,7 @@ def g_stats():
 
 def g_process():
     return '\n'.join(
-        f'    <div style="border-left:2px solid #DE6428;padding-left:16px"><b style="display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:#DE6428;letter-spacing:.1em;margin-bottom:5px">STEP {i:02d}</b>'
+        f'    <div style="border-left:2px solid #DE6428;padding-left:16px"><b style="display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:#DE6428;letter-spacing:.05em;margin-bottom:5px">STEP {i:02d}</b>'
         f'<h3 style="font-family:Pretendard,-apple-system,system-ui,sans-serif;font-weight:600;font-size:15px;margin:0 0 5px">{t(s["name"])}</h3>'
         f'<p style="font-size:12.5px;color:{G_MUTED};margin:0">{t(s["body"])}</p></div>' for i, s in enumerate(BIZ['process'], 1))
 
@@ -615,7 +615,7 @@ def g_faq():
 
 def g_contact():
     p = PERSON
-    cell = '      <div style="font-size:13px"><span style="display:block;font-size:10.5px;letter-spacing:.14em;color:#7E746A;margin-bottom:3px">{}</span>{}</div>'
+    cell = '      <div style="font-size:13px"><span style="display:block;font-size:10.5px;letter-spacing:.06em;color:#7E746A;margin-bottom:3px">{}</span>{}</div>'
     rows = [('이메일', p['email']), ('연락처', p['telephone']), ('포트폴리오', P_URL.split('://', 1)[1].rstrip('/')), ('인스타그램', p['instagram']['handle'])]
     return (f'    <p style="font-size:13px;color:#9C9187;margin:0 0 22px">{t(BIZ["replyNote"])}</p>\n'
             f'    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">\n'
